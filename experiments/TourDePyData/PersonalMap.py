@@ -46,12 +46,12 @@ MY_GROUPS = {
     "https://www.meetup.com/pydata-hull":              ("spoken",  "2026-03-27",  "https://www.meetup.com/pydata-hull/events/313808503/"),
     "https://www.meetup.com/pydata-wolverhampton":     ("unvisited", None,          None),
     "https://www.meetup.com/pydata-birmingham-uk":     ("unvisited", None,          None),
-    "https://www.meetup.com/pydata-cornwall":          ("upcoming",  "2026-05-7",   None),
+    "https://www.meetup.com/pydata-cornwall":          ("upcoming",  "2026-05-7",   "https://www.meetup.com/pydata-cornwall/events/314013646/"),
     "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
     "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
     "https://www.meetup.com/pydata-bristol":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-exeter":            ("unvisited", None,          None),
-    "https://www.meetup.com/pydata-milton-keynes":     ("upcoming", "2026-04-23",  None),
+    "https://www.meetup.com/pydata-milton-keynes":     ("upcoming", "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
     "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
     "https://www.meetup.com/pydata-norwich":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-southampton":       ("spoken",    None,          None),
@@ -182,7 +182,7 @@ def create_personal_map(output_file=None):
 
         icon = folium.DivIcon(
             html=icon_html,
-            icon_size=(80, 50),
+            icon_size=(120, 75),
             icon_anchor=(40, 12),
         )
 
