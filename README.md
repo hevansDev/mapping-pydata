@@ -57,4 +57,4 @@ The maps support URL hash navigation in the format `#zoom/lat/lng`. Simply appen
 
 ## Contributing
 
-If you have an idea for how to improe this project please fork and raise PRs. [Contact Hugh](mailto:hughevans.dev) for all other inquiries. 
+If you have an idea for how to improve this project please fork and raise PRs. [Contact Hugh](mailto:hughevans.dev) for all other inquiries. 
