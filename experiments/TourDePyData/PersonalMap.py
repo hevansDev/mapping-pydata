@@ -182,7 +182,7 @@ def create_personal_map(output_file=None):
 
         icon = folium.DivIcon(
             html=icon_html,
-            icon_size=(120, 75),
+            icon_size=(80, 50),
             icon_anchor=(40, 12),
         )
 
