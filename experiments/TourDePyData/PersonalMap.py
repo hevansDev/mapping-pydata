@@ -51,7 +51,7 @@ MY_GROUPS = {
     "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
     "https://www.meetup.com/pydata-bristol":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-exeter":            ("upcoming", "2026-05-06",   None),
-    "https://www.meetup.com/pydata-milton-keynes":     ("upcoming", "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
+    "https://www.meetup.com/pydata-milton-keynes":     ("spoken", "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
     "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
     "https://www.meetup.com/pydata-norwich":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-southampton":       ("spoken",    None,          None),
