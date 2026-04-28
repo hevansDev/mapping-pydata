@@ -39,7 +39,7 @@ MY_GROUPS = {
     "https://www.meetup.com/pydata-london-meetup":     ("spoken",    None,          None),
     "https://www.meetup.com/meetup-group-djhiglzd":    ("upcoming","2026-05-21",    None),  # PyData Glasgow
     "https://www.meetup.com/pydataireland":            ("unvisited", None,          None),  # PyData Ireland
-    "https://www.meetup.com/pydata-bradford":          ("upcoming",  "2026-05-29",  None),
+    "https://www.meetup.com/pydata-bradford":          ("upcoming",  "2026-05-29",  "https://www.meetup.com/pydata-bradford/events/314497365/"),
     "https://www.meetup.com/PyData-Manchester":        ("spoken",  "2026-03-26",  "https://www.meetup.com/pydata-manchester/events/313770253/"),
     "https://www.meetup.com/pydata-leeds":             ("unvisited", None,          None),
     "https://www.meetup.com/pydata-huddersfield":      ("unvisited", None,          None),
@@ -50,7 +50,7 @@ MY_GROUPS = {
     "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
     "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
     "https://www.meetup.com/pydata-bristol":           ("unvisited", None,          None),
-    "https://www.meetup.com/pydata-exeter":            ("upcoming", "2026-05-06",   None),
+    "https://www.meetup.com/pydata-exeter":            ("upcoming", "2026-05-06",  "https://www.meetup.com/pydata-exeter/events/314216811/"),
     "https://www.meetup.com/pydata-milton-keynes":     ("spoken", "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
     "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
     "https://www.meetup.com/pydata-norwich":           ("unvisited", None,          None),
