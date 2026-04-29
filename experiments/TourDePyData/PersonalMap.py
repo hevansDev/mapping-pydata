@@ -37,21 +37,21 @@ STATUS_ORDER = {"unvisited": 0, "spoken": 1, "upcoming": 2}
 # date is a string or None, event_url is a specific event link or None
 MY_GROUPS = {
     "https://www.meetup.com/pydata-london-meetup":     ("spoken",    None,          None),
-    "https://www.meetup.com/meetup-group-djhiglzd":    ("upcoming","2026-05-21",    None),  # PyData Glasgow
+    "https://www.meetup.com/meetup-group-djhiglzd":    ("upcoming",  "2026-05-21",  None),  # PyData Glasgow
     "https://www.meetup.com/pydataireland":            ("unvisited", None,          None),  # PyData Ireland
     "https://www.meetup.com/pydata-bradford":          ("upcoming",  "2026-05-29",  "https://www.meetup.com/pydata-bradford/events/314497365/"),
-    "https://www.meetup.com/PyData-Manchester":        ("spoken",  "2026-03-26",  "https://www.meetup.com/pydata-manchester/events/313770253/"),
+    "https://www.meetup.com/PyData-Manchester":        ("spoken",    "2026-03-26",  "https://www.meetup.com/pydata-manchester/events/313770253/"),
     "https://www.meetup.com/pydata-leeds":             ("unvisited", None,          None),
     "https://www.meetup.com/pydata-huddersfield":      ("unvisited", None,          None),
-    "https://www.meetup.com/pydata-hull":              ("spoken",  "2026-03-27",  "https://www.meetup.com/pydata-hull/events/313808503/"),
-    "https://www.meetup.com/pydata-wolverhampton":     ("unvisited", None,          None),
+    "https://www.meetup.com/pydata-hull":              ("spoken",   "2026-03-27",  "https://www.meetup.com/pydata-hull/events/313808503/"),
+    "https://www.meetup.com/pydata-wolverhampton":     ("upcoming", "2026-05-22",   None),
     "https://www.meetup.com/pydata-birmingham-uk":     ("unvisited", None,          None),
     "https://www.meetup.com/pydata-cornwall":          ("upcoming",  "2026-05-7",   "https://www.meetup.com/pydata-cornwall/events/314013646/"),
     "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
     "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
     "https://www.meetup.com/pydata-bristol":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-exeter":            ("upcoming", "2026-05-06",  "https://www.meetup.com/pydata-exeter/events/314216811/"),
-    "https://www.meetup.com/pydata-milton-keynes":     ("spoken", "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
+    "https://www.meetup.com/pydata-milton-keynes":     ("spoken",    "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
     "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
     "https://www.meetup.com/pydata-norwich":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-southampton":       ("spoken",    None,          None),
