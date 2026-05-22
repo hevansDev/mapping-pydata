@@ -44,7 +44,7 @@ MY_GROUPS = {
     "https://www.meetup.com/pydata-leeds":             ("unvisited", None,          None),
     "https://www.meetup.com/pydata-huddersfield":      ("unvisited", None,          None),
     "https://www.meetup.com/pydata-hull":              ("spoken",   "2026-03-27",  "https://www.meetup.com/pydata-hull/events/313808503/"),
-    "https://www.meetup.com/pydata-wolverhampton":     ("upcoming", "2026-05-22",   None),
+    "https://www.meetup.com/pydata-wolverhampton":     ("spoken", "2026-05-22",   None),
     "https://www.meetup.com/pydata-birmingham-uk":     ("unvisited", None,          None),
     "https://www.meetup.com/pydata-cornwall":          ("spoken",  "2026-05-7",   "https://www.meetup.com/pydata-cornwall/events/314013646/"),
     "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
@@ -67,12 +67,15 @@ def should_skip_unvisited(g):
     days = g.get("days_since_last_event")
     past_events = g.get("past_events_count") or 0
     upcoming = g.get("upcoming_events_count") or 0
-
+    print(f"Checking if {g['name']} should be skipped as unvisited: {past_events} past events, {upcoming} upcoming, {days} days since last event")
     if upcoming >= 2:
+        print(f"  → Not skipping because there are {upcoming} upcoming events")
         return False, None
     if pd.isna(days) or days > 100:
+        print(f"  → Skipping because last event was {days} days ago")
         return True, "inactive"
     if past_events <= 1:
+        print(f"  → Skipping because there are only {past_events} past events")
         return True, "only 1 event"
     return False, None
 
