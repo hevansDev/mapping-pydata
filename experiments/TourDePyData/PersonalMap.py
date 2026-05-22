@@ -77,6 +77,7 @@ def should_skip_unvisited(g):
     if past_events <= 1:
         print(f"  → Skipping because there are only {past_events} past events")
         return True, "only 1 event"
+    print(f"  → Not skipping because there are {past_events} past events and last event was {days} days ago")
     return False, None
 
 
