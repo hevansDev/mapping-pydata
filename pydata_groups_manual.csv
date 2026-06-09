@@ -1,0 +1,4 @@
+name,url,city,country,lat,lon,members,past_events_count,last_event_date,days_since_last_event,upcoming_events_count,events_url,leaders_url,source
+PyData Osaka,https://osaka.pydata.org/,Osaka,Japan,34.6937,135.5023,,,,,0,,,discord
+PyData Vermont,https://pydata.org/vermont2025,Burlington,United States,44.4759,-73.2121,,,2025-01-01,,0,,,conference
+PyData Northen Utah,https://huntsman.usu.edu/clubs/pydata,Logan, United States,41.7369,-111.8338,,,,,0,,,university

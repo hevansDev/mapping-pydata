@@ -14,6 +14,7 @@ from geopy.extra.rate_limiter import RateLimiter
 from playwright.async_api import async_playwright
 
 CACHE_FILE = Path("geocode_cache.json")
+MANUAL_GROUPS_FILE = Path("pydata_groups_manual.csv")
 
 ESRI_TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
 ESRI_ATTR = 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
@@ -59,6 +60,18 @@ def get_cached_pydata_groups():
         df = sanitise_dataframe(df)
         return df.to_dict(orient='records')
     return None
+
+
+def load_manual_groups():
+    if not MANUAL_GROUPS_FILE.exists():
+        return []
+    df = pd.read_csv(MANUAL_GROUPS_FILE)
+    df = sanitise_dataframe(df)
+    if 'source' not in df.columns:
+        df['source'] = 'manual'
+    records = df.to_dict(orient='records')
+    print(f"Loaded {len(records)} manual groups from {MANUAL_GROUPS_FILE}")
+    return records
 
 
 # Scrape all PyData groups from meetup.com/pro/pydata
@@ -677,6 +690,14 @@ async def main():
 
     print("\n" + "=" * 60)
     print(f"Enrichment complete: {fresh_count} fresh, {cached_count} cached, {failed_count} failed")
+
+    manual_groups = load_manual_groups()
+    if manual_groups:
+        meetup_urls = {g['url'] for g in all_groups_enriched}
+        new_manual = [g for g in manual_groups if g['url'] not in meetup_urls]
+        all_groups_enriched = all_groups_enriched + new_manual
+        print(f"Added {len(new_manual)} manual groups (total: {len(all_groups_enriched)})")
+
     print("Generating maps...")
     print("=" * 60, flush=True)
 
