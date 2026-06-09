@@ -4,7 +4,7 @@ I created this project out of a desire for a better map of the international PyD
 
 This repo consists of three main parts:
 
-- [PyDataMap.py](./PyDataMap.py) a script which scrapes Meetup.com for group and event data, populates the [geocode_cache.json](./geocode_cache.json) with each group and it's location based on the group name itself (due to issues with the city field in Meetup), updates [pydata_groups.csv](./pydata_groups.csv) which stores data about upcoming and past events in aggregate by group name, and then produces static versions of the maps. This script is scheduled to run daily.
+- [PyDataMap.py](./PyDataMap.py) a script which scrapes Meetup.com for group and event data, populates the [geocode_cache.json](./geocode_cache.json) with each group and it's location based on the group name itself (due to issues with the city field in Meetup), updates [pydata_groups.csv](./pydata_groups.csv) which stores data about upcoming and past events in aggregate by group name, and then produces static versions of the maps. This script is scheduled to run daily. Groups that exist outside of Meetup (university clubs, conference series, Discord-only communities) can be added manually to [pydata_groups_manual.csv](./pydata_groups_manual.csv) and are merged into the maps at render time.
 
 - [MapsExplained.py](./) a [marimo](https://marimo.io/) notebook which can be used to create and explore the maps based on cached data in [geocode_cache.json](./geocode_cache.json) and [pydata_groups.csv](./pydata_groups.csv). This is intended to make it easy to create your own maps with this data. It also includes some example queries that can be made against the collected data i.e. top 10 most recent events.
 
@@ -57,4 +57,8 @@ The maps support URL hash navigation in the format `#zoom/lat/lng`. Simply appen
 
 ## Contributing
 
-If you have an idea for how to improve this project please fork and raise PRs. [Contact Hugh](mailto:hughevans.dev) for all other inquiries. 
+If you have an idea for how to improve this project please fork and raise PRs. [Contact Hugh](mailto:hughevans.dev) for all other inquiries.
+
+### Adding a group that isn't on Meetup
+
+If you know of a PyData community that doesn't have a Meetup page (a university club, a conference series, a Discord-only group, etc.), you can add it to [pydata_groups_manual.csv](./pydata_groups_manual.csv). The required columns are `name`, `url`, `city`, `country`, `lat`, and `lon`. Use the `source` column to describe where the group comes from — current values are `discord`, `conference`, and `university`. All other columns are optional and can be left blank.
