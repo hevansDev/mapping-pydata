@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_9ce24ed7a12d9a428bb0e32f6b798590 {
+                #map_ee26f4e1c59cbf48190c24091a6200b8 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -95,14 +95,14 @@
     </script>
     
     
-            <div class="folium-map" id="map_9ce24ed7a12d9a428bb0e32f6b798590" ></div>
+            <div class="folium-map" id="map_ee26f4e1c59cbf48190c24091a6200b8" ></div>
         
 </body>
 <script>
     
     
-            var map_9ce24ed7a12d9a428bb0e32f6b798590 = L.map(
-                "map_9ce24ed7a12d9a428bb0e32f6b798590",
+            var map_ee26f4e1c59cbf48190c24091a6200b8 = L.map(
+                "map_ee26f4e1c59cbf48190c24091a6200b8",
                 {
                     center: [30.0, 0.0],
                     crs: L.CRS.EPSG3857,
@@ -119,7 +119,7 @@
 
         
     
-            var tile_layer_ca7498f972edc47077759e54aa427bb8 = L.tileLayer(
+            var tile_layer_77111c4f2ea795669618b7a1e1144ea1 = L.tileLayer(
                 "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
                 {
   "minZoom": 0,
@@ -136,33 +136,99 @@
             );
         
     
-            tile_layer_ca7498f972edc47077759e54aa427bb8.addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            tile_layer_77111c4f2ea795669618b7a1e1144ea1.addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-            var circle_marker_6f8db9abbf40e2964424a3e93c69c8d8 = L.circleMarker(
-                [41.4996574, -81.6936772],
+            var circle_marker_1c7b409f6b251d9898431ed40593c3bf = L.circleMarker(
+                [34.0522342, -118.2436849],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_2d9898c054c882dd44386fe29d46feba = L.popup({
+        var popup_fd7b4fec60c447a92b69d2cbcad8bc0b = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_9f2a0716461338b08a06c15ee5d19520 = $(`<div id="html_9f2a0716461338b08a06c15ee5d19520" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/neo-ai' target='_blank'>NEO AI - a PyData Group</a></div>`)[0];
-                popup_2d9898c054c882dd44386fe29d46feba.setContent(html_9f2a0716461338b08a06c15ee5d19520);
+                var html_4543848eac77b665334f126dc8779a34 = $(`<div id="html_4543848eac77b665334f126dc8779a34" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-socal' target='_blank'>PyData SoCal</a></div>`)[0];
+                popup_fd7b4fec60c447a92b69d2cbcad8bc0b.setContent(html_4543848eac77b665334f126dc8779a34);
             
         
 
-        circle_marker_6f8db9abbf40e2964424a3e93c69c8d8.bindPopup(popup_2d9898c054c882dd44386fe29d46feba)
+        circle_marker_1c7b409f6b251d9898431ed40593c3bf.bindPopup(popup_fd7b4fec60c447a92b69d2cbcad8bc0b)
         ;
 
         
     
     
-            circle_marker_6f8db9abbf40e2964424a3e93c69c8d8.bindTooltip(
+            circle_marker_1c7b409f6b251d9898431ed40593c3bf.bindTooltip(
+                `<div>
+                     PyData SoCal
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f3629f118a7bb8095e7a24e879d9a4d9 = L.circleMarker(
+                [40.7607793, -111.8910474],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
+        
+    
+        var popup_910861aebbd62fa396f72cf29913e24c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5c6f8e3f017726979faccf82ea694d98 = $(`<div id="html_5c6f8e3f017726979faccf82ea694d98" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-slc/' target='_blank'>Salt Lake City PyData Meetup</a></div>`)[0];
+                popup_910861aebbd62fa396f72cf29913e24c.setContent(html_5c6f8e3f017726979faccf82ea694d98);
+            
+        
+
+        circle_marker_f3629f118a7bb8095e7a24e879d9a4d9.bindPopup(popup_910861aebbd62fa396f72cf29913e24c)
+        ;
+
+        
+    
+    
+            circle_marker_f3629f118a7bb8095e7a24e879d9a4d9.bindTooltip(
+                `<div>
+                     Salt Lake City PyData Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f3a79761237ead2100d139a7b15215c8 = L.circleMarker(
+                [41.4996574, -81.6936772],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
+        
+    
+        var popup_f75927f76973f609bffbf535df7b1a54 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e2ef9cb803af64cad395dbd3ac515c07 = $(`<div id="html_e2ef9cb803af64cad395dbd3ac515c07" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/neo-ai' target='_blank'>NEO AI - a PyData Group</a></div>`)[0];
+                popup_f75927f76973f609bffbf535df7b1a54.setContent(html_e2ef9cb803af64cad395dbd3ac515c07);
+            
+        
+
+        circle_marker_f3a79761237ead2100d139a7b15215c8.bindPopup(popup_f75927f76973f609bffbf535df7b1a54)
+        ;
+
+        
+    
+    
+            circle_marker_f3a79761237ead2100d139a7b15215c8.bindTooltip(
                 `<div>
                      NEO AI - a PyData Group
                  </div>`,
@@ -172,30 +238,30 @@
             );
         
     
-            var circle_marker_85ae06ffef5e4fda4fb4b74de34ca870 = L.circleMarker(
+            var circle_marker_0fb0a04866ac90e2cb6e17d9c74e0e4c = L.circleMarker(
                 [32.7762719, -96.7968559],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_bd3791aee8447e8c913d0a424447d593 = L.popup({
+        var popup_eb842fbcfdf20e17d1587fc9145ee5b7 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_fd4bdae6af30f95fa57f341b342a0747 = $(`<div id="html_fd4bdae6af30f95fa57f341b342a0747" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/dallas-data-engineers' target='_blank'>Dallas Data Engineers - a PyData Group</a></div>`)[0];
-                popup_bd3791aee8447e8c913d0a424447d593.setContent(html_fd4bdae6af30f95fa57f341b342a0747);
+                var html_74216c6ae6f0aa3746bfe33e38b5fda5 = $(`<div id="html_74216c6ae6f0aa3746bfe33e38b5fda5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/dallas-data-engineers' target='_blank'>Dallas Data Engineers - a PyData Group</a></div>`)[0];
+                popup_eb842fbcfdf20e17d1587fc9145ee5b7.setContent(html_74216c6ae6f0aa3746bfe33e38b5fda5);
             
         
 
-        circle_marker_85ae06ffef5e4fda4fb4b74de34ca870.bindPopup(popup_bd3791aee8447e8c913d0a424447d593)
+        circle_marker_0fb0a04866ac90e2cb6e17d9c74e0e4c.bindPopup(popup_eb842fbcfdf20e17d1587fc9145ee5b7)
         ;
 
         
     
     
-            circle_marker_85ae06ffef5e4fda4fb4b74de34ca870.bindTooltip(
+            circle_marker_0fb0a04866ac90e2cb6e17d9c74e0e4c.bindTooltip(
                 `<div>
                      Dallas Data Engineers - a PyData Group
                  </div>`,
@@ -205,30 +271,30 @@
             );
         
     
-            var circle_marker_512061d9512a6ef64c6a518171a4ed67 = L.circleMarker(
+            var circle_marker_5edb7f79f7c62da49955ddf93a998b69 = L.circleMarker(
                 [43.6534817, -79.3839347],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_4a86d58ad271b96f94b1d2068c82d8b2 = L.popup({
+        var popup_afe59fefc12da5f7b66102ba4177ac19 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_33f0c8af6608f55eeb6b411b14a06031 = $(`<div id="html_33f0c8af6608f55eeb6b411b14a06031" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydatato' target='_blank'>PyData Toronto</a></div>`)[0];
-                popup_4a86d58ad271b96f94b1d2068c82d8b2.setContent(html_33f0c8af6608f55eeb6b411b14a06031);
+                var html_a9854d2a79a0de5c5d3ba70bd9b20c65 = $(`<div id="html_a9854d2a79a0de5c5d3ba70bd9b20c65" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydatato' target='_blank'>PyData Toronto</a></div>`)[0];
+                popup_afe59fefc12da5f7b66102ba4177ac19.setContent(html_a9854d2a79a0de5c5d3ba70bd9b20c65);
             
         
 
-        circle_marker_512061d9512a6ef64c6a518171a4ed67.bindPopup(popup_4a86d58ad271b96f94b1d2068c82d8b2)
+        circle_marker_5edb7f79f7c62da49955ddf93a998b69.bindPopup(popup_afe59fefc12da5f7b66102ba4177ac19)
         ;
 
         
     
     
-            circle_marker_512061d9512a6ef64c6a518171a4ed67.bindTooltip(
+            circle_marker_5edb7f79f7c62da49955ddf93a998b69.bindTooltip(
                 `<div>
                      PyData Toronto
                  </div>`,
@@ -238,30 +304,30 @@
             );
         
     
-            var circle_marker_c109cc3679b8d2b5a7526b8a0a5b996d = L.circleMarker(
+            var circle_marker_7daa98cca83843bd5fe5901874dcdc20 = L.circleMarker(
                 [35.3540209, -120.375716],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_4817cbd1433f4a8f204bd2d53cf84f76 = L.popup({
+        var popup_aa794616bfb33f4046990bc31aec90d9 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_8fed9b8879c57229b43b9aeb068ebca8 = $(`<div id="html_8fed9b8879c57229b43b9aeb068ebca8" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PydataSLO' target='_blank'>PyData SLO</a></div>`)[0];
-                popup_4817cbd1433f4a8f204bd2d53cf84f76.setContent(html_8fed9b8879c57229b43b9aeb068ebca8);
+                var html_10cb1fd39222423c915808f9cf4c1f62 = $(`<div id="html_10cb1fd39222423c915808f9cf4c1f62" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PydataSLO' target='_blank'>PyData SLO</a></div>`)[0];
+                popup_aa794616bfb33f4046990bc31aec90d9.setContent(html_10cb1fd39222423c915808f9cf4c1f62);
             
         
 
-        circle_marker_c109cc3679b8d2b5a7526b8a0a5b996d.bindPopup(popup_4817cbd1433f4a8f204bd2d53cf84f76)
+        circle_marker_7daa98cca83843bd5fe5901874dcdc20.bindPopup(popup_aa794616bfb33f4046990bc31aec90d9)
         ;
 
         
     
     
-            circle_marker_c109cc3679b8d2b5a7526b8a0a5b996d.bindTooltip(
+            circle_marker_7daa98cca83843bd5fe5901874dcdc20.bindTooltip(
                 `<div>
                      PyData SLO
                  </div>`,
@@ -271,30 +337,30 @@
             );
         
     
-            var circle_marker_2a85b4c74482569f32452ffe87e946e5 = L.circleMarker(
+            var circle_marker_a59eb08135ad96a1c2c01e1adc8691db = L.circleMarker(
                 [55.9533456, -3.1883749],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_1f23613dfcd262b94704f6d44d44d791 = L.popup({
+        var popup_7f3d8aa71179ea209f2f6c66bc7dc165 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_181f0dc4acb7c41d9caa687bddf15da2 = $(`<div id="html_181f0dc4acb7c41d9caa687bddf15da2" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-edinburgh' target='_blank'>PyData Edinburgh</a></div>`)[0];
-                popup_1f23613dfcd262b94704f6d44d44d791.setContent(html_181f0dc4acb7c41d9caa687bddf15da2);
+                var html_43b12fcb37a0b2c877b4fc00d2d23b2b = $(`<div id="html_43b12fcb37a0b2c877b4fc00d2d23b2b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-edinburgh' target='_blank'>PyData Edinburgh</a></div>`)[0];
+                popup_7f3d8aa71179ea209f2f6c66bc7dc165.setContent(html_43b12fcb37a0b2c877b4fc00d2d23b2b);
             
         
 
-        circle_marker_2a85b4c74482569f32452ffe87e946e5.bindPopup(popup_1f23613dfcd262b94704f6d44d44d791)
+        circle_marker_a59eb08135ad96a1c2c01e1adc8691db.bindPopup(popup_7f3d8aa71179ea209f2f6c66bc7dc165)
         ;
 
         
     
     
-            circle_marker_2a85b4c74482569f32452ffe87e946e5.bindTooltip(
+            circle_marker_a59eb08135ad96a1c2c01e1adc8691db.bindTooltip(
                 `<div>
                      PyData Edinburgh
                  </div>`,
@@ -304,30 +370,30 @@
             );
         
     
-            var circle_marker_2a331b91bba109879c58b10310dc5d36 = L.circleMarker(
+            var circle_marker_36d81b24b9bc60b4e5d3b7102b79acae = L.circleMarker(
                 [55.6867243, 12.5700724],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_b687ae027f460a6680b6392833ab3af5 = L.popup({
+        var popup_8c04dd5c896c96da01592506a4177ad0 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_b33514bc9b4bbd18037df3c2f7f574ce = $(`<div id="html_b33514bc9b4bbd18037df3c2f7f574ce" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/copenhagen-julia-meetup-group' target='_blank'>Copenhagen Julia Meetup Group</a></div>`)[0];
-                popup_b687ae027f460a6680b6392833ab3af5.setContent(html_b33514bc9b4bbd18037df3c2f7f574ce);
+                var html_213dd51e0fbf91852dd0da60b13ac60b = $(`<div id="html_213dd51e0fbf91852dd0da60b13ac60b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/copenhagen-julia-meetup-group' target='_blank'>Copenhagen Julia Meetup Group</a></div>`)[0];
+                popup_8c04dd5c896c96da01592506a4177ad0.setContent(html_213dd51e0fbf91852dd0da60b13ac60b);
             
         
 
-        circle_marker_2a331b91bba109879c58b10310dc5d36.bindPopup(popup_b687ae027f460a6680b6392833ab3af5)
+        circle_marker_36d81b24b9bc60b4e5d3b7102b79acae.bindPopup(popup_8c04dd5c896c96da01592506a4177ad0)
         ;
 
         
     
     
-            circle_marker_2a331b91bba109879c58b10310dc5d36.bindTooltip(
+            circle_marker_36d81b24b9bc60b4e5d3b7102b79acae.bindTooltip(
                 `<div>
                      Copenhagen Julia Meetup Group
                  </div>`,
@@ -337,30 +403,30 @@
             );
         
     
-            var circle_marker_6c9d580dc92bd5c9363c40db7151cc9e = L.circleMarker(
+            var circle_marker_026e1e0d320dc98e9d1fa0129cf1b8cd = L.circleMarker(
                 [38.9743901, 1.4197463],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_093153120ade59d28068f9de923cd852 = L.popup({
+        var popup_9dfe955216ec4ec028d5adb983b2e829 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_f0e2dda1ec800c15e6374bca78048f46 = $(`<div id="html_f0e2dda1ec800c15e6374bca78048f46" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-eivissa-ibiza' target='_blank'>PyData Eivissa/Ibiza</a></div>`)[0];
-                popup_093153120ade59d28068f9de923cd852.setContent(html_f0e2dda1ec800c15e6374bca78048f46);
+                var html_b85ad6f2be07dda4ec1c89196f063f27 = $(`<div id="html_b85ad6f2be07dda4ec1c89196f063f27" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-eivissa-ibiza' target='_blank'>PyData Eivissa/Ibiza</a></div>`)[0];
+                popup_9dfe955216ec4ec028d5adb983b2e829.setContent(html_b85ad6f2be07dda4ec1c89196f063f27);
             
         
 
-        circle_marker_6c9d580dc92bd5c9363c40db7151cc9e.bindPopup(popup_093153120ade59d28068f9de923cd852)
+        circle_marker_026e1e0d320dc98e9d1fa0129cf1b8cd.bindPopup(popup_9dfe955216ec4ec028d5adb983b2e829)
         ;
 
         
     
     
-            circle_marker_6c9d580dc92bd5c9363c40db7151cc9e.bindTooltip(
+            circle_marker_026e1e0d320dc98e9d1fa0129cf1b8cd.bindTooltip(
                 `<div>
                      PyData Eivissa/Ibiza
                  </div>`,
@@ -370,30 +436,30 @@
             );
         
     
-            var circle_marker_885a0c700962d187c302ab8221665a26 = L.circleMarker(
+            var circle_marker_558dc1ef2b487558b20cdf8d7db3b570 = L.circleMarker(
                 [41.8933203, 12.4829321],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_d082335a794eb6dd34b0b6130903e7d3 = L.popup({
+        var popup_5f04634876e9e017c56150e26a3efc30 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_31405328ef0bd6c92b3aac2c3f299cf7 = $(`<div id="html_31405328ef0bd6c92b3aac2c3f299cf7" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-rome' target='_blank'>PyData Rome</a></div>`)[0];
-                popup_d082335a794eb6dd34b0b6130903e7d3.setContent(html_31405328ef0bd6c92b3aac2c3f299cf7);
+                var html_c9513f33e7d397d77cc34d3514515c09 = $(`<div id="html_c9513f33e7d397d77cc34d3514515c09" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-rome' target='_blank'>PyData Rome</a></div>`)[0];
+                popup_5f04634876e9e017c56150e26a3efc30.setContent(html_c9513f33e7d397d77cc34d3514515c09);
             
         
 
-        circle_marker_885a0c700962d187c302ab8221665a26.bindPopup(popup_d082335a794eb6dd34b0b6130903e7d3)
+        circle_marker_558dc1ef2b487558b20cdf8d7db3b570.bindPopup(popup_5f04634876e9e017c56150e26a3efc30)
         ;
 
         
     
     
-            circle_marker_885a0c700962d187c302ab8221665a26.bindTooltip(
+            circle_marker_558dc1ef2b487558b20cdf8d7db3b570.bindTooltip(
                 `<div>
                      PyData Rome
                  </div>`,
@@ -403,30 +469,30 @@
             );
         
     
-            var circle_marker_bd92696e4c7f584d244da0b9ac01dbb9 = L.circleMarker(
+            var circle_marker_4eb762513f693d39ada47ac731029961 = L.circleMarker(
                 [44.8153318, 20.4456588],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_666e726ae75b7da976bf8ededd282549 = L.popup({
+        var popup_d0ce4a0b79051e7eb3ab2ecff4c2ce97 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_074bcbb01ced7276faa78462540cdc5b = $(`<div id="html_074bcbb01ced7276faa78462540cdc5b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-beograd' target='_blank'>PyData Beograd</a></div>`)[0];
-                popup_666e726ae75b7da976bf8ededd282549.setContent(html_074bcbb01ced7276faa78462540cdc5b);
+                var html_3df719a17a911ea68be34c655b91f3b5 = $(`<div id="html_3df719a17a911ea68be34c655b91f3b5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-beograd' target='_blank'>PyData Beograd</a></div>`)[0];
+                popup_d0ce4a0b79051e7eb3ab2ecff4c2ce97.setContent(html_3df719a17a911ea68be34c655b91f3b5);
             
         
 
-        circle_marker_bd92696e4c7f584d244da0b9ac01dbb9.bindPopup(popup_666e726ae75b7da976bf8ededd282549)
+        circle_marker_4eb762513f693d39ada47ac731029961.bindPopup(popup_d0ce4a0b79051e7eb3ab2ecff4c2ce97)
         ;
 
         
     
     
-            circle_marker_bd92696e4c7f584d244da0b9ac01dbb9.bindTooltip(
+            circle_marker_4eb762513f693d39ada47ac731029961.bindTooltip(
                 `<div>
                      PyData Beograd
                  </div>`,
@@ -436,30 +502,30 @@
             );
         
     
-            var circle_marker_beed12bb5856fc170609e94e230169b0 = L.circleMarker(
+            var circle_marker_3ce784ef89a07bd1db2ced1597a8f2d6 = L.circleMarker(
                 [9.5170602, -13.6998434],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_70452e10ac6b1a0e99b3677c949b730b = L.popup({
+        var popup_dd91cc3d03f42b2105e4bd294e89e129 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_aa436825ea00f9dcd2c2d1ae3f33ea45 = $(`<div id="html_aa436825ea00f9dcd2c2d1ae3f33ea45" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-conakry' target='_blank'>PyData Conakry</a></div>`)[0];
-                popup_70452e10ac6b1a0e99b3677c949b730b.setContent(html_aa436825ea00f9dcd2c2d1ae3f33ea45);
+                var html_6900612cbba078f96fd9011b3fea8654 = $(`<div id="html_6900612cbba078f96fd9011b3fea8654" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-conakry' target='_blank'>PyData Conakry</a></div>`)[0];
+                popup_dd91cc3d03f42b2105e4bd294e89e129.setContent(html_6900612cbba078f96fd9011b3fea8654);
             
         
 
-        circle_marker_beed12bb5856fc170609e94e230169b0.bindPopup(popup_70452e10ac6b1a0e99b3677c949b730b)
+        circle_marker_3ce784ef89a07bd1db2ced1597a8f2d6.bindPopup(popup_dd91cc3d03f42b2105e4bd294e89e129)
         ;
 
         
     
     
-            circle_marker_beed12bb5856fc170609e94e230169b0.bindTooltip(
+            circle_marker_3ce784ef89a07bd1db2ced1597a8f2d6.bindTooltip(
                 `<div>
                      PyData Conakry
                  </div>`,
@@ -469,30 +535,30 @@
             );
         
     
-            var circle_marker_8917bdcfbb8476d51b635d0291010221 = L.circleMarker(
+            var circle_marker_de35e3a02b76cba3604a2e9aa1a22de4 = L.circleMarker(
                 [37.9431594, 23.6470593],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_6b06852c39c5b8003c0b216c2f694ee8 = L.popup({
+        var popup_b4eecb4a4f0850779aa810d2f74b50e6 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_5680b30a5de14a177585559745d4886c = $(`<div id="html_5680b30a5de14a177585559745d4886c" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyData-Piraeus' target='_blank'>PyData Piraeus</a></div>`)[0];
-                popup_6b06852c39c5b8003c0b216c2f694ee8.setContent(html_5680b30a5de14a177585559745d4886c);
+                var html_6dbce66790b941f05625908634c48828 = $(`<div id="html_6dbce66790b941f05625908634c48828" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyData-Piraeus' target='_blank'>PyData Piraeus</a></div>`)[0];
+                popup_b4eecb4a4f0850779aa810d2f74b50e6.setContent(html_6dbce66790b941f05625908634c48828);
             
         
 
-        circle_marker_8917bdcfbb8476d51b635d0291010221.bindPopup(popup_6b06852c39c5b8003c0b216c2f694ee8)
+        circle_marker_de35e3a02b76cba3604a2e9aa1a22de4.bindPopup(popup_b4eecb4a4f0850779aa810d2f74b50e6)
         ;
 
         
     
     
-            circle_marker_8917bdcfbb8476d51b635d0291010221.bindTooltip(
+            circle_marker_de35e3a02b76cba3604a2e9aa1a22de4.bindTooltip(
                 `<div>
                      PyData Piraeus
                  </div>`,
@@ -502,30 +568,30 @@
             );
         
     
-            var circle_marker_0d530ca23b6cb6723a1eacf28aef3e0c = L.circleMarker(
+            var circle_marker_c80e71f9c1a081e3fa35c6462bc46301 = L.circleMarker(
                 [9.0643305, 7.4892974],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_4134d6ea87b7b74e67db8853c1ed5809 = L.popup({
+        var popup_97c50af58a4b4e0cdddd874ec7c603e7 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_64786b11fac198c5518d6f36b48a41b5 = $(`<div id="html_64786b11fac198c5518d6f36b48a41b5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-abuja' target='_blank'>PyData Abuja</a></div>`)[0];
-                popup_4134d6ea87b7b74e67db8853c1ed5809.setContent(html_64786b11fac198c5518d6f36b48a41b5);
+                var html_c7789ed9da97488d96cd3c6d5eabde7d = $(`<div id="html_c7789ed9da97488d96cd3c6d5eabde7d" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-abuja' target='_blank'>PyData Abuja</a></div>`)[0];
+                popup_97c50af58a4b4e0cdddd874ec7c603e7.setContent(html_c7789ed9da97488d96cd3c6d5eabde7d);
             
         
 
-        circle_marker_0d530ca23b6cb6723a1eacf28aef3e0c.bindPopup(popup_4134d6ea87b7b74e67db8853c1ed5809)
+        circle_marker_c80e71f9c1a081e3fa35c6462bc46301.bindPopup(popup_97c50af58a4b4e0cdddd874ec7c603e7)
         ;
 
         
     
     
-            circle_marker_0d530ca23b6cb6723a1eacf28aef3e0c.bindTooltip(
+            circle_marker_c80e71f9c1a081e3fa35c6462bc46301.bindTooltip(
                 `<div>
                      PyData Abuja
                  </div>`,
@@ -535,30 +601,63 @@
             );
         
     
-            var circle_marker_2daf19ad980593ea1a96ab9e11acc588 = L.circleMarker(
-                [5.5186186, 5.7480196],
+            var circle_marker_e71edefb17c51b52b9cab3dcca1af28d = L.circleMarker(
+                [10.3147618, 9.8454417],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_acb759e934b5db191e7bdd8a53620139 = L.popup({
+        var popup_c33e10f6e700fbc00c003becde18fa7c = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_38aba599f9096200efe9d24be2e762f4 = $(`<div id="html_38aba599f9096200efe9d24be2e762f4" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-warri' target='_blank'>PyData Warri</a></div>`)[0];
-                popup_acb759e934b5db191e7bdd8a53620139.setContent(html_38aba599f9096200efe9d24be2e762f4);
+                var html_184e53d10bf17915038ec5dedd3262d8 = $(`<div id="html_184e53d10bf17915038ec5dedd3262d8" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-bauchi' target='_blank'>PyData Bauchi</a></div>`)[0];
+                popup_c33e10f6e700fbc00c003becde18fa7c.setContent(html_184e53d10bf17915038ec5dedd3262d8);
             
         
 
-        circle_marker_2daf19ad980593ea1a96ab9e11acc588.bindPopup(popup_acb759e934b5db191e7bdd8a53620139)
+        circle_marker_e71edefb17c51b52b9cab3dcca1af28d.bindPopup(popup_c33e10f6e700fbc00c003becde18fa7c)
         ;
 
         
     
     
-            circle_marker_2daf19ad980593ea1a96ab9e11acc588.bindTooltip(
+            circle_marker_e71edefb17c51b52b9cab3dcca1af28d.bindTooltip(
+                `<div>
+                     PyData Bauchi
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c004d17ee71fe707fc1c4ecb3450478 = L.circleMarker(
+                [5.5186186, 5.7480196],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
+        
+    
+        var popup_f84f3cb56a8c38426a01fb97ca2b773b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f088961c24b3fcd8e4e73927dfdf3bf2 = $(`<div id="html_f088961c24b3fcd8e4e73927dfdf3bf2" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-warri' target='_blank'>PyData Warri</a></div>`)[0];
+                popup_f84f3cb56a8c38426a01fb97ca2b773b.setContent(html_f088961c24b3fcd8e4e73927dfdf3bf2);
+            
+        
+
+        circle_marker_6c004d17ee71fe707fc1c4ecb3450478.bindPopup(popup_f84f3cb56a8c38426a01fb97ca2b773b)
+        ;
+
+        
+    
+    
+            circle_marker_6c004d17ee71fe707fc1c4ecb3450478.bindTooltip(
                 `<div>
                      PyData Warri
                  </div>`,
@@ -568,30 +667,30 @@
             );
         
     
-            var circle_marker_4163a55085df3f81a45aace2459bc679 = L.circleMarker(
+            var circle_marker_5e6ec16f119e14b6a985d6b41577ab3e = L.circleMarker(
                 [24.8546842, 67.0207055],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_60a85eace4a8df10011f9deaee440d0d = L.popup({
+        var popup_feef82e40fb91a059bda20b537b58920 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_7bee04d847ed3e1e65fa745d2ed7f3ed = $(`<div id="html_7bee04d847ed3e1e65fa745d2ed7f3ed" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-karachi' target='_blank'>PyData Karachi</a></div>`)[0];
-                popup_60a85eace4a8df10011f9deaee440d0d.setContent(html_7bee04d847ed3e1e65fa745d2ed7f3ed);
+                var html_c98580d74c01805840de89248b6b4e11 = $(`<div id="html_c98580d74c01805840de89248b6b4e11" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-karachi' target='_blank'>PyData Karachi</a></div>`)[0];
+                popup_feef82e40fb91a059bda20b537b58920.setContent(html_c98580d74c01805840de89248b6b4e11);
             
         
 
-        circle_marker_4163a55085df3f81a45aace2459bc679.bindPopup(popup_60a85eace4a8df10011f9deaee440d0d)
+        circle_marker_5e6ec16f119e14b6a985d6b41577ab3e.bindPopup(popup_feef82e40fb91a059bda20b537b58920)
         ;
 
         
     
     
-            circle_marker_4163a55085df3f81a45aace2459bc679.bindTooltip(
+            circle_marker_5e6ec16f119e14b6a985d6b41577ab3e.bindTooltip(
                 `<div>
                      PyData Karachi
                  </div>`,
@@ -601,30 +700,30 @@
             );
         
     
-            var circle_marker_da89ba1a3b7e0305674ce9a4077fbf0c = L.circleMarker(
+            var circle_marker_cae6613ffb5fba3c7690a52686475d84 = L.circleMarker(
                 [-6.8160837, 39.2803583],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_c00934c182c11522fdede01addf19db5 = L.popup({
+        var popup_50ee27359af153540ef4dac986239a7d = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_693d1336f6845318f9e0e45bb0a5808f = $(`<div id="html_693d1336f6845318f9e0e45bb0a5808f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-tanzania' target='_blank'>PyData Tanzania</a></div>`)[0];
-                popup_c00934c182c11522fdede01addf19db5.setContent(html_693d1336f6845318f9e0e45bb0a5808f);
+                var html_456cf798330c46ed07c87199f1fbb859 = $(`<div id="html_456cf798330c46ed07c87199f1fbb859" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-tanzania' target='_blank'>PyData Tanzania</a></div>`)[0];
+                popup_50ee27359af153540ef4dac986239a7d.setContent(html_456cf798330c46ed07c87199f1fbb859);
             
         
 
-        circle_marker_da89ba1a3b7e0305674ce9a4077fbf0c.bindPopup(popup_c00934c182c11522fdede01addf19db5)
+        circle_marker_cae6613ffb5fba3c7690a52686475d84.bindPopup(popup_50ee27359af153540ef4dac986239a7d)
         ;
 
         
     
     
-            circle_marker_da89ba1a3b7e0305674ce9a4077fbf0c.bindTooltip(
+            circle_marker_cae6613ffb5fba3c7690a52686475d84.bindTooltip(
                 `<div>
                      PyData Tanzania
                  </div>`,
@@ -634,30 +733,63 @@
             );
         
     
-            var circle_marker_0c0bb171b993541da45c2ea5d240cc3e = L.circleMarker(
-                [35.6768601, 139.7638947],
+            var circle_marker_5272f450517e989015dbc43db85dfc6a = L.circleMarker(
+                [1.357107, 103.8194992],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_a61f114716a45edb0a1cf86336777e58 = L.popup({
+        var popup_0b8aa28ca5e0033dafeed786024677f5 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_56eabcede636df1d906ec089e117c3c3 = $(`<div id="html_56eabcede636df1d906ec089e117c3c3" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-tokyo' target='_blank'>PyData Tokyo</a></div>`)[0];
-                popup_a61f114716a45edb0a1cf86336777e58.setContent(html_56eabcede636df1d906ec089e117c3c3);
+                var html_e44ae1f7292c2e3c2243978e73a92452 = $(`<div id="html_e44ae1f7292c2e3c2243978e73a92452" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyData-SG' target='_blank'>PyData Singapore</a></div>`)[0];
+                popup_0b8aa28ca5e0033dafeed786024677f5.setContent(html_e44ae1f7292c2e3c2243978e73a92452);
             
         
 
-        circle_marker_0c0bb171b993541da45c2ea5d240cc3e.bindPopup(popup_a61f114716a45edb0a1cf86336777e58)
+        circle_marker_5272f450517e989015dbc43db85dfc6a.bindPopup(popup_0b8aa28ca5e0033dafeed786024677f5)
         ;
 
         
     
     
-            circle_marker_0c0bb171b993541da45c2ea5d240cc3e.bindTooltip(
+            circle_marker_5272f450517e989015dbc43db85dfc6a.bindTooltip(
+                `<div>
+                     PyData Singapore
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_34af7b9e987998c814d240eb301a94ae = L.circleMarker(
+                [35.6768601, 139.7638947],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
+        
+    
+        var popup_70a4ad67738e74e6900b18895e234531 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6dc6cb14ce0d90df3887d6fa832beb28 = $(`<div id="html_6dc6cb14ce0d90df3887d6fa832beb28" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-tokyo' target='_blank'>PyData Tokyo</a></div>`)[0];
+                popup_70a4ad67738e74e6900b18895e234531.setContent(html_6dc6cb14ce0d90df3887d6fa832beb28);
+            
+        
+
+        circle_marker_34af7b9e987998c814d240eb301a94ae.bindPopup(popup_70a4ad67738e74e6900b18895e234531)
+        ;
+
+        
+    
+    
+            circle_marker_34af7b9e987998c814d240eb301a94ae.bindTooltip(
                 `<div>
                      PyData Tokyo
                  </div>`,
@@ -667,30 +799,30 @@
             );
         
     
-            var circle_marker_112fdab6d2fd549089341f4bc5123044 = L.circleMarker(
+            var circle_marker_93d152f48f2038f4e42ec15f6553a328 = L.circleMarker(
                 [24.4538352, 54.3774014],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_547187adcf3747e32607fc90e2f5d3ae = L.popup({
+        var popup_4d4bfa1d8531c0e279b76fa239a272f5 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_09ae769d48c4ff30f1b94dc76bba81f9 = $(`<div id="html_09ae769d48c4ff30f1b94dc76bba81f9" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-abu-dhabi' target='_blank'>PyData Abu Dhabi</a></div>`)[0];
-                popup_547187adcf3747e32607fc90e2f5d3ae.setContent(html_09ae769d48c4ff30f1b94dc76bba81f9);
+                var html_571fda2c6665644e58838f2653735898 = $(`<div id="html_571fda2c6665644e58838f2653735898" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-abu-dhabi' target='_blank'>PyData Abu Dhabi</a></div>`)[0];
+                popup_4d4bfa1d8531c0e279b76fa239a272f5.setContent(html_571fda2c6665644e58838f2653735898);
             
         
 
-        circle_marker_112fdab6d2fd549089341f4bc5123044.bindPopup(popup_547187adcf3747e32607fc90e2f5d3ae)
+        circle_marker_93d152f48f2038f4e42ec15f6553a328.bindPopup(popup_4d4bfa1d8531c0e279b76fa239a272f5)
         ;
 
         
     
     
-            circle_marker_112fdab6d2fd549089341f4bc5123044.bindTooltip(
+            circle_marker_93d152f48f2038f4e42ec15f6553a328.bindTooltip(
                 `<div>
                      PyData Abu Dhabi
                  </div>`,
@@ -700,30 +832,30 @@
             );
         
     
-            var circle_marker_e4fcec804e044ecd3a9a005959034e45 = L.circleMarker(
+            var circle_marker_63fcd49030dc1151fd64b3c60a3a36dc = L.circleMarker(
                 [50.0469432, 19.9971534],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_ef7ace9bbb7124ae9842d88a65131683 = L.popup({
+        var popup_cf073d66750d072dee063fbd8d700eb6 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_a730a0218283e706199a7260a08a818b = $(`<div id="html_a730a0218283e706199a7260a08a818b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-krakow' target='_blank'>PyData Krakow</a></div>`)[0];
-                popup_ef7ace9bbb7124ae9842d88a65131683.setContent(html_a730a0218283e706199a7260a08a818b);
+                var html_0ba3e5412240a62d7898d8179490daeb = $(`<div id="html_0ba3e5412240a62d7898d8179490daeb" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-krakow' target='_blank'>PyData Krakow</a></div>`)[0];
+                popup_cf073d66750d072dee063fbd8d700eb6.setContent(html_0ba3e5412240a62d7898d8179490daeb);
             
         
 
-        circle_marker_e4fcec804e044ecd3a9a005959034e45.bindPopup(popup_ef7ace9bbb7124ae9842d88a65131683)
+        circle_marker_63fcd49030dc1151fd64b3c60a3a36dc.bindPopup(popup_cf073d66750d072dee063fbd8d700eb6)
         ;
 
         
     
     
-            circle_marker_e4fcec804e044ecd3a9a005959034e45.bindTooltip(
+            circle_marker_63fcd49030dc1151fd64b3c60a3a36dc.bindTooltip(
                 `<div>
                      PyData Krakow
                  </div>`,
@@ -733,30 +865,30 @@
             );
         
     
-            var circle_marker_67bebb0eec6ddb945ee9bb3d841486fc = L.circleMarker(
+            var circle_marker_ae8de4138e1cefc588ef34218c29dbdf = L.circleMarker(
                 [54.6870458, 25.2829111],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_9167de55fcdb21082fa5b2f6222a3edf = L.popup({
+        var popup_a53166f3ee88c0fa2bd1aead033ed681 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_8afa44dd4b87c075a3b1a4cb6c7f4bd9 = $(`<div id="html_8afa44dd4b87c075a3b1a4cb6c7f4bd9" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-vilnius' target='_blank'>PyData Vilnius</a></div>`)[0];
-                popup_9167de55fcdb21082fa5b2f6222a3edf.setContent(html_8afa44dd4b87c075a3b1a4cb6c7f4bd9);
+                var html_3189ed3866e13613904ca8e618d4e984 = $(`<div id="html_3189ed3866e13613904ca8e618d4e984" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-vilnius' target='_blank'>PyData Vilnius</a></div>`)[0];
+                popup_a53166f3ee88c0fa2bd1aead033ed681.setContent(html_3189ed3866e13613904ca8e618d4e984);
             
         
 
-        circle_marker_67bebb0eec6ddb945ee9bb3d841486fc.bindPopup(popup_9167de55fcdb21082fa5b2f6222a3edf)
+        circle_marker_ae8de4138e1cefc588ef34218c29dbdf.bindPopup(popup_a53166f3ee88c0fa2bd1aead033ed681)
         ;
 
         
     
     
-            circle_marker_67bebb0eec6ddb945ee9bb3d841486fc.bindTooltip(
+            circle_marker_ae8de4138e1cefc588ef34218c29dbdf.bindTooltip(
                 `<div>
                      PyData Vilnius
                  </div>`,
@@ -766,30 +898,30 @@
             );
         
     
-            var circle_marker_6f8a2eedeb203c8fed2bb73ab2b59f31 = L.circleMarker(
+            var circle_marker_574bed9a82696008781b81c383fc35fe = L.circleMarker(
                 [52.4006632, 16.9197326],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_7359aea79e60c7396ed47c8f17dd2b24 = L.popup({
+        var popup_5f28a29c9d5fada70cd66b72d3db676c = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_e699d7d85c1c4bab73924007749e4a7b = $(`<div id="html_e699d7d85c1c4bab73924007749e4a7b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-poznan' target='_blank'>PyData Poznan</a></div>`)[0];
-                popup_7359aea79e60c7396ed47c8f17dd2b24.setContent(html_e699d7d85c1c4bab73924007749e4a7b);
+                var html_f500fbf29cbac94d4522c9d95d1f9817 = $(`<div id="html_f500fbf29cbac94d4522c9d95d1f9817" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-poznan' target='_blank'>PyData Poznan</a></div>`)[0];
+                popup_5f28a29c9d5fada70cd66b72d3db676c.setContent(html_f500fbf29cbac94d4522c9d95d1f9817);
             
         
 
-        circle_marker_6f8a2eedeb203c8fed2bb73ab2b59f31.bindPopup(popup_7359aea79e60c7396ed47c8f17dd2b24)
+        circle_marker_574bed9a82696008781b81c383fc35fe.bindPopup(popup_5f28a29c9d5fada70cd66b72d3db676c)
         ;
 
         
     
     
-            circle_marker_6f8a2eedeb203c8fed2bb73ab2b59f31.bindTooltip(
+            circle_marker_574bed9a82696008781b81c383fc35fe.bindTooltip(
                 `<div>
                      PyData Poznan
                  </div>`,
@@ -799,30 +931,30 @@
             );
         
     
-            var circle_marker_0b59dce0907fa4ffdaca3c83776aba12 = L.circleMarker(
+            var circle_marker_65587d29bc7d4f93551b82562b5fb57b = L.circleMarker(
                 [47.5581077, 7.5878261],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_c0b2200bbb074e925e8b4f121f686c03 = L.popup({
+        var popup_87b737b9cfd16696615c9f5e2fba5c6c = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_1a9177f4c9102622d113d3177a56856d = $(`<div id="html_1a9177f4c9102622d113d3177a56856d" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-basel' target='_blank'>PyData Basel</a></div>`)[0];
-                popup_c0b2200bbb074e925e8b4f121f686c03.setContent(html_1a9177f4c9102622d113d3177a56856d);
+                var html_1e3f5a18285376e28ffdeee269180a22 = $(`<div id="html_1e3f5a18285376e28ffdeee269180a22" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-basel' target='_blank'>PyData Basel</a></div>`)[0];
+                popup_87b737b9cfd16696615c9f5e2fba5c6c.setContent(html_1e3f5a18285376e28ffdeee269180a22);
             
         
 
-        circle_marker_0b59dce0907fa4ffdaca3c83776aba12.bindPopup(popup_c0b2200bbb074e925e8b4f121f686c03)
+        circle_marker_65587d29bc7d4f93551b82562b5fb57b.bindPopup(popup_87b737b9cfd16696615c9f5e2fba5c6c)
         ;
 
         
     
     
-            circle_marker_0b59dce0907fa4ffdaca3c83776aba12.bindTooltip(
+            circle_marker_65587d29bc7d4f93551b82562b5fb57b.bindTooltip(
                 `<div>
                      PyData Basel
                  </div>`,
@@ -832,30 +964,30 @@
             );
         
     
-            var circle_marker_48c22b716fd9cbd4827917a67a814918 = L.circleMarker(
+            var circle_marker_8c3f63267e78758622bd6eac039ce92d = L.circleMarker(
                 [46.5218269, 6.6327025],
                 {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
-            ).addTo(map_9ce24ed7a12d9a428bb0e32f6b798590);
+            ).addTo(map_ee26f4e1c59cbf48190c24091a6200b8);
         
     
-        var popup_e8833660e52cef0f87b1dc9de6705710 = L.popup({
+        var popup_28434c56ad71b0f2c7d33c1318c47794 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_6478c4755855eed9622b0ae09ee350e0 = $(`<div id="html_6478c4755855eed9622b0ae09ee350e0" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-lausanne/' target='_blank'>PyData Lausanne</a></div>`)[0];
-                popup_e8833660e52cef0f87b1dc9de6705710.setContent(html_6478c4755855eed9622b0ae09ee350e0);
+                var html_561420da7266cfe856235ca9690d516a = $(`<div id="html_561420da7266cfe856235ca9690d516a" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pydata-lausanne/' target='_blank'>PyData Lausanne</a></div>`)[0];
+                popup_28434c56ad71b0f2c7d33c1318c47794.setContent(html_561420da7266cfe856235ca9690d516a);
             
         
 
-        circle_marker_48c22b716fd9cbd4827917a67a814918.bindPopup(popup_e8833660e52cef0f87b1dc9de6705710)
+        circle_marker_8c3f63267e78758622bd6eac039ce92d.bindPopup(popup_28434c56ad71b0f2c7d33c1318c47794)
         ;
 
         
     
     
-            circle_marker_48c22b716fd9cbd4827917a67a814918.bindTooltip(
+            circle_marker_8c3f63267e78758622bd6eac039ce92d.bindTooltip(
                 `<div>
                      PyData Lausanne
                  </div>`,
