@@ -8,8 +8,6 @@ import folium
 import pandas as pd
 from dotenv import load_dotenv
 
-from datetime import date
-
 load_dotenv()
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -64,42 +62,24 @@ MY_GROUPS = {
 
 STADIA_API_KEY = os.environ.get("STADIA_API_KEY", "your-key-here")
 
-PYDATA_LONDON_DATE = date(2026, 6, 5)  # conference start, 5 June
-
-def is_repost(event):
-    """Event is a repost of the PyData London conference."""
-    text = f"{event.get('title', '')} {event.get('url', '')}".lower()
-    return any(marker in text for marker in PYDATA_LONDON_MARKERS)
 
 def should_skip_unvisited(g):
-    # Filter out conference reposts before counting
-    past = [e for e in (g.get("past_events") or []) if not is_repost(e)]
-    upcoming = [e for e in (g.get("upcoming_events") or []) if not is_repost(e)]
-
-    past_events = len(past)
-    upcoming_count = len(upcoming)
-
-    # Recompute recency from the group's *own* events only
-    if past:
-        days = min(e["days_since_event"] for e in past)
-    else:
-        days = float("nan")
-
-    print(f"Checking if {g['name']} should be skipped as unvisited: "
-          f"{past_events} past events, {upcoming_count} upcoming, {days} days since last event "
-          f"(after excluding conference reposts)")
-
-    if upcoming_count >= 2:
-        print(f"  → Not skipping because there are {upcoming_count} upcoming events")
+    days = g.get("days_since_last_event")
+    past_events = g.get("past_events_count") or 0
+    upcoming = g.get("upcoming_events_count") or 0
+    print(f"Checking if {g['name']} should be skipped as unvisited: {past_events} past events, {upcoming} upcoming, {days} days since last event")
+    if upcoming >= 2:
+        print(f"  → Not skipping because there are {upcoming} upcoming events")
         return False, None
-    if pd.isna(days) or days > 100:
-        print(f"  → Skipping because last event was {days} days ago")
-        return True, "inactive"
+    # if pd.isna(days) or days > 100:
+    #     print(f"  → Skipping because last event was {days} days ago")
+    #     return True, "inactive"
     if past_events <= 1:
         print(f"  → Skipping because there are only {past_events} past events")
         return True, "only 1 event"
     print(f"  → Not skipping because there are {past_events} past events and last event was {days} days ago")
     return False, None
+
 
 def create_personal_map(output_file=None):
     if output_file is None:
