@@ -71,9 +71,9 @@ def should_skip_unvisited(g):
     if upcoming >= 2:
         print(f"  → Not skipping because there are {upcoming} upcoming events")
         return False, None
-    # if pd.isna(days) or days > 100:
-    #     print(f"  → Skipping because last event was {days} days ago")
-    #     return True, "inactive"
+    if pd.isna(days) or days > 100:
+        print(f"  → Skipping because last event was {days} days ago")
+        return True, "inactive"
     if past_events <= 1:
         print(f"  → Skipping because there are only {past_events} past events")
         return True, "only 1 event"
