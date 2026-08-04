@@ -47,16 +47,16 @@ MY_GROUPS = {
     "https://www.meetup.com/pydata-wolverhampton":     ("spoken", "2026-05-22",   None),
     "https://www.meetup.com/pydata-birmingham-uk":     ("unvisited", None,          None),
     "https://www.meetup.com/pydata-cornwall":          ("spoken",  "2026-05-7",   "https://www.meetup.com/pydata-cornwall/events/314013646/"),
-    "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
-    "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
+    # "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
+    # "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
     "https://www.meetup.com/pydata-bristol":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-exeter":            ("spoken", "2026-05-06",  "https://www.meetup.com/pydata-exeter/events/314216811/"),
     "https://www.meetup.com/pydata-milton-keynes":     ("spoken",    "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
-    "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
+    # "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
     "https://www.meetup.com/pydata-norwich":           ("unvisited", None,          None),
     "https://www.meetup.com/pydata-southampton":       ("spoken",    None,          None),
-    "https://www.meetup.com/pydata-surrey":            ("unvisited", None,          None),
-    "https://www.meetup.com/pydata-kent":              ("unvisited", None,          None),
+    # "https://www.meetup.com/pydata-surrey":            ("unvisited", None,          None),
+    # "https://www.meetup.com/pydata-kent":              ("unvisited", None,          None),
     "https://www.meetup.com/pydata-edinburgh":         ("unvisited", None,          None),
 }
 
