@@ -1,5 +1,6 @@
 {
   "hints": {
+    "PyData Northern Utah": "Northern Utah",
     "PyMC Online Meetup": null,
     "PyData En Espa\u00f1ol Global.": null,
     "NEO AI - a PyData Group": "Cleveland, Ohio, USA",
@@ -551,11 +552,6 @@
       "lat": 47.6144219,
       "lon": -122.192337,
       "display_name": "Bellevue, King County, Washington, United States"
-    },
-    "Logan": {
-      "lat": 40.1075089,
-      "lon": -89.3768539,
-      "display_name": "Logan County, Illinois, United States"
     },
     "Houston": {
       "lat": 29.7589382,
