@@ -1052,6 +1052,11 @@
       "lat": 50.4134414,
       "lon": -5.0848836,
       "display_name": "Newquay, Cornwall, England, United Kingdom"
+    },
+    "Jaipur": {
+      "lat": 26.9154576,
+      "lon": 75.8189817,
+      "display_name": "Jaipur, Jaipur Municipal Corporation, Jaipur Tehsil, Jaipur, Rajasthan, 302001, India"
     }
   }
 }
