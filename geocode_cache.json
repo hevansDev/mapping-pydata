@@ -1057,6 +1057,11 @@
       "lat": 26.9154576,
       "lon": 75.8189817,
       "display_name": "Jaipur, Jaipur Municipal Corporation, Jaipur Tehsil, Jaipur, Rajasthan, 302001, India"
+    },
+    "San Diego": {
+      "lat": 32.7174202,
+      "lon": -117.162772,
+      "display_name": "San Diego, San Diego County, California, United States"
     }
   }
 }
