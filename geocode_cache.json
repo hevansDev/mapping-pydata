@@ -1062,6 +1062,11 @@
       "lat": 32.7174202,
       "lon": -117.162772,
       "display_name": "San Diego, San Diego County, California, United States"
+    },
+    "Prayagraj": {
+      "lat": 25.4381302,
+      "lon": 81.8338005,
+      "display_name": "Prayagraj, Allahabad, Prayagraj, Uttar Pradesh, 211001, India"
     }
   }
 }
