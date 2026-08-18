@@ -136,82 +136,93 @@ def load_manual_groups(manual_csv_file, network_key):
 # meetup.com/pro/pydata or meetup.com/pro/python-software-foundation-meetups).
 # Every Meetup Pro network page has the same structure, so this one scraper
 # works for any of them — just point it at a different pro_network_url.
+_EXTRACT_GROUPS_JS = '''
+    () => {
+        const results = [];
+        document.querySelectorAll('[data-testid="group"]').forEach(el => {
+            const link = el.querySelector('a');
+            const url = link?.href || '';
+            if (!url) return;
+            const text = el.innerText;
+            const memberMatch = text.match(/([\\d,]+)\\s*members?/i);
+            const ratingMatch = text.match(/^([\\d.]+)$/m);
+            const lines = text.split('\\n').map(l => l.trim()).filter(Boolean);
+            const firstLine = lines[0] || '';
+            const locationMatch = firstLine.match(/^([^,]+),\\s*(\\d+)$/);
+            const cleanUrl = url.split('?')[0];
+            results.push({
+                name: el.querySelector('h3')?.textContent?.trim() || '',
+                url: cleanUrl,
+                urlname: cleanUrl.match(/meetup\\.com\\/([^\\/]+)/)?.[1] || '',
+                members: memberMatch ? parseInt(memberMatch[1].replace(/,/g, '')) : null,
+                city: locationMatch ? locationMatch[1] : firstLine.split(',')[0],
+                rating: ratingMatch ? parseFloat(ratingMatch[1]) : null,
+            });
+        });
+        return results;
+    }
+'''
+
+
 async def scrape_meetup_pro_network(pro_network_url, network_key):
+    # Three earlier theories for the group count capping out (a nested
+    # scroll container, an instant jump-to-bottom not triggering
+    # gradual-load logic, and repeated local runs tripping a rate limit)
+    # were all ruled out empirically: the count bounced around (40, 60, 60,
+    # 20, 40, 40) across repeated runs with unchanged code, plateauing
+    # within the first handful of iterations regardless of scroll strategy
+    # - and it reproduces identically from a fresh GitHub Actions runner on
+    # a different network entirely, which rules out "this machine/IP has
+    # been hitting Meetup too much today".
+    #
+    # The one thing every attempt so far has in common: scrolling has
+    # always been done via window.scrollTo() inside page.evaluate() - a
+    # script-triggered, "untrusted" scroll in browser terms. This uses
+    # Playwright's mouse.wheel() instead, which drives the real input
+    # pipeline and produces genuine, trusted scroll events, in case the
+    # page's own loading logic only responds to real input. This is a
+    # standard Playwright technique for exactly this situation, not an
+    # attempt to evade any bot detection - if it turns out this really is
+    # deliberate anti-scraping rather than a trusted-input quirk, that's a
+    # line we won't cross further (no fingerprint spoofing, proxy
+    # rotation, etc.).
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 1280, 'height': 800})
         await page.goto(pro_network_url)
         await page.wait_for_selector('[data-testid="group"]')
+        await page.mouse.move(640, 400)
 
-        # Two earlier theories for the group count capping out - a nested
-        # scroll container needing its own scroll calls, and an instant
-        # jump-to-bottom not triggering gradual-load logic - were both
-        # tried and both ruled out empirically: across repeated live runs
-        # with unchanged code, the count bounced around (40, 60, 60, 20,
-        # 40, 40) instead of settling once a real client-side fix landed,
-        # and it always plateaus within the first handful of iterations
-        # regardless of which scroll strategy is used. That pattern points
-        # to something server-side (e.g. rate limiting a script that's hit
-        # the page repeatedly today) rather than a fixable client bug, so
-        # this has been simplified back down rather than layering on more
-        # speculative scroll mechanics. The diagnostic print below is kept
-        # so a future run (ideally after a longer gap) can confirm.
-        result = await page.evaluate('''
-            async () => {
-                const allGroups = new Map();
-                let lastCount = 0;
-                let stableCount = 0;
-                let iterations = 0;
-                const maxIterations = 200; // hard safety cap (~8-15 min worst case)
-                const requiredStable = 10;
+        all_groups = {}
+        last_count = 0
+        stable_count = 0
+        iterations = 0
+        max_iterations = 200  # hard safety cap (~8-15 min worst case)
+        required_stable = 10
 
-                while (stableCount < requiredStable && iterations < maxIterations) {
-                    iterations++;
+        while stable_count < required_stable and iterations < max_iterations:
+            iterations += 1
 
-                    document.querySelectorAll('[data-testid="group"]').forEach(el => {
-                        const link = el.querySelector('a');
-                        const url = link?.href || '';
-                        if (url && !allGroups.has(url)) {
-                            const text = el.innerText;
-                            const memberMatch = text.match(/([\\d,]+)\\s*members?/i);
-                            const ratingMatch = text.match(/^([\\d.]+)$/m);
-                            const lines = text.split('\\n').map(l => l.trim()).filter(Boolean);
-                            const firstLine = lines[0] || '';
-                            const locationMatch = firstLine.match(/^([^,]+),\\s*(\\d+)$/);
-                            const cleanUrl = url.split('?')[0];
+            for g in await page.evaluate(_EXTRACT_GROUPS_JS):
+                if g['url'] not in all_groups:
+                    all_groups[g['url']] = g
 
-                            allGroups.set(cleanUrl, {
-                                name: el.querySelector('h3')?.textContent?.trim() || '',
-                                url: cleanUrl,
-                                urlname: cleanUrl.match(/meetup\\.com\\/([^\\/]+)/)?.[1] || '',
-                                members: memberMatch ? parseInt(memberMatch[1].replace(/,/g, '')) : null,
-                                city: locationMatch ? locationMatch[1] : firstLine.split(',')[0],
-                                rating: ratingMatch ? parseFloat(ratingMatch[1]) : null,
-                            });
-                        }
-                    });
+            await page.mouse.wheel(0, 2000)
+            await page.wait_for_timeout(2000)
 
-                    window.scrollTo(0, document.body.scrollHeight);
-                    await new Promise(r => setTimeout(r, 2000));
+            if len(all_groups) == last_count:
+                stable_count += 1
+            else:
+                stable_count = 0
+            last_count = len(all_groups)
 
-                    if (allGroups.size === lastCount) stableCount++;
-                    else stableCount = 0;
-                    lastCount = allGroups.size;
-                }
-
-                return {
-                    groups: Array.from(allGroups.values()),
-                    iterations,
-                    hitMaxIterations: iterations >= maxIterations,
-                };
-            }
-        ''')
+        hit_max_iterations = iterations >= max_iterations
         await browser.close()
 
-    groups = result['groups']
+    groups = list(all_groups.values())
     print(
-        f"[{network_key}] Scroll loop: {len(groups)} groups after {result['iterations']} iterations "
-        f"(hit max iterations: {result['hitMaxIterations']})"
+        f"[{network_key}] Scroll loop: {len(groups)} groups after {iterations} iterations "
+        f"(hit max iterations: {hit_max_iterations})"
     )
 
     for g in groups:
