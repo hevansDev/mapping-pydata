@@ -143,13 +143,56 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
         await page.goto(pro_network_url)
         await page.wait_for_selector('[data-testid="group"]')
 
-        groups = await page.evaluate('''
+        result = await page.evaluate('''
             async () => {
+                // Find the nearest scrollable ancestor of the group list, if
+                // the list lives in its own overflow container rather than
+                // flowing in the normal page body. Scrolling window alone
+                // does nothing for a nested scroll container, which can make
+                // an infinite-scroll list look "stable" (and stop loading
+                // more groups) long before it's actually done.
+                function findScrollContainer() {
+                    const sample = document.querySelector('[data-testid="group"]');
+                    if (!sample) return null;
+                    let el = sample.parentElement;
+                    while (el && el !== document.body) {
+                        const style = getComputedStyle(el);
+                        const overflowY = style.overflowY;
+                        if ((overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight + 4) {
+                            return el;
+                        }
+                        el = el.parentElement;
+                    }
+                    return null;
+                }
+
+                function clickLoadMoreIfPresent() {
+                    // Restrict to <button> and role="button" elements only —
+                    // deliberately excluding plain <a> tags, since clicking
+                    // an anchor with a real href could navigate the page
+                    // away from the group list entirely (e.g. an unrelated
+                    // "Read more" link in a footer/blog teaser).
+                    const candidates = Array.from(document.querySelectorAll('button, [role="button"]'));
+                    const match = candidates.find(el => /show more|load more|see more|view more/i.test(el.textContent || ''));
+                    if (match) {
+                        match.click();
+                        return true;
+                    }
+                    return false;
+                }
+
                 const allGroups = new Map();
                 let lastCount = 0;
                 let stableCount = 0;
+                let iterations = 0;
+                const maxIterations = 200; // hard safety cap (~8-15 min worst case)
+                const requiredStable = 15;
+                let usedContainerScroll = false;
+                let clickedLoadMore = false;
 
-                while (stableCount < 10) {
+                while (stableCount < requiredStable && iterations < maxIterations) {
+                    iterations++;
+
                     document.querySelectorAll('[data-testid="group"]').forEach(el => {
                         const link = el.querySelector('a');
                         const url = link?.href || '';
@@ -173,17 +216,46 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
                         }
                     });
 
+                    // Scroll every plausible target: the window (in case the
+                    // list flows in the page body, as it used to), and any
+                    // nested scrollable container we can find (in case the
+                    // list now lives in its own scroll panel).
                     window.scrollTo(0, document.body.scrollHeight);
-                    await new Promise(r => setTimeout(r, 2000));
+                    const container = findScrollContainer();
+                    if (container) {
+                        usedContainerScroll = true;
+                        container.scrollTop = container.scrollHeight;
+                        container.dispatchEvent(new Event('scroll', { bubbles: true }));
+                    }
+                    if (clickLoadMoreIfPresent()) {
+                        clickedLoadMore = true;
+                    }
+
+                    await new Promise(r => setTimeout(r, 2500));
 
                     if (allGroups.size === lastCount) stableCount++;
                     else stableCount = 0;
                     lastCount = allGroups.size;
                 }
-                return Array.from(allGroups.values());
+
+                return {
+                    groups: Array.from(allGroups.values()),
+                    iterations,
+                    hitMaxIterations: iterations >= maxIterations,
+                    usedContainerScroll,
+                    clickedLoadMore,
+                };
             }
         ''')
         await browser.close()
+
+    groups = result['groups']
+    print(
+        f"[{network_key}] Scroll loop: {len(groups)} groups after {result['iterations']} iterations "
+        f"(container scroll used: {result['usedContainerScroll']}, "
+        f"'load more' clicked: {result['clickedLoadMore']}, "
+        f"hit max iterations: {result['hitMaxIterations']})"
+    )
 
     for g in groups:
         g['in_pro_network'] = True

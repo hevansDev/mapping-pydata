@@ -1087,6 +1087,141 @@
       "lat": 50.8496866,
       "lon": 4.392157,
       "display_name": "Python, Avenue Emile Max - Emile Maxlaan, Prekelinden, Schaerbeek - Schaarbeek, Brussel-Hoofdstad - Bruxelles-Capitale, R\u00e9gion de Bruxelles-Capitale - Brussels Hoofdstedelijk Gewest, 1030, Belgi\u00eb / Belgique / Belgien"
+    },
+    "Oxford": {
+      "lat": 51.7520131,
+      "lon": -1.2578499,
+      "display_name": "Oxford, Oxfordshire, England, United Kingdom"
+    },
+    "Leiden": {
+      "lat": 52.1594747,
+      "lon": 4.4908843,
+      "display_name": "Leiden, Zuid-Holland, Nederland"
+    },
+    "Cologne": {
+      "lat": 50.938361,
+      "lon": 6.959974,
+      "display_name": "K\u00f6ln, Nordrhein-Westfalen, Deutschland"
+    },
+    "Freiburg": {
+      "lat": 47.9960901,
+      "lon": 7.8494005,
+      "display_name": "Freiburg im Breisgau, Baden-W\u00fcrttemberg, Deutschland"
+    },
+    "N\u00fcrnberg": {
+      "lat": 49.453872,
+      "lon": 11.077298,
+      "display_name": "N\u00fcrnberg, Bayern, Deutschland"
+    },
+    "Girona": {
+      "lat": 41.9793006,
+      "lon": 2.8199439,
+      "display_name": "Girona, Giron\u00e8s, Girona, Catalunya, Espa\u00f1a"
+    },
+    "A Coru\u00f1a": {
+      "lat": 43.3466447,
+      "lon": -8.4127029,
+      "display_name": "A Coru\u00f1a, Galicia, Espa\u00f1a"
+    },
+    "Barcelona": {
+      "lat": 41.3825802,
+      "lon": 2.177073,
+      "display_name": "Barcelona, Barcelon\u00e8s, Barcelona, Catalunya, Espa\u00f1a"
+    },
+    "Oslo": {
+      "lat": 59.9133301,
+      "lon": 10.7389701,
+      "display_name": "Oslo, Norge"
+    },
+    "Zagreb": {
+      "lat": 45.8130967,
+      "lon": 15.9772795,
+      "display_name": "Grad Zagreb, Hrvatska"
+    },
+    "Budapest": {
+      "lat": 47.4978789,
+      "lon": 19.0402383,
+      "display_name": "Budapest, K\u00f6z\u00e9p-Magyarorsz\u00e1g, Magyarorsz\u00e1g"
+    },
+    "Pescara": {
+      "lat": 42.3097631,
+      "lon": 13.9579989,
+      "display_name": "Pescara, Abruzzo, Italia"
+    },
+    "Sevilla": {
+      "lat": 37.3886303,
+      "lon": -5.9953403,
+      "display_name": "Sevilla, Andaluc\u00eda, Espa\u00f1a"
+    },
+    "Vilnius": {
+      "lat": 54.6870458,
+      "lon": 25.2829111,
+      "display_name": "Vilnius, Vilniaus miesto savivaldyb\u0117, Vilniaus apskritis, Lietuva"
+    },
+    "Bari": {
+      "lat": 41.1257843,
+      "lon": 16.8620293,
+      "display_name": "Bari, Puglia, Italia"
+    },
+    "Catania": {
+      "lat": 37.5023612,
+      "lon": 15.0873718,
+      "display_name": "Catania, Sicilia, Italia"
+    },
+    "Accra": {
+      "lat": 5.5571096,
+      "lon": -0.2012376,
+      "display_name": "Accra, Korle-Klottey Municipal District, Greater Accra Region, Ghana"
+    },
+    "Boston": {
+      "lat": 42.3588336,
+      "lon": -71.0578303,
+      "display_name": "Boston, Suffolk County, Massachusetts, United States"
+    },
+    "Ottawa": {
+      "lat": 45.4208777,
+      "lon": -75.6901106,
+      "display_name": "Ottawa, Eastern Ontario, Ontario, Canada"
+    },
+    "Princeton": {
+      "lat": 40.3496953,
+      "lon": -74.6597376,
+      "display_name": "Princeton, Mercer County, New Jersey, United States"
+    },
+    "Rochester": {
+      "lat": 43.157285,
+      "lon": -77.615214,
+      "display_name": "City of Rochester, Monroe County, New York, United States"
+    },
+    "Philadelphia": {
+      "lat": 39.9527237,
+      "lon": -75.1635262,
+      "display_name": "Philadelphia, Philadelphia County, Pennsylvania, United States"
+    },
+    "Bethesda": {
+      "lat": 38.9812726,
+      "lon": -77.1233587,
+      "display_name": "Bethesda, Montgomery County, Maryland, United States"
+    },
+    "Reston": {
+      "lat": 38.953282,
+      "lon": -77.3464516,
+      "display_name": "Reston, Fairfax County, Virginia, United States"
+    },
+    "Norfolk": {
+      "lat": 52.666667,
+      "lon": 1.0,
+      "display_name": "Norfolk, England, United Kingdom"
+    },
+    "Richmond": {
+      "lat": 37.5385087,
+      "lon": -77.43428,
+      "display_name": "Richmond, Virginia, United States"
+    },
+    "Columbus": {
+      "lat": 39.9622601,
+      "lon": -83.0007065,
+      "display_name": "Columbus, Sharon, Franklin County, Ohio, United States"
     }
   }
 }
