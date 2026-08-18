@@ -143,65 +143,27 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
         await page.goto(pro_network_url)
         await page.wait_for_selector('[data-testid="group"]')
 
+        # Two earlier theories for the group count capping out - a nested
+        # scroll container needing its own scroll calls, and an instant
+        # jump-to-bottom not triggering gradual-load logic - were both
+        # tried and both ruled out empirically: across repeated live runs
+        # with unchanged code, the count bounced around (40, 60, 60, 20,
+        # 40, 40) instead of settling once a real client-side fix landed,
+        # and it always plateaus within the first handful of iterations
+        # regardless of which scroll strategy is used. That pattern points
+        # to something server-side (e.g. rate limiting a script that's hit
+        # the page repeatedly today) rather than a fixable client bug, so
+        # this has been simplified back down rather than layering on more
+        # speculative scroll mechanics. The diagnostic print below is kept
+        # so a future run (ideally after a longer gap) can confirm.
         result = await page.evaluate('''
             async () => {
-                // Find the nearest scrollable ancestor of the group list, if
-                // the list lives in its own overflow container rather than
-                // flowing in the normal page body. Scrolling window alone
-                // does nothing for a nested scroll container, which can make
-                // an infinite-scroll list look "stable" (and stop loading
-                // more groups) long before it's actually done.
-                function findScrollContainer() {
-                    const sample = document.querySelector('[data-testid="group"]');
-                    if (!sample) return null;
-                    let el = sample.parentElement;
-                    while (el && el !== document.body) {
-                        const style = getComputedStyle(el);
-                        const overflowY = style.overflowY;
-                        if ((overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight + 4) {
-                            return el;
-                        }
-                        el = el.parentElement;
-                    }
-                    return null;
-                }
-
-                // Scroll a target (window or a container element) down in
-                // several small steps rather than teleporting straight to
-                // the bottom. A previous version of this loop also tried
-                // clicking any "show/load more"-looking button, but that
-                // turned out to be actively harmful — on a live run it made
-                // a previously-working scrape (60 groups) collapse to just
-                // 20, plateauing almost immediately after the first click.
-                // That strongly suggests it was clicking something that
-                // broke the list's own loading rather than helping it, so
-                // that approach has been dropped entirely.
-                async function incrementalScroll(target) {
-                    const isWindow = target === window;
-                    const clientSize = isWindow ? window.innerHeight : target.clientHeight;
-                    const maxScroll = isWindow ? document.body.scrollHeight : target.scrollHeight;
-                    const start = isWindow ? window.scrollY : target.scrollTop;
-                    const step = Math.max(clientSize * 0.8, 200);
-                    const stepsNeeded = Math.max(1, Math.ceil((maxScroll - start) / step));
-                    for (let i = 1; i <= Math.min(stepsNeeded, 8); i++) {
-                        const nextPos = Math.min(start + step * i, maxScroll);
-                        if (isWindow) {
-                            window.scrollTo(0, nextPos);
-                        } else {
-                            target.scrollTop = nextPos;
-                        }
-                        target.dispatchEvent(new Event('scroll', { bubbles: true }));
-                        await new Promise(r => setTimeout(r, 150));
-                    }
-                }
-
                 const allGroups = new Map();
                 let lastCount = 0;
                 let stableCount = 0;
                 let iterations = 0;
                 const maxIterations = 200; // hard safety cap (~8-15 min worst case)
-                const requiredStable = 15;
-                let usedContainerScroll = false;
+                const requiredStable = 10;
 
                 while (stableCount < requiredStable && iterations < maxIterations) {
                     iterations++;
@@ -229,18 +191,7 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
                         }
                     });
 
-                    // Scroll every plausible target: the window (in case the
-                    // list flows in the page body, as it used to), and any
-                    // nested scrollable container we can find (in case the
-                    // list now lives in its own scroll panel) — gradually,
-                    // in steps, rather than an instant jump to the bottom.
-                    await incrementalScroll(window);
-                    const container = findScrollContainer();
-                    if (container) {
-                        usedContainerScroll = true;
-                        await incrementalScroll(container);
-                    }
-
+                    window.scrollTo(0, document.body.scrollHeight);
                     await new Promise(r => setTimeout(r, 2000));
 
                     if (allGroups.size === lastCount) stableCount++;
@@ -252,7 +203,6 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
                     groups: Array.from(allGroups.values()),
                     iterations,
                     hitMaxIterations: iterations >= maxIterations,
-                    usedContainerScroll,
                 };
             }
         ''')
@@ -261,8 +211,7 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
     groups = result['groups']
     print(
         f"[{network_key}] Scroll loop: {len(groups)} groups after {result['iterations']} iterations "
-        f"(container scroll used: {result['usedContainerScroll']}, "
-        f"hit max iterations: {result['hitMaxIterations']})"
+        f"(hit max iterations: {result['hitMaxIterations']})"
     )
 
     for g in groups:
