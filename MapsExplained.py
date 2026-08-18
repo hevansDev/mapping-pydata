@@ -62,6 +62,22 @@ def _(MarkerCluster, folium, math, pd):
     def coord_key(lat, lon, precision=2):
         return (round(lat, precision), round(lon, precision))
 
+    # When several groups share (near-)identical coordinates, Leaflet's
+    # disableClusteringAtZoom means that once you zoom in past that level,
+    # clustering switches off and markers render at their raw coordinates -
+    # if those are genuinely identical, they end up perfectly stacked with
+    # no spiderfy affordance to spread them back out. Nudging each marker a
+    # small distance from the shared point (evenly on a small circle) keeps
+    # every one clickable at any zoom level.
+    def spread_coincident_coords(lat, lon, index, total):
+        if total <= 1:
+            return lat, lon
+        radius_deg = 0.006  # roughly 650m at the equator
+        angle = 2 * math.pi * index / total
+        lat_offset = radius_deg * math.cos(angle)
+        lon_offset = radius_deg * math.sin(angle) / max(math.cos(math.radians(lat)), 0.01)
+        return lat + lat_offset, lon + lon_offset
+
     # Parse the alt_urls field into a list of (label, url) tuples.
     # Format: entries separated by '|', each entry optionally labelled as
     # 'Label::https://example.com'. Lets a group carry its old Meetup link
@@ -214,11 +230,13 @@ def _(MarkerCluster, folium, math, pd):
                 cluster = MarkerCluster(
                     options={
                         'spiderfyOnMaxZoom': True,
-                        'disableClusteringAtZoom': 12
+                        'disableClusteringAtZoom': 12,
+                        'spiderfyDistanceMultiplier': 3,
                     }
                 ).add_to(world_map)
-                for g in group_list:
-                    create_marker(g, style=style).add_to(cluster)
+                for i, g in enumerate(group_list):
+                    lat, lon = spread_coincident_coords(g['lat'], g['lon'], i, len(group_list))
+                    create_marker({**g, 'lat': lat, 'lon': lon}, style=style).add_to(cluster)
 
         return world_map
 
