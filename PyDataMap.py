@@ -597,6 +597,30 @@ def coord_key(lat, lon, precision=2):
     return (round(lat, precision), round(lon, precision))
 
 
+# When several groups share (near-)identical coordinates - usually because
+# they were geocoded to the same city centroid - they get wrapped in a
+# MarkerCluster so they don't fully overlap. But Leaflet's
+# disableClusteringAtZoom setting means that once you zoom in past that
+# level, clustering switches off entirely and markers render at their raw
+# coordinates - if those coordinates are genuinely identical, the markers
+# end up perfectly stacked with no spiderfy affordance to spread them back
+# out, making everything past the first one basically unclickable. Nudging
+# each marker a small distance from the shared point (arranged evenly on a
+# small circle) means there's always a real, clickable point for each one
+# at any zoom level, regardless of whether clustering is currently active.
+def spread_coincident_coords(lat, lon, index, total):
+    if total <= 1:
+        return lat, lon
+    radius_deg = 0.006  # roughly 650m at the equator - enough to separate markers, small enough to still read as "the same city"
+    angle = 2 * math.pi * index / total
+    lat_offset = radius_deg * math.cos(angle)
+    # Longitude degrees cover less physical distance the further from the
+    # equator you are, so widen the longitude offset to compensate and keep
+    # the spread visually circular rather than squashed near the poles.
+    lon_offset = radius_deg * math.sin(angle) / max(math.cos(math.radians(lat)), 0.01)
+    return lat + lat_offset, lon + lon_offset
+
+
 # Create a circle marker for a group
 def create_marker(g, style='orange'):
     members = max(1, g.get('members') or 1)
@@ -706,11 +730,16 @@ def _add_markers_to_map(world_map, groups_enriched, style):
             cluster = MarkerCluster(
                 options={
                     'spiderfyOnMaxZoom': True,
-                    'disableClusteringAtZoom': 12
+                    'disableClusteringAtZoom': 12,
+                    # Give spiderfied markers more room to spread out so
+                    # the 2nd/3rd marker in a small cluster isn't sitting
+                    # right on top of the others.
+                    'spiderfyDistanceMultiplier': 3,
                 }
             ).add_to(world_map)
-            for g in groups:
-                create_marker(g, style=style).add_to(cluster)
+            for i, g in enumerate(groups):
+                lat, lon = spread_coincident_coords(g['lat'], g['lon'], i, len(groups))
+                create_marker({**g, 'lat': lat, 'lon': lon}, style=style).add_to(cluster)
 
 
 # Create simple world map with orange circle markers (only cluster overlapping)
