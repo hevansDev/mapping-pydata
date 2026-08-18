@@ -1222,6 +1222,211 @@
       "lat": 39.9622601,
       "lon": -83.0007065,
       "display_name": "Columbus, Sharon, Franklin County, Ohio, United States"
+    },
+    "Saint Louis": {
+      "lat": 38.6254063,
+      "lon": -90.190009,
+      "display_name": "Saint Louis, Missouri, United States"
+    },
+    "Cincinnati": {
+      "lat": 39.1012809,
+      "lon": -84.5127405,
+      "display_name": "Cincinnati, Hamilton County, Ohio, United States"
+    },
+    "Madison": {
+      "lat": 43.07469,
+      "lon": -89.3841663,
+      "display_name": "Madison, Dane County, Wisconsin, United States"
+    },
+    "Minneapolis": {
+      "lat": 44.9772995,
+      "lon": -93.2654692,
+      "display_name": "Minneapolis, Hennepin County, Minnesota, United States"
+    },
+    "Orlando": {
+      "lat": 28.5421218,
+      "lon": -81.379045,
+      "display_name": "Orlando, Orange County, Florida, United States"
+    },
+    "Santo Domingo": {
+      "lat": 18.4713858,
+      "lon": -69.8918436,
+      "display_name": "Santo Domingo de Guzm\u00e1n, Distrito Nacional, 03201, Rep\u00fablica Dominicana"
+    },
+    "Spokane": {
+      "lat": 47.6571934,
+      "lon": -117.42351,
+      "display_name": "Spokane, Spokane County, Washington, United States"
+    },
+    "Vancouver": {
+      "lat": 49.2608724,
+      "lon": -123.113952,
+      "display_name": "Vancouver, Metro Vancouver Regional District, British Columbia, Canada"
+    },
+    "Hyderabad": {
+      "lat": 17.360589,
+      "lon": 78.4740613,
+      "display_name": "Hyderabad, Bahadurpura mandal, Hyderabad, Telangana, India"
+    },
+    "Salt Lake City": {
+      "lat": 40.7596198,
+      "lon": -111.886797,
+      "display_name": "Salt Lake City, Salt Lake County, Utah, United States"
+    },
+    "Beaverton": {
+      "lat": 45.4871723,
+      "lon": -122.80378,
+      "display_name": "Beaverton, Washington County, Oregon, United States"
+    },
+    "Barranquilla": {
+      "lat": 11.0101922,
+      "lon": -74.8231794,
+      "display_name": "Barranquilla, Atl\u00e1ntico, RAP Caribe, Colombia"
+    },
+    "Las Vegas": {
+      "lat": 36.1674263,
+      "lon": -115.1484131,
+      "display_name": "Las Vegas, Clark County, Nevada, United States"
+    },
+    "Medell\u00edn": {
+      "lat": 6.2697324,
+      "lon": -75.6025597,
+      "display_name": "Medell\u00edn, Valle de Aburr\u00e1, Antioquia, RAP del Agua y la Monta\u00f1a, 0500, Colombia"
+    },
+    "Scottsdale": {
+      "lat": 33.4942189,
+      "lon": -111.926018,
+      "display_name": "Scottsdale, Maricopa County, Arizona, United States"
+    },
+    "Tucson": {
+      "lat": 32.2228765,
+      "lon": -110.974847,
+      "display_name": "Tucson, Pima County, Arizona, United States"
+    },
+    "Livermore": {
+      "lat": 37.6820583,
+      "lon": -121.768053,
+      "display_name": "Livermore, Alameda County, California, United States"
+    },
+    "San Mateo": {
+      "lat": 37.496904,
+      "lon": -122.3330573,
+      "display_name": "San Mateo County, California, United States"
+    },
+    "Mountain View": {
+      "lat": 37.3893889,
+      "lon": -122.0832101,
+      "display_name": "Mountain View, Santa Clara County, California, United States"
+    },
+    "Sunnyvale": {
+      "lat": 37.3688301,
+      "lon": -122.036349,
+      "display_name": "Sunnyvale, Santa Clara County, California, United States"
+    },
+    "Santa Cruz": {
+      "lat": 28.467178,
+      "lon": -16.2507843,
+      "display_name": "Santa Cruz de Tenerife, Canarias, Espa\u00f1a"
+    },
+    "Riverside": {
+      "lat": 33.9824949,
+      "lon": -117.374238,
+      "display_name": "Riverside, Riverside County, California, United States"
+    },
+    "Los Angeles": {
+      "lat": 34.0536909,
+      "lon": -118.242766,
+      "display_name": "Los Angeles, Los Angeles County, California, United States"
+    },
+    "Santa Barbara": {
+      "lat": 34.4221319,
+      "lon": -119.702667,
+      "display_name": "Santa Barbara, Santa Barbara County, California, United States"
+    },
+    "Seoul": {
+      "lat": 37.5666791,
+      "lon": 126.9782914,
+      "display_name": "\uc11c\uc6b8\ud2b9\ubcc4\uc2dc, \ub300\ud55c\ubbfc\uad6d"
+    },
+    "Maputo": {
+      "lat": -25.966213,
+      "lon": 32.56745,
+      "display_name": "Cidade de Maputo, Zona Sul, Mo\u00e7ambique"
+    },
+    "Bangkok": {
+      "lat": 13.7524938,
+      "lon": 100.4935089,
+      "display_name": "\u0e01\u0e23\u0e38\u0e07\u0e40\u0e17\u0e1e\u0e21\u0e2b\u0e32\u0e19\u0e04\u0e23, \u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22"
+    },
+    "Tokyo": {
+      "lat": 35.6768601,
+      "lon": 139.7638947,
+      "display_name": "\u6771\u4eac\u90fd, \u65e5\u672c"
+    },
+    "Vacoas-Phoenix": {
+      "lat": -20.2933761,
+      "lon": 57.4978036,
+      "display_name": "Vacoas-Phoenix, Plaines Wilhems, Mauritius / Maurice"
+    },
+    "La Paz": {
+      "lat": -16.4955455,
+      "lon": -68.1336229,
+      "display_name": "Municipio Nuestra Se\u00f1ora de La Paz, Provincia Pedro Domingo Murillo, La Paz, Bolivia"
+    },
+    "Manila": {
+      "lat": 14.5904492,
+      "lon": 120.9803621,
+      "display_name": "Manila, Capital District, Metro Manila, Philippines"
+    },
+    "Cebu": {
+      "lat": 10.47,
+      "lon": 123.83,
+      "display_name": "Cebu, Central Visayas, Philippines"
+    },
+    "Honolulu": {
+      "lat": 21.304547,
+      "lon": -157.855676,
+      "display_name": "Honolulu, Honolulu County, Hawaii, United States"
+    },
+    "Santiago": {
+      "lat": 9.8694792,
+      "lon": -83.7980749,
+      "display_name": "Santiago, Para\u00edso, Cartago, 30202, Costa Rica"
+    },
+    "Davao": {
+      "lat": 7.0648306,
+      "lon": 125.6080623,
+      "display_name": "Davao City, Davao Region, Philippines"
+    },
+    "Makassar": {
+      "lat": -5.1342962,
+      "lon": 119.4124282,
+      "display_name": "Makassar, Sulawesi Selatan, Indonesia"
+    },
+    "Adelaide": {
+      "lat": -34.9281805,
+      "lon": 138.5999312,
+      "display_name": "Adelaide, South Australia, Australia"
+    },
+    "Canberra": {
+      "lat": -35.2975906,
+      "lon": 149.1012676,
+      "display_name": "Canberra, District of Canberra Central, Australian Capital Territory, 2600, Australia"
+    },
+    "Auckland": {
+      "lat": -36.852095,
+      "lon": 174.7631803,
+      "display_name": "Auckland, Waitemat\u0101, Auckland, 1010, New Zealand / Aotearoa"
+    },
+    "Wellington": {
+      "lat": -41.2887953,
+      "lon": 174.7772114,
+      "display_name": "Wellington, Wellington City, Wellington, 6011, New Zealand / Aotearoa"
+    },
+    "Christchurch": {
+      "lat": -43.530955,
+      "lon": 172.6364343,
+      "display_name": "Christchurch, Christchurch City, Canterbury, New Zealand / Aotearoa"
     }
   }
 }

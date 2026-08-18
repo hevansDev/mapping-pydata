@@ -689,7 +689,12 @@ def make_base_map(location=[30, 0], zoom_start=2):
 def _add_markers_to_map(world_map, groups_enriched, style):
     coord_groups = defaultdict(list)
     for g in groups_enriched:
-        if 'lat' not in g or 'lon' not in g:
+        # A missing key means "never geocoded this run" (fresh dicts from
+        # geocode_groups); a present-but-NaN value means the same thing
+        # after a round trip through the CSV, where an absent value comes
+        # back as float('nan') rather than a missing key. pd.isna() catches
+        # both, plus an outright missing key (g.get returns None).
+        if pd.isna(g.get('lat')) or pd.isna(g.get('lon')):
             continue
         key = coord_key(g['lat'], g['lon'])
         coord_groups[key].append(g)
