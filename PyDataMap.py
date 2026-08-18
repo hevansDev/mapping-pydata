@@ -166,19 +166,33 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
                     return null;
                 }
 
-                function clickLoadMoreIfPresent() {
-                    // Restrict to <button> and role="button" elements only —
-                    // deliberately excluding plain <a> tags, since clicking
-                    // an anchor with a real href could navigate the page
-                    // away from the group list entirely (e.g. an unrelated
-                    // "Read more" link in a footer/blog teaser).
-                    const candidates = Array.from(document.querySelectorAll('button, [role="button"]'));
-                    const match = candidates.find(el => /show more|load more|see more|view more/i.test(el.textContent || ''));
-                    if (match) {
-                        match.click();
-                        return true;
+                // Scroll a target (window or a container element) down in
+                // several small steps rather than teleporting straight to
+                // the bottom. A previous version of this loop also tried
+                // clicking any "show/load more"-looking button, but that
+                // turned out to be actively harmful — on a live run it made
+                // a previously-working scrape (60 groups) collapse to just
+                // 20, plateauing almost immediately after the first click.
+                // That strongly suggests it was clicking something that
+                // broke the list's own loading rather than helping it, so
+                // that approach has been dropped entirely.
+                async function incrementalScroll(target) {
+                    const isWindow = target === window;
+                    const clientSize = isWindow ? window.innerHeight : target.clientHeight;
+                    const maxScroll = isWindow ? document.body.scrollHeight : target.scrollHeight;
+                    const start = isWindow ? window.scrollY : target.scrollTop;
+                    const step = Math.max(clientSize * 0.8, 200);
+                    const stepsNeeded = Math.max(1, Math.ceil((maxScroll - start) / step));
+                    for (let i = 1; i <= Math.min(stepsNeeded, 8); i++) {
+                        const nextPos = Math.min(start + step * i, maxScroll);
+                        if (isWindow) {
+                            window.scrollTo(0, nextPos);
+                        } else {
+                            target.scrollTop = nextPos;
+                        }
+                        target.dispatchEvent(new Event('scroll', { bubbles: true }));
+                        await new Promise(r => setTimeout(r, 150));
                     }
-                    return false;
                 }
 
                 const allGroups = new Map();
@@ -188,7 +202,6 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
                 const maxIterations = 200; // hard safety cap (~8-15 min worst case)
                 const requiredStable = 15;
                 let usedContainerScroll = false;
-                let clickedLoadMore = false;
 
                 while (stableCount < requiredStable && iterations < maxIterations) {
                     iterations++;
@@ -219,19 +232,16 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
                     // Scroll every plausible target: the window (in case the
                     // list flows in the page body, as it used to), and any
                     // nested scrollable container we can find (in case the
-                    // list now lives in its own scroll panel).
-                    window.scrollTo(0, document.body.scrollHeight);
+                    // list now lives in its own scroll panel) — gradually,
+                    // in steps, rather than an instant jump to the bottom.
+                    await incrementalScroll(window);
                     const container = findScrollContainer();
                     if (container) {
                         usedContainerScroll = true;
-                        container.scrollTop = container.scrollHeight;
-                        container.dispatchEvent(new Event('scroll', { bubbles: true }));
-                    }
-                    if (clickLoadMoreIfPresent()) {
-                        clickedLoadMore = true;
+                        await incrementalScroll(container);
                     }
 
-                    await new Promise(r => setTimeout(r, 2500));
+                    await new Promise(r => setTimeout(r, 2000));
 
                     if (allGroups.size === lastCount) stableCount++;
                     else stableCount = 0;
@@ -243,7 +253,6 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
                     iterations,
                     hitMaxIterations: iterations >= maxIterations,
                     usedContainerScroll,
-                    clickedLoadMore,
                 };
             }
         ''')
@@ -253,7 +262,6 @@ async def scrape_meetup_pro_network(pro_network_url, network_key):
     print(
         f"[{network_key}] Scroll loop: {len(groups)} groups after {result['iterations']} iterations "
         f"(container scroll used: {result['usedContainerScroll']}, "
-        f"'load more' clicked: {result['clickedLoadMore']}, "
         f"hit max iterations: {result['hitMaxIterations']})"
     )
 
