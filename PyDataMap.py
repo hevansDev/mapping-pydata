@@ -5,6 +5,7 @@ import math
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 import folium
 from folium.plugins import MarkerCluster
@@ -51,6 +52,18 @@ def get_cached_pydata_groups():
             df['in_pro_network'] = False
         if 'pro_network_misses' not in df.columns:
             df['pro_network_misses'] = 0
+        if 'non_meetup' not in df.columns:
+            df['non_meetup'] = False
+        else:
+            df['non_meetup'] = df['non_meetup'].fillna(False).astype(bool)
+        # Rows with a non-blank 'source' were added via the manual CSV at some
+        # point (discord/conference/university/github/etc.) and are always
+        # non-Meetup, regardless of what non_meetup was saved as previously —
+        # this self-heals rows that were merged in before the non_meetup
+        # column existed and got defaulted to False.
+        if 'source' in df.columns:
+            has_source = df['source'].notna() & (df['source'].astype(str).str.strip() != '')
+            df.loc[has_source, 'non_meetup'] = True
         # Backwards compat: derive count from old boolean column if present
         if 'upcoming_events_count' not in df.columns:
             if 'has_upcoming_events' in df.columns:
@@ -69,6 +82,14 @@ def load_manual_groups():
     df = sanitise_dataframe(df)
     if 'source' not in df.columns:
         df['source'] = 'manual'
+    # Manual groups have no Meetup presence and therefore no reliable
+    # activity data (upcoming/past events). Default them to non_meetup so
+    # they render with a neutral marker instead of active/inactive styling,
+    # unless the CSV explicitly overrides this per-row.
+    if 'non_meetup' not in df.columns:
+        df['non_meetup'] = True
+    else:
+        df['non_meetup'] = df['non_meetup'].fillna(True).astype(bool)
     records = df.to_dict(orient='records')
     print(f"Loaded {len(records)} manual groups from {MANUAL_GROUPS_FILE}")
     return records
@@ -330,6 +351,8 @@ def get_country_from_cache(query):
 
 # Calculate fill color and opacity for layers map (green/blue active styling)
 def get_marker_style_layers(group):
+    if group.get('non_meetup'):
+        return '#ee9041', 0.7  # neutral marker — non-Meetup groups have no activity data
     if group.get('upcoming_events_count', 0) > 0:
         fill_color = '#22c55e'  # green
         fill_opacity = 0.9
@@ -345,6 +368,8 @@ def get_marker_style_layers(group):
 
 # Calculate fill color and opacity for inactive map (red inactive, faint blue active)
 def get_marker_style_inactive(group):
+    if group.get('non_meetup'):
+        return '#ee9041', 0.7  # neutral marker — non-Meetup groups have no activity data
     days = group.get('days_since_last_event')
     if group.get('upcoming_events_count', 0) > 0 or (days is not None and days < 100):
         fill_color = '#0000FF'  # blue
@@ -358,8 +383,56 @@ def get_marker_style_inactive(group):
     return fill_color, fill_opacity
 
 
+# Parse the alt_urls field into a list of (label, url) tuples.
+# Format: entries separated by '|', each entry optionally labelled as
+# 'Label::https://example.com'. A bare URL with no '::' label gets an
+# auto-generated label from its domain. Lets a group carry its old Meetup
+# link (or LinkedIn, Discord, etc.) alongside its current one without
+# needing a second row / second marker.
+def parse_alt_urls(value):
+    if value is None or (isinstance(value, float) and math.isnan(value)):
+        return []
+    if not isinstance(value, str) or not value.strip():
+        return []
+
+    links = []
+    for entry in value.split('|'):
+        entry = entry.strip()
+        if not entry:
+            continue
+        if '::' in entry:
+            label, url = entry.split('::', 1)
+            label, url = label.strip(), url.strip()
+        else:
+            url = entry
+            label = urlparse(url).netloc or url
+        if url:
+            links.append((label, url))
+    return links
+
+
+# Render alt_urls as a small HTML fragment of extra links, or '' if none
+def format_alt_links_html(g):
+    links = parse_alt_urls(g.get('alt_urls'))
+    if not links:
+        return ''
+    rendered = ' · '.join(f"<a href='{url}' target='_blank'>{label}</a>" for label, url in links)
+    return f"<br>🔗 Also: {rendered}"
+
+
 # Build popup HTML for a group
 def build_popup_html(g):
+    header = f"""<b><a href='{g['url']}' target='_blank'>{g['name']}</a></b><br>
+        📍 {g.get('city', 'Unknown')}"""
+
+    # Meetup-derived stats (members, past/upcoming events, Meetup leaders
+    # link) are meaningless for groups with no Meetup presence — skip them
+    # rather than showing misleading zeros or a fabricated Leaders link.
+    if g.get('non_meetup'):
+        return f"""
+        {header}{format_alt_links_html(g)}
+    """
+
     days = g.get('days_since_last_event')
     days_str = f"{days} days ago" if days is not None else "Never"
     upcoming_count = g.get('upcoming_events_count') or 0
@@ -368,14 +441,13 @@ def build_popup_html(g):
     members = g.get('members') or 0
 
     return f"""
-        <b><a href='{g['url']}' target='_blank'>{g['name']}</a></b><br>
-        📍 {g.get('city', 'Unknown')}<br>
+        {header}<br>
         👥 {members} members<br>
         📅 {past_count} past events<br>
         ⏱️ Last event: {days_str}<br>
         🔜 Upcoming: {upcoming_str}<br>
         <a href='{g.get('events_url', '')}' target='_blank'>Events</a> |
-        <a href='{g.get('leaders_url', '')}' target='_blank'>Leaders</a>
+        <a href='{g.get('leaders_url', '')}' target='_blank'>Leaders</a>{format_alt_links_html(g)}
     """
 
 
@@ -402,7 +474,7 @@ def create_marker(g, style='orange'):
         fill_color = '#ee9041'
         fill_opacity = 0.7
         radius = 8
-        popup = f"<a href='{g['url']}' target='_blank'>{g['name']}</a>"
+        popup = f"<a href='{g['url']}' target='_blank'>{g['name']}</a>{format_alt_links_html(g)}"
         tooltip = g['name']
 
     return folium.CircleMarker(

@@ -1,5 +1,5 @@
-name,url,city,country,lat,lon,members,past_events_count,last_event_date,days_since_last_event,upcoming_events_count,events_url,leaders_url,source
-PyData Osaka,https://osaka.pydata.org/,Osaka,Japan,34.6937,135.5023,,,,,0,,,discord
-PyData Vermont,https://pydata.org/vermont2025,Burlington,United States,44.4759,-73.2121,,,2025-01-01,,0,,,conference
-PyData Northen Utah,https://huntsman.usu.edu/clubs/pydata,Logan, United States,41.7369,-111.8338,,,,,0,,,university
-PyData Manaus,https://github.com/pydatamanaus,Manaus,Brasil,-3.1190,-60.0217,,,2025-02-01,,0,,,github
+name,url,city,country,lat,lon,members,past_events_count,last_event_date,days_since_last_event,upcoming_events_count,events_url,leaders_url,source,non_meetup
+PyData Osaka,https://osaka.pydata.org/,Osaka,Japan,34.6937,135.5023,,,,,0,,,discord,True
+PyData Vermont,https://pydata.org/vermont2025,Burlington,United States,44.4759,-73.2121,,,2025-01-01,,0,,,conference,True
+PyData Northen Utah,https://huntsman.usu.edu/clubs/pydata,Logan, United States,41.7369,-111.8338,,,,,0,,,university,True
+PyData Manaus,https://github.com/pydatamanaus,Manaus,Brasil,-3.1190,-60.0217,,,2025-02-01,,0,,,github,True

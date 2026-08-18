@@ -62,21 +62,68 @@ def _(MarkerCluster, folium, math, pd):
     def coord_key(lat, lon, precision=2):
         return (round(lat, precision), round(lon, precision))
 
+    # Parse the alt_urls field into a list of (label, url) tuples.
+    # Format: entries separated by '|', each entry optionally labelled as
+    # 'Label::https://example.com'. Lets a group carry its old Meetup link
+    # (or LinkedIn, Discord, etc.) alongside its current one without a
+    # second row / second marker.
+    def parse_alt_urls(value):
+        from urllib.parse import urlparse
+
+        if value is None or (isinstance(value, float) and math.isnan(value)):
+            return []
+        if not isinstance(value, str) or not value.strip():
+            return []
+
+        links = []
+        for entry in value.split('|'):
+            entry = entry.strip()
+            if not entry:
+                continue
+            if '::' in entry:
+                label, url = entry.split('::', 1)
+                label, url = label.strip(), url.strip()
+            else:
+                url = entry
+                label = urlparse(url).netloc or url
+            if url:
+                links.append((label, url))
+        return links
+
+    # Render alt_urls as a small HTML fragment of extra links, or '' if none
+    def format_alt_links_html(g):
+        links = parse_alt_urls(g.get('alt_urls'))
+        if not links:
+            return ''
+        rendered = ' · '.join(f"<a href='{url}' target='_blank'>{label}</a>" for label, url in links)
+        return f"<br>🔗 Also: {rendered}"
+
     # Build popup HTML for a group
     def build_popup_html(g):
+        header = f"""<b><a href='{g['url']}' target='_blank'>{g['name']}</a></b><br>
+            📍 {g.get('city', 'Unknown')}"""
+
+        # Meetup-derived stats (members, past/upcoming events, Meetup
+        # leaders link) are meaningless for groups with no Meetup presence —
+        # skip them rather than showing misleading zeros or a fabricated
+        # Leaders link.
+        if g.get('non_meetup'):
+            return f"""
+            {header}{format_alt_links_html(g)}
+        """
+
         days = g.get('days_since_last_event')
         days_str = f"{int(days)} days ago" if pd.notna(days) else "Never"
         upcoming_str = "Yes ✓" if g.get('has_upcoming_events') else "No"
         past_count = g.get('past_events_count', 0) or 0
         return f"""
-            <b><a href='{g['url']}' target='_blank'>{g['name']}</a></b><br>
-            📍 {g.get('city', 'Unknown')}<br>
+            {header}<br>
             👥 {g.get('members', '?')} members<br>
             📅 {int(past_count) if pd.notna(past_count) else 0} past events<br>
             ⏱️ Last event: {days_str}<br>
             🔜 Upcoming: {upcoming_str}<br>
             <a href='{g.get('events_url', '')}' target='_blank'>Events</a> |
-            <a href='{g.get('leaders_url', '')}' target='_blank'>Leaders</a>
+            <a href='{g.get('leaders_url', '')}' target='_blank'>Leaders</a>{format_alt_links_html(g)}
         """
 
     # Style: Simple orange
@@ -85,6 +132,8 @@ def _(MarkerCluster, folium, math, pd):
 
     # Style: Green/blue activity-based
     def get_marker_style_layers(group):
+        if group.get('non_meetup'):
+            return '#ee9041', 0.7  # neutral marker — non-Meetup groups have no activity data
         if group.get('has_upcoming_events'):
             return '#22c55e', 0.8  # green
         else:
@@ -97,6 +146,8 @@ def _(MarkerCluster, folium, math, pd):
 
     # Style: Red inactive, faint blue active
     def get_marker_style_inactive(group):
+        if group.get('non_meetup'):
+            return '#ee9041', 0.7  # neutral marker — non-Meetup groups have no activity data
         days = group.get('days_since_last_event')
         is_active = group.get('has_upcoming_events') or (pd.notna(days) and days < 100)
 
@@ -116,7 +167,7 @@ def _(MarkerCluster, folium, math, pd):
         if style == 'orange':
             fill_color, fill_opacity = get_marker_style_orange(g)
             radius = 8
-            popup = f"<a href='{g['url']}' target='_blank'>{g['name']}</a>"
+            popup = f"<a href='{g['url']}' target='_blank'>{g['name']}</a>{format_alt_links_html(g)}"
             tooltip = g['name']
         elif style == 'layers':
             fill_color, fill_opacity = get_marker_style_layers(g)
