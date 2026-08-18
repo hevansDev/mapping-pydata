@@ -312,14 +312,29 @@ def save_cache(cache):
         json.dump(cache, f, indent=2)
 
 
-# Get the geocoding query for a group name
-def get_query_for_group(name, cache):
+# Get the geocoding query for a group. Prefers the city Meetup itself
+# reports for the group (scraped alongside the name) over trying to parse a
+# location out of the group's freeform name — that name-based fallback only
+# works for a "PyData {City}" naming convention and falls apart for names
+# like "PyLadies London", "Django London", "Python User Group Freiburg",
+# emoji-laden names, etc. from less consistently-named networks. New/tiny
+# groups sometimes show a "New group" placeholder instead of a real city;
+# fall back to the name heuristic in that case.
+def get_query_for_group(name, city, cache):
     if name in cache['hints']:
         return cache['hints'][name]
+    city = str(city or '').strip()
+    if city and city.lower() not in ('new group', 'unknown', 'nan'):
+        return city
     return name.replace('PyData ', '').replace(' Meetup', '').replace(' Group', '').replace('PyData', '')
 
 
-# Geocode groups with caching
+# Geocode groups with caching. Every group is kept in the result even if it
+# couldn't be geocoded — it just won't have lat/lon and so won't get a
+# marker until a hint or coordinate fix is added. Dropping ungeocodable
+# groups entirely (as this used to do) is much worse: on a network with
+# less consistent naming than PyData's, that can silently throw away most
+# of a fresh scrape.
 def geocode_groups(groups):
     cache = load_cache()
 
@@ -329,13 +344,15 @@ def geocode_groups(groups):
     results = []
     cache_hits = 0
     api_calls = 0
+    geocoded_count = 0
 
     for group in groups:
         name = group['name']
-        query = get_query_for_group(name, cache)
+        query = get_query_for_group(name, group.get('city'), cache)
 
         if query is None:
             print(f"⊘ {name} (skipped)")
+            results.append({**group, 'query': query})
             continue
 
         if query in cache['coords']:
@@ -348,6 +365,7 @@ def geocode_groups(groups):
             })
             print(f"✓ {name} -> {query} ({cached['lat']:.2f}, {cached['lon']:.2f}) [cached]")
             cache_hits += 1
+            geocoded_count += 1
             continue
 
         try:
@@ -366,14 +384,17 @@ def geocode_groups(groups):
                 })
                 print(f"✓ {name} -> {query} ({location.latitude:.2f}, {location.longitude:.2f})")
                 api_calls += 1
+                geocoded_count += 1
             else:
-                print(f"✗ {name} -> {query} (not found)")
+                print(f"✗ {name} -> {query} (not found — kept without coordinates)")
+                results.append({**group, 'query': query})
         except Exception as e:
-            print(f"✗ {name} -> {query} (error: {type(e).__name__})")
+            print(f"✗ {name} -> {query} (error: {type(e).__name__} — kept without coordinates)")
+            results.append({**group, 'query': query})
 
     save_cache(cache)
 
-    print(f"\nGeocoded {len(results)} of {len(groups)} groups")
+    print(f"\nRetained {len(results)} of {len(groups)} groups ({geocoded_count} with coordinates, {len(results) - geocoded_count} need a hint)")
     print(f"Cache hits: {cache_hits}, API calls: {api_calls}")
 
     return results
@@ -869,16 +890,32 @@ async def main():
     networks_data = {}
 
     for network_key, cfg in NETWORKS.items():
-        groups_enriched = await process_network(network_key, cfg)
-        networks_data[network_key] = groups_enriched
+        # One network having a bad run (a partial scrape, a sanity-check
+        # failure, etc.) shouldn't take down every other network's maps —
+        # skip it, leave its previously-saved CSV/maps untouched, and carry
+        # on so the rest of the run still completes.
+        try:
+            groups_enriched = await process_network(network_key, cfg)
+            networks_data[network_key] = groups_enriched
 
-        print(f"[{cfg['label']}] Generating maps...")
+            print(f"[{cfg['label']}] Generating maps...")
+            print("=" * 60, flush=True)
+            prefix = cfg['map_prefix']
+            create_world_map(groups_enriched, f'{prefix}_world_map.html')
+            create_world_map_layers(groups_enriched, f'{prefix}_world_map_active.html')
+            create_world_map_inactive(groups_enriched, f'{prefix}_world_map_inactive.html')
+            create_world_map_non_pro(groups_enriched, f'{prefix}_world_map_non_pro.html')
+        except Exception as e:
+            print("\n" + "=" * 60)
+            print(f"⚠ [{cfg['label']}] failed: {type(e).__name__}: {e}")
+            print(f"⚠ Skipping this network for this run — its CSV and maps are left as-is.")
+            print("=" * 60, flush=True)
+
+    if not networks_data:
+        print("\n" + "=" * 60)
+        print("No networks succeeded this run — skipping combined maps.")
         print("=" * 60, flush=True)
-        prefix = cfg['map_prefix']
-        create_world_map(groups_enriched, f'{prefix}_world_map.html')
-        create_world_map_layers(groups_enriched, f'{prefix}_world_map_active.html')
-        create_world_map_inactive(groups_enriched, f'{prefix}_world_map_inactive.html')
-        create_world_map_non_pro(groups_enriched, f'{prefix}_world_map_non_pro.html')
+        return
 
     print("\n" + "=" * 60)
     print("Generating combined maps across all networks...")

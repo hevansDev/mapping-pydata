@@ -1072,6 +1072,21 @@
       "lat": 31.1667049,
       "lon": 36.941628,
       "display_name": "\u0627\u0644\u0623\u0631\u062f\u0646"
+    },
+    "Python Hrvatska": {
+      "lat": 43.5045774,
+      "lon": 16.4453374,
+      "display_name": "Monty Python, Ulica Mile Gojsali\u0107, To\u0107, Gradski kotar Ba\u010dvice, Split, Grad Split, Splitsko-dalmatinska \u017eupanija, 21103, Hrvatska"
+    },
+    "Python Valencia": {
+      "lat": 34.4245463,
+      "lon": -118.5949528,
+      "display_name": "Python Plunge, Six Flags Magic Mountain footways, Entrada South, Valencia, Los Angeles County, California, 91381, United States"
+    },
+    "Python Bari": {
+      "lat": 50.8496866,
+      "lon": 4.392157,
+      "display_name": "Python, Avenue Emile Max - Emile Maxlaan, Prekelinden, Schaerbeek - Schaarbeek, Brussel-Hoofdstad - Bruxelles-Capitale, R\u00e9gion de Bruxelles-Capitale - Brussels Hoofdstedelijk Gewest, 1030, Belgi\u00eb / Belgique / Belgien"
     }
   }
 }
