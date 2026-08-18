@@ -1,0 +1,4358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b06fea9d14a4ff33ded9cbdc21a5501a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+    <script>
+    (function() {
+        function parseHash() {
+            var hash = window.location.hash;
+            if (hash) {
+                var parts = hash.replace('#', '').split('/');
+                if (parts.length === 3) {
+                    var zoom = parseInt(parts[0]);
+                    var lat = parseFloat(parts[1]);
+                    var lng = parseFloat(parts[2]);
+                    if (!isNaN(zoom) && !isNaN(lat) && !isNaN(lng)) {
+                        return {zoom: zoom, lat: lat, lng: lng};
+                    }
+                }
+            }
+            return null;
+        }
+        
+        var checkMap = setInterval(function() {
+            for (var key in window) {
+                if (window[key] instanceof L.Map) {
+                    var map = window[key];
+                    clearInterval(checkMap);
+                    var view = parseHash();
+                    if (view) {
+                        map.setView([view.lat, view.lng], view.zoom);
+                    }
+                    
+                    map.on('moveend', function() {
+                        var center = map.getCenter();
+                        var zoom = map.getZoom();
+                        history.replaceState(null, null, '#' + zoom + '/' + center.lat.toFixed(4) + '/' + center.lng.toFixed(4));
+                    });
+                    break;
+                }
+            }
+        }, 100);
+    })();
+    </script>
+    
+    
+            <div class="folium-map" id="map_b06fea9d14a4ff33ded9cbdc21a5501a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b06fea9d14a4ff33ded9cbdc21a5501a = L.map(
+                "map_b06fea9d14a4ff33ded9cbdc21a5501a",
+                {
+                    center: [30.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_399a174b37c5b53f88826702fb31b040 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Tiles \u0026copy; Esri \u0026mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_399a174b37c5b53f88826702fb31b040.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_7269f00e88901077f8ef14757ebdf2a0 = L.circleMarker(
+                [43.5045774, 16.4453374],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_d0277584f6a18c3a10ae1b6c49b7cbc7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e13700bf2d69ea2f00c4112bdb1fef4d = $(`<div id="html_e13700bf2d69ea2f00c4112bdb1fef4d" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-hrvatska' target='_blank'>Python Hrvatska</a></div>`)[0];
+                popup_d0277584f6a18c3a10ae1b6c49b7cbc7.setContent(html_e13700bf2d69ea2f00c4112bdb1fef4d);
+            
+        
+
+        circle_marker_7269f00e88901077f8ef14757ebdf2a0.bindPopup(popup_d0277584f6a18c3a10ae1b6c49b7cbc7)
+        ;
+
+        
+    
+    
+            circle_marker_7269f00e88901077f8ef14757ebdf2a0.bindTooltip(
+                `<div>
+                     Python Hrvatska
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_25449e7fe1954a25e07d655f579154b2 = L.circleMarker(
+                [34.4245463, -118.5949528],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_ed886c8c0e4c6142b8b74933dabebeb0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ec5d4c033716c90dc765e6f10323cd3f = $(`<div id="html_ec5d4c033716c90dc765e6f10323cd3f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-valencia-meetup' target='_blank'>Python Valencia</a></div>`)[0];
+                popup_ed886c8c0e4c6142b8b74933dabebeb0.setContent(html_ec5d4c033716c90dc765e6f10323cd3f);
+            
+        
+
+        circle_marker_25449e7fe1954a25e07d655f579154b2.bindPopup(popup_ed886c8c0e4c6142b8b74933dabebeb0)
+        ;
+
+        
+    
+    
+            circle_marker_25449e7fe1954a25e07d655f579154b2.bindTooltip(
+                `<div>
+                     Python Valencia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_54d0eff4b09324042402c40a5cb07c3a = L.circleMarker(
+                [50.8496866, 4.392157],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_20eb4947d4d9003a84f727ae90332bca = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f2d7d03eb9ea72f361e1e1ca6e762e09 = $(`<div id="html_f2d7d03eb9ea72f361e1e1ca6e762e09" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-bari' target='_blank'>Python Bari</a></div>`)[0];
+                popup_20eb4947d4d9003a84f727ae90332bca.setContent(html_f2d7d03eb9ea72f361e1e1ca6e762e09);
+            
+        
+
+        circle_marker_54d0eff4b09324042402c40a5cb07c3a.bindPopup(popup_20eb4947d4d9003a84f727ae90332bca)
+        ;
+
+        
+    
+    
+            circle_marker_54d0eff4b09324042402c40a5cb07c3a.bindTooltip(
+                `<div>
+                     Python Bari
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_0499697c6cde4ef18cec2408e48c7454 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_f3e48e6bae931052b9b6b3d5b3d19bb0 = L.circleMarker(
+                [51.5074456, -0.1277653],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_0499697c6cde4ef18cec2408e48c7454);
+        
+    
+        var popup_ca3b67354b23e576e2efc06ca940eeae = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b82a6ca750d74ea19fe6980fe63b0ac2 = $(`<div id="html_b82a6ca750d74ea19fe6980fe63b0ac2" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/djangolondon' target='_blank'>Django London</a></div>`)[0];
+                popup_ca3b67354b23e576e2efc06ca940eeae.setContent(html_b82a6ca750d74ea19fe6980fe63b0ac2);
+            
+        
+
+        circle_marker_f3e48e6bae931052b9b6b3d5b3d19bb0.bindPopup(popup_ca3b67354b23e576e2efc06ca940eeae)
+        ;
+
+        
+    
+    
+            circle_marker_f3e48e6bae931052b9b6b3d5b3d19bb0.bindTooltip(
+                `<div>
+                     Django London
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cee2ad2fcf00d4a19551e6a1a1d73248 = L.circleMarker(
+                [51.5074456, -0.1277653],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_0499697c6cde4ef18cec2408e48c7454);
+        
+    
+        var popup_a13aa658af7d3f03c4425e3d57e27a59 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c7e0f7564bb80549052de97bee4a1941 = $(`<div id="html_c7e0f7564bb80549052de97bee4a1941" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyLadiesLondon' target='_blank'>PyLadies London</a></div>`)[0];
+                popup_a13aa658af7d3f03c4425e3d57e27a59.setContent(html_c7e0f7564bb80549052de97bee4a1941);
+            
+        
+
+        circle_marker_cee2ad2fcf00d4a19551e6a1a1d73248.bindPopup(popup_a13aa658af7d3f03c4425e3d57e27a59)
+        ;
+
+        
+    
+    
+            circle_marker_cee2ad2fcf00d4a19551e6a1a1d73248.bindTooltip(
+                `<div>
+                     PyLadies London
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_0499697c6cde4ef18cec2408e48c7454.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_5c35e73b43333a1b25010bd9ccf806cb = L.circleMarker(
+                [51.7520131, -1.2578499],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_7ee8a0ac044bb83f37576e35e0f67570 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b624d0c861f9fab58dc24ef9f60db577 = $(`<div id="html_b624d0c861f9fab58dc24ef9f60db577" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/oxfordpython' target='_blank'>Oxford Python</a></div>`)[0];
+                popup_7ee8a0ac044bb83f37576e35e0f67570.setContent(html_b624d0c861f9fab58dc24ef9f60db577);
+            
+        
+
+        circle_marker_5c35e73b43333a1b25010bd9ccf806cb.bindPopup(popup_7ee8a0ac044bb83f37576e35e0f67570)
+        ;
+
+        
+    
+    
+            circle_marker_5c35e73b43333a1b25010bd9ccf806cb.bindTooltip(
+                `<div>
+                     Oxford Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_97537eaec27fbae9f1c5e87500a007cd = L.circleMarker(
+                [50.8467372, 4.352493],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_9adca801f586f1aae4be912f34ebdb75 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_25c8967f9294f6e0637d7714e14ff51b = $(`<div id="html_25c8967f9294f6e0637d7714e14ff51b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-brussels' target='_blank'>PyLadies Brussels</a></div>`)[0];
+                popup_9adca801f586f1aae4be912f34ebdb75.setContent(html_25c8967f9294f6e0637d7714e14ff51b);
+            
+        
+
+        circle_marker_97537eaec27fbae9f1c5e87500a007cd.bindPopup(popup_9adca801f586f1aae4be912f34ebdb75)
+        ;
+
+        
+    
+    
+            circle_marker_97537eaec27fbae9f1c5e87500a007cd.bindTooltip(
+                `<div>
+                     PyLadies Brussels
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b0253a36969bf9c712ec2a66b44e78f8 = L.circleMarker(
+                [52.1594747, 4.4908843],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_3bdcb74c3b4c1fc8fda031bfcef2589c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_da97604838bc3903106b24cfa3c1dcaf = $(`<div id="html_da97604838bc3903106b24cfa3c1dcaf" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-leiden-user-group' target='_blank'>Python Leiden User Group</a></div>`)[0];
+                popup_3bdcb74c3b4c1fc8fda031bfcef2589c.setContent(html_da97604838bc3903106b24cfa3c1dcaf);
+            
+        
+
+        circle_marker_b0253a36969bf9c712ec2a66b44e78f8.bindPopup(popup_3bdcb74c3b4c1fc8fda031bfcef2589c)
+        ;
+
+        
+    
+    
+            circle_marker_b0253a36969bf9c712ec2a66b44e78f8.bindTooltip(
+                `<div>
+                     Python Leiden User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_96f3f2bf59041e02d6d2834378be4be8 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_be1da1020862708388bfe04acd9d945d = L.circleMarker(
+                [48.8534951, 2.3483915],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_96f3f2bf59041e02d6d2834378be4be8);
+        
+    
+        var popup_a569713193c6a80b355971a18f5a26c2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bc7c7c634bf69efc26384d11a682abcd = $(`<div id="html_bc7c7c634bf69efc26384d11a682abcd" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/paris-python-machine-learning-deep-learning-meetup-group' target='_blank'>Python, Machine Learning and Deep Learning Meetup Group</a></div>`)[0];
+                popup_a569713193c6a80b355971a18f5a26c2.setContent(html_bc7c7c634bf69efc26384d11a682abcd);
+            
+        
+
+        circle_marker_be1da1020862708388bfe04acd9d945d.bindPopup(popup_a569713193c6a80b355971a18f5a26c2)
+        ;
+
+        
+    
+    
+            circle_marker_be1da1020862708388bfe04acd9d945d.bindTooltip(
+                `<div>
+                     Python, Machine Learning and Deep Learning Meetup Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d2313037dc46a29148939e95edac4ee1 = L.circleMarker(
+                [48.8534951, 2.3483915],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_96f3f2bf59041e02d6d2834378be4be8);
+        
+    
+        var popup_a899cf8649c9c959413c09a9c91ea945 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ce50148e99ceeffb843a75d229cc7bdb = $(`<div id="html_ce50148e99ceeffb843a75d229cc7bdb" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiesparis' target='_blank'>PyLadies Paris</a></div>`)[0];
+                popup_a899cf8649c9c959413c09a9c91ea945.setContent(html_ce50148e99ceeffb843a75d229cc7bdb);
+            
+        
+
+        circle_marker_d2313037dc46a29148939e95edac4ee1.bindPopup(popup_a899cf8649c9c959413c09a9c91ea945)
+        ;
+
+        
+    
+    
+            circle_marker_d2313037dc46a29148939e95edac4ee1.bindTooltip(
+                `<div>
+                     PyLadies Paris
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_96f3f2bf59041e02d6d2834378be4be8.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var marker_cluster_db7f3e2b127c9858aca7842bfdd3f4cf = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_860245f3cbc068c9532dbeb08e85b702 = L.circleMarker(
+                [52.3730796, 4.8924534],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_db7f3e2b127c9858aca7842bfdd3f4cf);
+        
+    
+        var popup_cc66af58dd2c016152f9413e63591837 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9e84d57fa6cd40b3b6ba51345f821609 = $(`<div id="html_9e84d57fa6cd40b3b6ba51345f821609" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyamsterdam' target='_blank'>PyAmsterdam</a></div>`)[0];
+                popup_cc66af58dd2c016152f9413e63591837.setContent(html_9e84d57fa6cd40b3b6ba51345f821609);
+            
+        
+
+        circle_marker_860245f3cbc068c9532dbeb08e85b702.bindPopup(popup_cc66af58dd2c016152f9413e63591837)
+        ;
+
+        
+    
+    
+            circle_marker_860245f3cbc068c9532dbeb08e85b702.bindTooltip(
+                `<div>
+                     PyAmsterdam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4dd303ddd433af67e8dff8ab5f69bb3e = L.circleMarker(
+                [52.3730796, 4.8924534],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_db7f3e2b127c9858aca7842bfdd3f4cf);
+        
+    
+        var popup_d2979d51c181b032c30cb95a9a102deb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8bfe57f0e4658dd0ae2d0a3358022181 = $(`<div id="html_8bfe57f0e4658dd0ae2d0a3358022181" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiesams' target='_blank'>PyLadies Amsterdam</a></div>`)[0];
+                popup_d2979d51c181b032c30cb95a9a102deb.setContent(html_8bfe57f0e4658dd0ae2d0a3358022181);
+            
+        
+
+        circle_marker_4dd303ddd433af67e8dff8ab5f69bb3e.bindPopup(popup_d2979d51c181b032c30cb95a9a102deb)
+        ;
+
+        
+    
+    
+            circle_marker_4dd303ddd433af67e8dff8ab5f69bb3e.bindTooltip(
+                `<div>
+                     PyLadies Amsterdam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_db7f3e2b127c9858aca7842bfdd3f4cf.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_cd938f0386af94cd54e28eceab77180b = L.circleMarker(
+                [53.3493795, -6.2605593],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_f2c9fe426c6a3bfaccc83585dec8cbb7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_166a0ec03c06ce632accf712d63eb1bb = $(`<div id="html_166a0ec03c06ce632accf712d63eb1bb" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiesdublin' target='_blank'>PyLadies Dublin</a></div>`)[0];
+                popup_f2c9fe426c6a3bfaccc83585dec8cbb7.setContent(html_166a0ec03c06ce632accf712d63eb1bb);
+            
+        
+
+        circle_marker_cd938f0386af94cd54e28eceab77180b.bindPopup(popup_f2c9fe426c6a3bfaccc83585dec8cbb7)
+        ;
+
+        
+    
+    
+            circle_marker_cd938f0386af94cd54e28eceab77180b.bindTooltip(
+                `<div>
+                     PyLadies Dublin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8ed51487bdb9d2865046ca2a01059541 = L.circleMarker(
+                [50.938361, 6.959974],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_15f6cc0467a324c2d7fc08a23b60b493 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f0856e33b9ccf5c8648d7e9963b6a1da = $(`<div id="html_f0856e33b9ccf5c8648d7e9963b6a1da" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pycologne' target='_blank'>PyCologne</a></div>`)[0];
+                popup_15f6cc0467a324c2d7fc08a23b60b493.setContent(html_f0856e33b9ccf5c8648d7e9963b6a1da);
+            
+        
+
+        circle_marker_8ed51487bdb9d2865046ca2a01059541.bindPopup(popup_15f6cc0467a324c2d7fc08a23b60b493)
+        ;
+
+        
+    
+    
+            circle_marker_8ed51487bdb9d2865046ca2a01059541.bindTooltip(
+                `<div>
+                     PyCologne
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ac62750093de4087d9871d30a466af1 = L.circleMarker(
+                [55.861155, -4.2501687],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_f92e8944ee477e99f88db9a0730f1fb8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_44e31df865dd3024468588e3cf636873 = $(`<div id="html_44e31df865dd3024468588e3cf636873" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-glasgow' target='_blank'>Python Glasgow</a></div>`)[0];
+                popup_f92e8944ee477e99f88db9a0730f1fb8.setContent(html_44e31df865dd3024468588e3cf636873);
+            
+        
+
+        circle_marker_3ac62750093de4087d9871d30a466af1.bindPopup(popup_f92e8944ee477e99f88db9a0730f1fb8)
+        ;
+
+        
+    
+    
+            circle_marker_3ac62750093de4087d9871d30a466af1.bindTooltip(
+                `<div>
+                     Python Glasgow
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c2c91f57046760f0be475387d10c8c13 = L.circleMarker(
+                [47.9960901, 7.8494005],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_edf868720773c6e9e375f9a484b00bcb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ccffc615db068a5f9814a3c79e9ead54 = $(`<div id="html_ccffc615db068a5f9814a3c79e9ead54" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Python-User-Group-Freiburg' target='_blank'>Python User Group Freiburg</a></div>`)[0];
+                popup_edf868720773c6e9e375f9a484b00bcb.setContent(html_ccffc615db068a5f9814a3c79e9ead54);
+            
+        
+
+        circle_marker_c2c91f57046760f0be475387d10c8c13.bindPopup(popup_edf868720773c6e9e375f9a484b00bcb)
+        ;
+
+        
+    
+    
+            circle_marker_c2c91f57046760f0be475387d10c8c13.bindTooltip(
+                `<div>
+                     Python User Group Freiburg
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b92309d749156a2e34fbedfc35e98566 = L.circleMarker(
+                [53.550341, 10.000654],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_7e46cf94eca6382128dd46740a392268 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2446b6602bf18fa41b284f39d2bbe738 = $(`<div id="html_2446b6602bf18fa41b284f39d2bbe738" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyLadies-Hamburg' target='_blank'>PyLadies Hamburg</a></div>`)[0];
+                popup_7e46cf94eca6382128dd46740a392268.setContent(html_2446b6602bf18fa41b284f39d2bbe738);
+            
+        
+
+        circle_marker_b92309d749156a2e34fbedfc35e98566.bindPopup(popup_7e46cf94eca6382128dd46740a392268)
+        ;
+
+        
+    
+    
+            circle_marker_b92309d749156a2e34fbedfc35e98566.bindTooltip(
+                `<div>
+                     PyLadies Hamburg
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fcd6f2656f060ad971e3946d64fc3dfc = L.circleMarker(
+                [47.3744489, 8.5410422],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_88eebd5d17cc57859126a122053e41f0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e53afd0cf4d13b97086e4db8a43e1f01 = $(`<div id="html_e53afd0cf4d13b97086e4db8a43e1f01" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-zurich' target='_blank'>PyLadies Zurich</a></div>`)[0];
+                popup_88eebd5d17cc57859126a122053e41f0.setContent(html_e53afd0cf4d13b97086e4db8a43e1f01);
+            
+        
+
+        circle_marker_fcd6f2656f060ad971e3946d64fc3dfc.bindPopup(popup_88eebd5d17cc57859126a122053e41f0)
+        ;
+
+        
+    
+    
+            circle_marker_fcd6f2656f060ad971e3946d64fc3dfc.bindTooltip(
+                `<div>
+                     PyLadies Zurich
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_77ed125e46466de9ebaf0d49ab195827 = L.circleMarker(
+                [49.453872, 11.077298],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_c6d6439e2c563420d9015ac1317566d7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4e9f3f1b450a13d4d075d586005baee7 = $(`<div id="html_4e9f3f1b450a13d4d075d586005baee7" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-user-group-nuremberg' target='_blank'>Python User Group Nürnberg</a></div>`)[0];
+                popup_c6d6439e2c563420d9015ac1317566d7.setContent(html_4e9f3f1b450a13d4d075d586005baee7);
+            
+        
+
+        circle_marker_77ed125e46466de9ebaf0d49ab195827.bindPopup(popup_c6d6439e2c563420d9015ac1317566d7)
+        ;
+
+        
+    
+    
+            circle_marker_77ed125e46466de9ebaf0d49ab195827.bindTooltip(
+                `<div>
+                     Python User Group Nürnberg
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1ecbb7a984cfddad1e3f93fd90ce2a13 = L.circleMarker(
+                [48.1371079, 11.5753822],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_5043c7a8627b204116774f7899747491 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f033173ced60ae890de030b45b0294e5 = $(`<div id="html_f033173ced60ae890de030b45b0294e5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiesmunich' target='_blank'>Pyladies Munich</a></div>`)[0];
+                popup_5043c7a8627b204116774f7899747491.setContent(html_f033173ced60ae890de030b45b0294e5);
+            
+        
+
+        circle_marker_1ecbb7a984cfddad1e3f93fd90ce2a13.bindPopup(popup_5043c7a8627b204116774f7899747491)
+        ;
+
+        
+    
+    
+            circle_marker_1ecbb7a984cfddad1e3f93fd90ce2a13.bindTooltip(
+                `<div>
+                     Pyladies Munich
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_950bea486d7f0562a4e2f38184d1fb0b = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_1f3d0f8824c50a7fd33f67a61247d0b1 = L.circleMarker(
+                [52.5173885, 13.3951309],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_950bea486d7f0562a4e2f38184d1fb0b);
+        
+    
+        var popup_15e0407aadf6554a670dee630af93f59 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_61836bf80f2a6ab13d8efc84505dcd6b = $(`<div id="html_61836bf80f2a6ab13d8efc84505dcd6b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyberlin' target='_blank'>PyBerlin</a></div>`)[0];
+                popup_15e0407aadf6554a670dee630af93f59.setContent(html_61836bf80f2a6ab13d8efc84505dcd6b);
+            
+        
+
+        circle_marker_1f3d0f8824c50a7fd33f67a61247d0b1.bindPopup(popup_15e0407aadf6554a670dee630af93f59)
+        ;
+
+        
+    
+    
+            circle_marker_1f3d0f8824c50a7fd33f67a61247d0b1.bindTooltip(
+                `<div>
+                     PyBerlin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_651e8a989f40f76efc26d781155ef078 = L.circleMarker(
+                [52.5173885, 13.3951309],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_950bea486d7f0562a4e2f38184d1fb0b);
+        
+    
+        var popup_254697c401e12a0d34f8aa91a7e356cf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_831e4d23d485f37a77b10ad20db9daad = $(`<div id="html_831e4d23d485f37a77b10ad20db9daad" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-berlin' target='_blank'>PyLadies Berlin</a></div>`)[0];
+                popup_254697c401e12a0d34f8aa91a7e356cf.setContent(html_831e4d23d485f37a77b10ad20db9daad);
+            
+        
+
+        circle_marker_651e8a989f40f76efc26d781155ef078.bindPopup(popup_254697c401e12a0d34f8aa91a7e356cf)
+        ;
+
+        
+    
+    
+            circle_marker_651e8a989f40f76efc26d781155ef078.bindTooltip(
+                `<div>
+                     PyLadies Berlin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_950bea486d7f0562a4e2f38184d1fb0b.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_40816576619eeb61631f04eead25eeca = L.circleMarker(
+                [45.4641943, 9.1896346],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_548801db80c7411f14483ad0b23e1186 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f8149f6217840834e2f2a9f7e7cc8ca2 = $(`<div id="html_f8149f6217840834e2f2a9f7e7cc8ca2" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-milano' target='_blank'>Python Milano</a></div>`)[0];
+                popup_548801db80c7411f14483ad0b23e1186.setContent(html_f8149f6217840834e2f2a9f7e7cc8ca2);
+            
+        
+
+        circle_marker_40816576619eeb61631f04eead25eeca.bindPopup(popup_548801db80c7411f14483ad0b23e1186)
+        ;
+
+        
+    
+    
+            circle_marker_40816576619eeb61631f04eead25eeca.bindTooltip(
+                `<div>
+                     Python Milano
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4cccf9295a43b7c2eaad968a99d6a629 = L.circleMarker(
+                [41.9793006, 2.8199439],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_b60551d3baeb7cbdcf3c0059c94e5f88 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ee09350dd54a1b000b496f55e837375f = $(`<div id="html_ee09350dd54a1b000b496f55e837375f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythongirona' target='_blank'>Python Girona</a></div>`)[0];
+                popup_b60551d3baeb7cbdcf3c0059c94e5f88.setContent(html_ee09350dd54a1b000b496f55e837375f);
+            
+        
+
+        circle_marker_4cccf9295a43b7c2eaad968a99d6a629.bindPopup(popup_b60551d3baeb7cbdcf3c0059c94e5f88)
+        ;
+
+        
+    
+    
+            circle_marker_4cccf9295a43b7c2eaad968a99d6a629.bindTooltip(
+                `<div>
+                     Python Girona
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_053f058a5ff2334b355fc6fb443519ab = L.circleMarker(
+                [43.3466447, -8.4127029],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_c40e0ef72d7642258120893ca7ffbb75 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5d8d9a25f0d212e25be9c2253396bd1d = $(`<div id="html_5d8d9a25f0d212e25be9c2253396bd1d" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-a-coruna' target='_blank'>Python A Coruña</a></div>`)[0];
+                popup_c40e0ef72d7642258120893ca7ffbb75.setContent(html_5d8d9a25f0d212e25be9c2253396bd1d);
+            
+        
+
+        circle_marker_053f058a5ff2334b355fc6fb443519ab.bindPopup(popup_c40e0ef72d7642258120893ca7ffbb75)
+        ;
+
+        
+    
+    
+            circle_marker_053f058a5ff2334b355fc6fb443519ab.bindTooltip(
+                `<div>
+                     Python A Coruña
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_f23f6e4b7abd60c69298bc0e5247656e = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_7c16271f1abae65df932585a36e1c50d = L.circleMarker(
+                [41.3825802, 2.177073],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_f23f6e4b7abd60c69298bc0e5247656e);
+        
+    
+        var popup_1481345ec7e8632e2954c74705078b8f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6230e24d3f28106cd618bff7a59168ca = $(`<div id="html_6230e24d3f28106cd618bff7a59168ca" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyLadies-BCN' target='_blank'>PyLadies BCN</a></div>`)[0];
+                popup_1481345ec7e8632e2954c74705078b8f.setContent(html_6230e24d3f28106cd618bff7a59168ca);
+            
+        
+
+        circle_marker_7c16271f1abae65df932585a36e1c50d.bindPopup(popup_1481345ec7e8632e2954c74705078b8f)
+        ;
+
+        
+    
+    
+            circle_marker_7c16271f1abae65df932585a36e1c50d.bindTooltip(
+                `<div>
+                     PyLadies BCN
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fea6b207002740c35d7b390a74a121f1 = L.circleMarker(
+                [41.3825802, 2.177073],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_f23f6e4b7abd60c69298bc0e5247656e);
+        
+    
+        var popup_9f28374a749840738a844409f2de1ed6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c2a5dcadd48bf878969f6f8e783215c1 = $(`<div id="html_c2a5dcadd48bf878969f6f8e783215c1" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-barcelona' target='_blank'>Python Barcelona Meetup</a></div>`)[0];
+                popup_9f28374a749840738a844409f2de1ed6.setContent(html_c2a5dcadd48bf878969f6f8e783215c1);
+            
+        
+
+        circle_marker_fea6b207002740c35d7b390a74a121f1.bindPopup(popup_9f28374a749840738a844409f2de1ed6)
+        ;
+
+        
+    
+    
+            circle_marker_fea6b207002740c35d7b390a74a121f1.bindTooltip(
+                `<div>
+                     Python Barcelona Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_f23f6e4b7abd60c69298bc0e5247656e.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_d070f9122dce1381d30d58b9a1745338 = L.circleMarker(
+                [59.9133301, 10.7389701],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_971e0e3e8fde63e92333920a682ea153 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e37785397f2106bbd7e368bf3da3791f = $(`<div id="html_e37785397f2106bbd7e368bf3da3791f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-oslo' target='_blank'>PyLadies Oslo</a></div>`)[0];
+                popup_971e0e3e8fde63e92333920a682ea153.setContent(html_e37785397f2106bbd7e368bf3da3791f);
+            
+        
+
+        circle_marker_d070f9122dce1381d30d58b9a1745338.bindPopup(popup_971e0e3e8fde63e92333920a682ea153)
+        ;
+
+        
+    
+    
+            circle_marker_d070f9122dce1381d30d58b9a1745338.bindTooltip(
+                `<div>
+                     PyLadies Oslo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fa56391aa398a4ec9ba00d54a92ca6ae = L.circleMarker(
+                [46.0500268, 14.5069289],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_ded5a17e1e61ff2443cb06e625852e3e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d07cf06c99d80dbef8f979fb1d1b8817 = $(`<div id="html_d07cf06c99d80dbef8f979fb1d1b8817" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Ljubljana-Python-Group' target='_blank'>Ljubljana Python User Group</a></div>`)[0];
+                popup_ded5a17e1e61ff2443cb06e625852e3e.setContent(html_d07cf06c99d80dbef8f979fb1d1b8817);
+            
+        
+
+        circle_marker_fa56391aa398a4ec9ba00d54a92ca6ae.bindPopup(popup_ded5a17e1e61ff2443cb06e625852e3e)
+        ;
+
+        
+    
+    
+            circle_marker_fa56391aa398a4ec9ba00d54a92ca6ae.bindTooltip(
+                `<div>
+                     Ljubljana Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0f5489ae52ea0a9e2887016e1d75d30a = L.circleMarker(
+                [40.416782, -3.703507],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_9cc59b0a78a68e214c213b427d216a07 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c8cc1405d7631fe9e9f758875e20a701 = $(`<div id="html_c8cc1405d7631fe9e9f758875e20a701" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiesmadrid' target='_blank'>PyLadies Madrid</a></div>`)[0];
+                popup_9cc59b0a78a68e214c213b427d216a07.setContent(html_c8cc1405d7631fe9e9f758875e20a701);
+            
+        
+
+        circle_marker_0f5489ae52ea0a9e2887016e1d75d30a.bindPopup(popup_9cc59b0a78a68e214c213b427d216a07)
+        ;
+
+        
+    
+    
+            circle_marker_0f5489ae52ea0a9e2887016e1d75d30a.bindTooltip(
+                `<div>
+                     PyLadies Madrid
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_07b437078b4db9a41b2f9b3208918a34 = L.circleMarker(
+                [59.3251172, 18.0710935],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_d05e96e3d298738ded734ccdf176626c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4bbdf57089ee8a5e9783c1ce2615910c = $(`<div id="html_4bbdf57089ee8a5e9783c1ce2615910c" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiesstockholm' target='_blank'>PyLadies Stockholm</a></div>`)[0];
+                popup_d05e96e3d298738ded734ccdf176626c.setContent(html_4bbdf57089ee8a5e9783c1ce2615910c);
+            
+        
+
+        circle_marker_07b437078b4db9a41b2f9b3208918a34.bindPopup(popup_d05e96e3d298738ded734ccdf176626c)
+        ;
+
+        
+    
+    
+            circle_marker_07b437078b4db9a41b2f9b3208918a34.bindTooltip(
+                `<div>
+                     PyLadies Stockholm
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fe121f3c3879af9a59f3450ee3eddd3d = L.circleMarker(
+                [47.4978789, 19.0402383],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_3533efea35014425d224aaee913be058 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6b65c2755ce13d8ece54d36fca10256f = $(`<div id="html_6b65c2755ce13d8ece54d36fca10256f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-budapest' target='_blank'>PyLadies Budapest</a></div>`)[0];
+                popup_3533efea35014425d224aaee913be058.setContent(html_6b65c2755ce13d8ece54d36fca10256f);
+            
+        
+
+        circle_marker_fe121f3c3879af9a59f3450ee3eddd3d.bindPopup(popup_3533efea35014425d224aaee913be058)
+        ;
+
+        
+    
+    
+            circle_marker_fe121f3c3879af9a59f3450ee3eddd3d.bindTooltip(
+                `<div>
+                     PyLadies Budapest
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_185ab345a5d645c92024a241c59b6888 = L.circleMarker(
+                [42.3097631, 13.9579989],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_df6b66c6b4a88d0df8c19b8fe443211c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_77f8b60f577a03c2790120e495d4c3df = $(`<div id="html_77f8b60f577a03c2790120e495d4c3df" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonpescara' target='_blank'>Python Pescara</a></div>`)[0];
+                popup_df6b66c6b4a88d0df8c19b8fe443211c.setContent(html_77f8b60f577a03c2790120e495d4c3df);
+            
+        
+
+        circle_marker_185ab345a5d645c92024a241c59b6888.bindPopup(popup_df6b66c6b4a88d0df8c19b8fe443211c)
+        ;
+
+        
+    
+    
+            circle_marker_185ab345a5d645c92024a241c59b6888.bindTooltip(
+                `<div>
+                     Python Pescara
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0ec0e46dc8972dd4af70e02e38bc9478 = L.circleMarker(
+                [38.7077507, -9.1365919],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_2cfb78fee02960a2f16c41ec64c35b8e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_19ffd59a712b4d136a452c791730ccad = $(`<div id="html_19ffd59a712b4d136a452c791730ccad" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-lisbon-meetup' target='_blank'>Python 🐍 Lisbon Meetup</a></div>`)[0];
+                popup_2cfb78fee02960a2f16c41ec64c35b8e.setContent(html_19ffd59a712b4d136a452c791730ccad);
+            
+        
+
+        circle_marker_0ec0e46dc8972dd4af70e02e38bc9478.bindPopup(popup_2cfb78fee02960a2f16c41ec64c35b8e)
+        ;
+
+        
+    
+    
+            circle_marker_0ec0e46dc8972dd4af70e02e38bc9478.bindTooltip(
+                `<div>
+                     Python 🐍 Lisbon Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_65ab530379f5cc92454b470424945349 = L.circleMarker(
+                [37.3886303, -5.9953403],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_233c786ad607846c9f31c94a6cb71052 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c3a81839a439d749573a95583650820b = $(`<div id="html_c3a81839a439d749573a95583650820b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-sevilla' target='_blank'>Python Sevilla</a></div>`)[0];
+                popup_233c786ad607846c9f31c94a6cb71052.setContent(html_c3a81839a439d749573a95583650820b);
+            
+        
+
+        circle_marker_65ab530379f5cc92454b470424945349.bindPopup(popup_233c786ad607846c9f31c94a6cb71052)
+        ;
+
+        
+    
+    
+            circle_marker_65ab530379f5cc92454b470424945349.bindTooltip(
+                `<div>
+                     Python Sevilla
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5612beb368434099ce9215f1234147e8 = L.circleMarker(
+                [36.7213028, -4.4216366],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_cfa43de8352e0c2a3647cf095cfe4a05 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d9e3aeec2398dd7d69ba515ac7ccb404 = $(`<div id="html_d9e3aeec2398dd7d69ba515ac7ccb404" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python_malaga' target='_blank'>Python Málaga</a></div>`)[0];
+                popup_cfa43de8352e0c2a3647cf095cfe4a05.setContent(html_d9e3aeec2398dd7d69ba515ac7ccb404);
+            
+        
+
+        circle_marker_5612beb368434099ce9215f1234147e8.bindPopup(popup_cfa43de8352e0c2a3647cf095cfe4a05)
+        ;
+
+        
+    
+    
+            circle_marker_5612beb368434099ce9215f1234147e8.bindTooltip(
+                `<div>
+                     Python Málaga
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_637cf70c312bd68afafd3fb5ae5075a9 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_a1f5f8a2d99c0bc34853a7fe86adb369 = L.circleMarker(
+                [54.6870458, 25.2829111],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_637cf70c312bd68afafd3fb5ae5075a9);
+        
+    
+        var popup_619a4c44bb70ff0586882a738972df9a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_305384af082d821cbcc2c4c190709f8c = $(`<div id="html_305384af082d821cbcc2c4c190709f8c" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-lithuania' target='_blank'>PyLadies Lithuania</a></div>`)[0];
+                popup_619a4c44bb70ff0586882a738972df9a.setContent(html_305384af082d821cbcc2c4c190709f8c);
+            
+        
+
+        circle_marker_a1f5f8a2d99c0bc34853a7fe86adb369.bindPopup(popup_619a4c44bb70ff0586882a738972df9a)
+        ;
+
+        
+    
+    
+            circle_marker_a1f5f8a2d99c0bc34853a7fe86adb369.bindTooltip(
+                `<div>
+                     PyLadies Lithuania
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_006305e93c7babc3cadaac30e4af3342 = L.circleMarker(
+                [54.6870458, 25.2829111],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_637cf70c312bd68afafd3fb5ae5075a9);
+        
+    
+        var popup_fdf63ff637b7d0de8bd9ff6cc4d79a2b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1a0a3309e86b70e6fdbd0a05dce5c6ed = $(`<div id="html_1a0a3309e86b70e6fdbd0a05dce5c6ed" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/vilniuspy' target='_blank'>VilniusPy</a></div>`)[0];
+                popup_fdf63ff637b7d0de8bd9ff6cc4d79a2b.setContent(html_1a0a3309e86b70e6fdbd0a05dce5c6ed);
+            
+        
+
+        circle_marker_006305e93c7babc3cadaac30e4af3342.bindPopup(popup_fdf63ff637b7d0de8bd9ff6cc4d79a2b)
+        ;
+
+        
+    
+    
+            circle_marker_006305e93c7babc3cadaac30e4af3342.bindTooltip(
+                `<div>
+                     VilniusPy
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_637cf70c312bd68afafd3fb5ae5075a9.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_a3a98d2621898698ba46cf9525f7f995 = L.circleMarker(
+                [60.1666204, 24.9435408],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_dfbd5fe0bec39821a436d65b37dcae89 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bda9dd953962a73936acc95c8e71aa52 = $(`<div id="html_bda9dd953962a73936acc95c8e71aa52" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/helpy-meetups' target='_blank'>Helsinki Python</a></div>`)[0];
+                popup_dfbd5fe0bec39821a436d65b37dcae89.setContent(html_bda9dd953962a73936acc95c8e71aa52);
+            
+        
+
+        circle_marker_a3a98d2621898698ba46cf9525f7f995.bindPopup(popup_dfbd5fe0bec39821a436d65b37dcae89)
+        ;
+
+        
+    
+    
+            circle_marker_a3a98d2621898698ba46cf9525f7f995.bindTooltip(
+                `<div>
+                     Helsinki Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_26bafaac842ce17f65651a5e39a94be9 = L.circleMarker(
+                [37.5023612, 15.0873718],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_5ef834cdd5a2c0551ae54e8c70c1ccff = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9645855d640a8ba3a0bbb5987a8873fe = $(`<div id="html_9645855d640a8ba3a0bbb5987a8873fe" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-catania' target='_blank'>Python Catania</a></div>`)[0];
+                popup_5ef834cdd5a2c0551ae54e8c70c1ccff.setContent(html_9645855d640a8ba3a0bbb5987a8873fe);
+            
+        
+
+        circle_marker_26bafaac842ce17f65651a5e39a94be9.bindPopup(popup_5ef834cdd5a2c0551ae54e8c70c1ccff)
+        ;
+
+        
+    
+    
+            circle_marker_26bafaac842ce17f65651a5e39a94be9.bindTooltip(
+                `<div>
+                     Python Catania
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_68e9e607aab228e8a0f9a02fb968cd6a = L.circleMarker(
+                [6.4550575, 3.3941795],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_2fcc7a8b61d2bc5ca043fb316940af67 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d6b4290f6a1f68423cebbbc3b1de56b3 = $(`<div id="html_d6b4290f6a1f68423cebbbc3b1de56b3" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-users-nigeria-meetup' target='_blank'>Python Nigeria Meetup</a></div>`)[0];
+                popup_2fcc7a8b61d2bc5ca043fb316940af67.setContent(html_d6b4290f6a1f68423cebbbc3b1de56b3);
+            
+        
+
+        circle_marker_68e9e607aab228e8a0f9a02fb968cd6a.bindPopup(popup_2fcc7a8b61d2bc5ca043fb316940af67)
+        ;
+
+        
+    
+    
+            circle_marker_68e9e607aab228e8a0f9a02fb968cd6a.bindTooltip(
+                `<div>
+                     Python Nigeria Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_07e9f6a3f48a88fc9924123ebb46d7a5 = L.circleMarker(
+                [5.5571096, -0.2012376],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_80cc77a4e49bc8abf4f2bf40d83c2ce5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2be6bc2423c2a22e035efdd2a0e9e88b = $(`<div id="html_2be6bc2423c2a22e035efdd2a0e9e88b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-ghana' target='_blank'>Python Ghana</a></div>`)[0];
+                popup_80cc77a4e49bc8abf4f2bf40d83c2ce5.setContent(html_2be6bc2423c2a22e035efdd2a0e9e88b);
+            
+        
+
+        circle_marker_07e9f6a3f48a88fc9924123ebb46d7a5.bindPopup(popup_80cc77a4e49bc8abf4f2bf40d83c2ce5)
+        ;
+
+        
+    
+    
+            circle_marker_07e9f6a3f48a88fc9924123ebb46d7a5.bindTooltip(
+                `<div>
+                     Python Ghana
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a0329cdd7bc1e5101ee5ffade656dbdf = L.circleMarker(
+                [45.5031824, -73.5698065],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_325146a95599e01ec227bffbe40abe1f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d3069023f538776107d5d7f299b22c75 = $(`<div id="html_d3069023f538776107d5d7f299b22c75" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/montreal-python' target='_blank'>Montréal-Python</a></div>`)[0];
+                popup_325146a95599e01ec227bffbe40abe1f.setContent(html_d3069023f538776107d5d7f299b22c75);
+            
+        
+
+        circle_marker_a0329cdd7bc1e5101ee5ffade656dbdf.bindPopup(popup_325146a95599e01ec227bffbe40abe1f)
+        ;
+
+        
+    
+    
+            circle_marker_a0329cdd7bc1e5101ee5ffade656dbdf.bindTooltip(
+                `<div>
+                     Montréal-Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_73283f5a005ba5cdb205f21080eb95b2 = L.circleMarker(
+                [42.3588336, -71.0578303],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_eaf32d9c18ab0f4b765feadca3321ba0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dd028578bddd2d4aad15a7642ebcb346 = $(`<div id="html_dd028578bddd2d4aad15a7642ebcb346" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-boston' target='_blank'>PyLadies Boston</a></div>`)[0];
+                popup_eaf32d9c18ab0f4b765feadca3321ba0.setContent(html_dd028578bddd2d4aad15a7642ebcb346);
+            
+        
+
+        circle_marker_73283f5a005ba5cdb205f21080eb95b2.bindPopup(popup_eaf32d9c18ab0f4b765feadca3321ba0)
+        ;
+
+        
+    
+    
+            circle_marker_73283f5a005ba5cdb205f21080eb95b2.bindTooltip(
+                `<div>
+                     PyLadies Boston
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b379770c6fc70b854ab364953bfc9f2e = L.circleMarker(
+                [52.2055314, 0.1186637],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_53dde122aeb1c22544dfcecf7484c6e5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9b2c6568826a0142c86855adfedc32d5 = $(`<div id="html_9b2c6568826a0142c86855adfedc32d5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/bostonpython' target='_blank'>The Boston Python User Group</a></div>`)[0];
+                popup_53dde122aeb1c22544dfcecf7484c6e5.setContent(html_9b2c6568826a0142c86855adfedc32d5);
+            
+        
+
+        circle_marker_b379770c6fc70b854ab364953bfc9f2e.bindPopup(popup_53dde122aeb1c22544dfcecf7484c6e5)
+        ;
+
+        
+    
+    
+            circle_marker_b379770c6fc70b854ab364953bfc9f2e.bindTooltip(
+                `<div>
+                     The Boston Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e6bdf6911c9ebaa8855d689695eb7696 = L.circleMarker(
+                [45.4208777, -75.6901106],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_9b8db9d905210321f95b213974986102 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c88a5fd8fe31a1e86edbb0b7ddd72d7a = $(`<div id="html_c88a5fd8fe31a1e86edbb0b7ddd72d7a" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/ottawapython' target='_blank'>Ottawa Python Authors Group</a></div>`)[0];
+                popup_9b8db9d905210321f95b213974986102.setContent(html_c88a5fd8fe31a1e86edbb0b7ddd72d7a);
+            
+        
+
+        circle_marker_e6bdf6911c9ebaa8855d689695eb7696.bindPopup(popup_9b8db9d905210321f95b213974986102)
+        ;
+
+        
+    
+    
+            circle_marker_e6bdf6911c9ebaa8855d689695eb7696.bindTooltip(
+                `<div>
+                     Ottawa Python Authors Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_112c1f521eee647eb304d25ec54ce9d7 = L.circleMarker(
+                [40.7127281, -74.0060152],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_8b0e4dcd4a19c0d1ea7de8d345e5c3df = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_61012b8223fac2a119933d4d39d3a7ec = $(`<div id="html_61012b8223fac2a119933d4d39d3a7ec" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/nyc-pyladies' target='_blank'>NYC PyLadies</a></div>`)[0];
+                popup_8b0e4dcd4a19c0d1ea7de8d345e5c3df.setContent(html_61012b8223fac2a119933d4d39d3a7ec);
+            
+        
+
+        circle_marker_112c1f521eee647eb304d25ec54ce9d7.bindPopup(popup_8b0e4dcd4a19c0d1ea7de8d345e5c3df)
+        ;
+
+        
+    
+    
+            circle_marker_112c1f521eee647eb304d25ec54ce9d7.bindTooltip(
+                `<div>
+                     NYC PyLadies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1ff218fdc754567855f9d4a4919762af = L.circleMarker(
+                [40.3496953, -74.6597376],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_e34916a81f7d33ed8090b9b2295b3fc5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f1cac972f1d4df74c1c90cc94f92c8ec = $(`<div id="html_f1cac972f1d4df74c1c90cc94f92c8ec" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyLadies-Princeton' target='_blank'>PyLadies Princeton</a></div>`)[0];
+                popup_e34916a81f7d33ed8090b9b2295b3fc5.setContent(html_f1cac972f1d4df74c1c90cc94f92c8ec);
+            
+        
+
+        circle_marker_1ff218fdc754567855f9d4a4919762af.bindPopup(popup_e34916a81f7d33ed8090b9b2295b3fc5)
+        ;
+
+        
+    
+    
+            circle_marker_1ff218fdc754567855f9d4a4919762af.bindTooltip(
+                `<div>
+                     PyLadies Princeton
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_833d28945b0eb43e8e8510f638b2fff0 = L.circleMarker(
+                [43.157285, -77.615214],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_902b5c2a5434d30513df9c939e17b381 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f4e33c7e814e2f3805c77f967c2ed45b = $(`<div id="html_f4e33c7e814e2f3805c77f967c2ed45b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/rochester-python-meetup' target='_blank'>Rochester Python Meetup</a></div>`)[0];
+                popup_902b5c2a5434d30513df9c939e17b381.setContent(html_f4e33c7e814e2f3805c77f967c2ed45b);
+            
+        
+
+        circle_marker_833d28945b0eb43e8e8510f638b2fff0.bindPopup(popup_902b5c2a5434d30513df9c939e17b381)
+        ;
+
+        
+    
+    
+            circle_marker_833d28945b0eb43e8e8510f638b2fff0.bindTooltip(
+                `<div>
+                     Rochester Python Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_239bf93ebb6883e57f857cd618817ab5 = L.circleMarker(
+                [39.9527237, -75.1635262],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_51aba649d2a80371340562e063db567e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5ce97ba5caf842f1eb88077dbeab6761 = $(`<div id="html_5ce97ba5caf842f1eb88077dbeab6761" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/phillypug' target='_blank'>The Philadelphia Python Users Group (PhillyPUG)</a></div>`)[0];
+                popup_51aba649d2a80371340562e063db567e.setContent(html_5ce97ba5caf842f1eb88077dbeab6761);
+            
+        
+
+        circle_marker_239bf93ebb6883e57f857cd618817ab5.bindPopup(popup_51aba649d2a80371340562e063db567e)
+        ;
+
+        
+    
+    
+            circle_marker_239bf93ebb6883e57f857cd618817ab5.bindTooltip(
+                `<div>
+                     The Philadelphia Python Users Group (PhillyPUG)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a08884663b5841c5589a17cdd6f1121 = L.circleMarker(
+                [43.6534817, -79.3839347],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_f8f6ac33d26a240d51bbeb3d1fc4e795 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ed411f17d66b8090e776490a7a719e1a = $(`<div id="html_ed411f17d66b8090e776490a7a719e1a" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-toronto' target='_blank'>Python Toronto</a></div>`)[0];
+                popup_f8f6ac33d26a240d51bbeb3d1fc4e795.setContent(html_ed411f17d66b8090e776490a7a719e1a);
+            
+        
+
+        circle_marker_1a08884663b5841c5589a17cdd6f1121.bindPopup(popup_f8f6ac33d26a240d51bbeb3d1fc4e795)
+        ;
+
+        
+    
+    
+            circle_marker_1a08884663b5841c5589a17cdd6f1121.bindTooltip(
+                `<div>
+                     Python Toronto
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7b5c2a61e1dbd75bacdb48101106ff95 = L.circleMarker(
+                [38.9812726, -77.1233587],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_f27ba1a6b0f7e2a89bf862f96b24e31d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2aefa5ebe30763030e44ea1a6398b781 = $(`<div id="html_2aefa5ebe30763030e44ea1a6398b781" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/dcpython' target='_blank'>DC Python Meetup</a></div>`)[0];
+                popup_f27ba1a6b0f7e2a89bf862f96b24e31d.setContent(html_2aefa5ebe30763030e44ea1a6398b781);
+            
+        
+
+        circle_marker_7b5c2a61e1dbd75bacdb48101106ff95.bindPopup(popup_f27ba1a6b0f7e2a89bf862f96b24e31d)
+        ;
+
+        
+    
+    
+            circle_marker_7b5c2a61e1dbd75bacdb48101106ff95.bindTooltip(
+                `<div>
+                     DC Python Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4f592d751cda640212a70268105bac85 = L.circleMarker(
+                [38.953282, -77.3464516],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_5a61d7a4da3f1d34b5330a5f0bf4c184 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dd2ef0ee6595bd7fa360a3e358e99a9a = $(`<div id="html_dd2ef0ee6595bd7fa360a3e358e99a9a" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/nova-python' target='_blank'>NOVA-Python</a></div>`)[0];
+                popup_5a61d7a4da3f1d34b5330a5f0bf4c184.setContent(html_dd2ef0ee6595bd7fa360a3e358e99a9a);
+            
+        
+
+        circle_marker_4f592d751cda640212a70268105bac85.bindPopup(popup_5a61d7a4da3f1d34b5330a5f0bf4c184)
+        ;
+
+        
+    
+    
+            circle_marker_4f592d751cda640212a70268105bac85.bindTooltip(
+                `<div>
+                     NOVA-Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_27faf389d3d1a7093439426ad2b3beda = L.circleMarker(
+                [52.666667, 1.0],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_c72414c2a678581cd71a904020a54a77 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_958967e4f872be6003630e225d7b0c53 = $(`<div id="html_958967e4f872be6003630e225d7b0c53" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/virginia-python' target='_blank'>Virginia Python Users Group</a></div>`)[0];
+                popup_c72414c2a678581cd71a904020a54a77.setContent(html_958967e4f872be6003630e225d7b0c53);
+            
+        
+
+        circle_marker_27faf389d3d1a7093439426ad2b3beda.bindPopup(popup_c72414c2a678581cd71a904020a54a77)
+        ;
+
+        
+    
+    
+            circle_marker_27faf389d3d1a7093439426ad2b3beda.bindTooltip(
+                `<div>
+                     Virginia Python Users Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_be5e57cd6cfe4317c5e43d5d78638dd1 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_e87ae55fea11771e2e286e3d84459521 = L.circleMarker(
+                [41.4996574, -81.6936772],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_be5e57cd6cfe4317c5e43d5d78638dd1);
+        
+    
+        var popup_3ee7e2d0e01f63848dbbdde0a2e46fab = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1a80ce8fe5b56711196bbc83f5f5d5a4 = $(`<div id="html_1a80ce8fe5b56711196bbc83f5f5d5a4" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/cleveland-area-python-interest-group' target='_blank'>Cleveland Area Python User Group (CLEpy)</a></div>`)[0];
+                popup_3ee7e2d0e01f63848dbbdde0a2e46fab.setContent(html_1a80ce8fe5b56711196bbc83f5f5d5a4);
+            
+        
+
+        circle_marker_e87ae55fea11771e2e286e3d84459521.bindPopup(popup_3ee7e2d0e01f63848dbbdde0a2e46fab)
+        ;
+
+        
+    
+    
+            circle_marker_e87ae55fea11771e2e286e3d84459521.bindTooltip(
+                `<div>
+                     Cleveland Area Python User Group (CLEpy)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_41d6746848ddc46d082a61dcb2b28a58 = L.circleMarker(
+                [41.4996574, -81.6936772],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_be5e57cd6cfe4317c5e43d5d78638dd1);
+        
+    
+        var popup_cbe99ef7ff169882ab17585da4e43da1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_88648422941356712044f3532a80f099 = $(`<div id="html_88648422941356712044f3532a80f099" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/cle-pyladies' target='_blank'>Cleveland PyLadies</a></div>`)[0];
+                popup_cbe99ef7ff169882ab17585da4e43da1.setContent(html_88648422941356712044f3532a80f099);
+            
+        
+
+        circle_marker_41d6746848ddc46d082a61dcb2b28a58.bindPopup(popup_cbe99ef7ff169882ab17585da4e43da1)
+        ;
+
+        
+    
+    
+            circle_marker_41d6746848ddc46d082a61dcb2b28a58.bindTooltip(
+                `<div>
+                     Cleveland PyLadies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_be5e57cd6cfe4317c5e43d5d78638dd1.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_64533d90fbeb5e03549d2d2d00311f84 = L.circleMarker(
+                [37.5385087, -77.43428],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_04285a627367155945409e52230f7e26 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_22a2a4de6f171215742f1aa9aff6b94f = $(`<div id="html_22a2a4de6f171215742f1aa9aff6b94f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyRVAUserGroup' target='_blank'>PyRVA</a></div>`)[0];
+                popup_04285a627367155945409e52230f7e26.setContent(html_22a2a4de6f171215742f1aa9aff6b94f);
+            
+        
+
+        circle_marker_64533d90fbeb5e03549d2d2d00311f84.bindPopup(popup_04285a627367155945409e52230f7e26)
+        ;
+
+        
+    
+    
+            circle_marker_64533d90fbeb5e03549d2d2d00311f84.bindTooltip(
+                `<div>
+                     PyRVA
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f022caa9ee0e3dddd231e799d5a592b5 = L.circleMarker(
+                [42.2813722, -83.7484616],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_fd38918f64c23ff2609fa79a5849c8b7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c935f242fbd1350c3e49c6266c2f3ab9 = $(`<div id="html_c935f242fbd1350c3e49c6266c2f3ab9" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/michigan-python' target='_blank'>Michigan Python</a></div>`)[0];
+                popup_fd38918f64c23ff2609fa79a5849c8b7.setContent(html_c935f242fbd1350c3e49c6266c2f3ab9);
+            
+        
+
+        circle_marker_f022caa9ee0e3dddd231e799d5a592b5.bindPopup(popup_fd38918f64c23ff2609fa79a5849c8b7)
+        ;
+
+        
+    
+    
+            circle_marker_f022caa9ee0e3dddd231e799d5a592b5.bindTooltip(
+                `<div>
+                     Michigan Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_be10e622dabf64a11d0a6606d60df44f = L.circleMarker(
+                [39.9622601, -83.0007065],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_9dc5c695d51f83c2ba58bd80569c57c1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2b5e3378427a7854f3129e1f7758ce0e = $(`<div id="html_2b5e3378427a7854f3129e1f7758ce0e" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/central-ohio-python-users-group' target='_blank'>The Central Ohio Python Users Group</a></div>`)[0];
+                popup_9dc5c695d51f83c2ba58bd80569c57c1.setContent(html_2b5e3378427a7854f3129e1f7758ce0e);
+            
+        
+
+        circle_marker_be10e622dabf64a11d0a6606d60df44f.bindPopup(popup_9dc5c695d51f83c2ba58bd80569c57c1)
+        ;
+
+        
+    
+    
+            circle_marker_be10e622dabf64a11d0a6606d60df44f.bindTooltip(
+                `<div>
+                     The Central Ohio Python Users Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_32d8c2e0266cfe5bd8109d15e78abb49 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_5d28fd1e8c671e01c7294fb16616d471 = L.circleMarker(
+                [41.8755616, -87.6244212],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_32d8c2e0266cfe5bd8109d15e78abb49);
+        
+    
+        var popup_fd406dc7afe50c96b83bd0318a71af83 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_87f02cc85a56f9a0ea0c29beff51c7fd = $(`<div id="html_87f02cc85a56f9a0ea0c29beff51c7fd" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Chicago-PyLadies' target='_blank'>Chicago PyLadies</a></div>`)[0];
+                popup_fd406dc7afe50c96b83bd0318a71af83.setContent(html_87f02cc85a56f9a0ea0c29beff51c7fd);
+            
+        
+
+        circle_marker_5d28fd1e8c671e01c7294fb16616d471.bindPopup(popup_fd406dc7afe50c96b83bd0318a71af83)
+        ;
+
+        
+    
+    
+            circle_marker_5d28fd1e8c671e01c7294fb16616d471.bindTooltip(
+                `<div>
+                     Chicago PyLadies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5a96b5594668a0f6394ba602b027609f = L.circleMarker(
+                [41.8755616, -87.6244212],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_32d8c2e0266cfe5bd8109d15e78abb49);
+        
+    
+        var popup_0710a1d2f529c9e43084c7275977702e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_298003793b7dd43c96054ef768668018 = $(`<div id="html_298003793b7dd43c96054ef768668018" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/_chipy_' target='_blank'>ChiPy: Chicago's Official Python User Group</a></div>`)[0];
+                popup_0710a1d2f529c9e43084c7275977702e.setContent(html_298003793b7dd43c96054ef768668018);
+            
+        
+
+        circle_marker_5a96b5594668a0f6394ba602b027609f.bindPopup(popup_0710a1d2f529c9e43084c7275977702e)
+        ;
+
+        
+    
+    
+            circle_marker_5a96b5594668a0f6394ba602b027609f.bindTooltip(
+                `<div>
+                     ChiPy: Chicago's Official Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_32d8c2e0266cfe5bd8109d15e78abb49.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_668a790a0793b21838c63b858437c3bf = L.circleMarker(
+                [39.1012809, -84.5127405],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_a75ecdf618f054a8a8ed565c2a0eb861 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2339f9f59e2a52a55221becd6eb31a0b = $(`<div id="html_2339f9f59e2a52a55221becd6eb31a0b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/cincypy' target='_blank'>CincyPy</a></div>`)[0];
+                popup_a75ecdf618f054a8a8ed565c2a0eb861.setContent(html_2339f9f59e2a52a55221becd6eb31a0b);
+            
+        
+
+        circle_marker_668a790a0793b21838c63b858437c3bf.bindPopup(popup_a75ecdf618f054a8a8ed565c2a0eb861)
+        ;
+
+        
+    
+    
+            circle_marker_668a790a0793b21838c63b858437c3bf.bindTooltip(
+                `<div>
+                     CincyPy
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e477bef373018179715b50effb5ec3d2 = L.circleMarker(
+                [43.07469, -89.3841663],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_e8e3d1990e3fad4b8d88ab4ec09c0bd0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c545fd496f35ba8733cce893fbbc10f8 = $(`<div id="html_c545fd496f35ba8733cce893fbbc10f8" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/madison-python' target='_blank'>MadPy</a></div>`)[0];
+                popup_e8e3d1990e3fad4b8d88ab4ec09c0bd0.setContent(html_c545fd496f35ba8733cce893fbbc10f8);
+            
+        
+
+        circle_marker_e477bef373018179715b50effb5ec3d2.bindPopup(popup_e8e3d1990e3fad4b8d88ab4ec09c0bd0)
+        ;
+
+        
+    
+    
+            circle_marker_e477bef373018179715b50effb5ec3d2.bindTooltip(
+                `<div>
+                     MadPy
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1aeb110c8909c72e1e236003e06c8e3 = L.circleMarker(
+                [44.9772995, -93.2654692],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_96cac5c591e7d73e516015fd3af43a14 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f6869f439be5b27dad0f2e863fc14505 = $(`<div id="html_f6869f439be5b27dad0f2e863fc14505" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pymntos-twin-cities-python-user-group' target='_blank'>PyMNtos - Twin Cities Python User Group</a></div>`)[0];
+                popup_96cac5c591e7d73e516015fd3af43a14.setContent(html_f6869f439be5b27dad0f2e863fc14505);
+            
+        
+
+        circle_marker_e1aeb110c8909c72e1e236003e06c8e3.bindPopup(popup_96cac5c591e7d73e516015fd3af43a14)
+        ;
+
+        
+    
+    
+            circle_marker_e1aeb110c8909c72e1e236003e06c8e3.bindTooltip(
+                `<div>
+                     PyMNtos - Twin Cities Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b7a562384a59e148c9ab19ad1e583a86 = L.circleMarker(
+                [0.3177137, 32.5813539],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_99704e1ebe33d725320cdd48435e084d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ac96d7fcc845c05dbebe97d95176e6d0 = $(`<div id="html_ac96d7fcc845c05dbebe97d95176e6d0" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pykampala' target='_blank'>Python Kampala (PyKla)</a></div>`)[0];
+                popup_99704e1ebe33d725320cdd48435e084d.setContent(html_ac96d7fcc845c05dbebe97d95176e6d0);
+            
+        
+
+        circle_marker_b7a562384a59e148c9ab19ad1e583a86.bindPopup(popup_99704e1ebe33d725320cdd48435e084d)
+        ;
+
+        
+    
+    
+            circle_marker_b7a562384a59e148c9ab19ad1e583a86.bindTooltip(
+                `<div>
+                     Python Kampala (PyKla)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_21bf9073a5dbeafd2aedb66601ee2a5e = L.circleMarker(
+                [38.6254063, -90.190009],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_54cffbe92e1af805dbbb473b70a1cc45 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_42f9a61129fb941e97a0097c7848c86b = $(`<div id="html_42f9a61129fb941e97a0097c7848c86b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-stlouis' target='_blank'>PySTL</a></div>`)[0];
+                popup_54cffbe92e1af805dbbb473b70a1cc45.setContent(html_42f9a61129fb941e97a0097c7848c86b);
+            
+        
+
+        circle_marker_21bf9073a5dbeafd2aedb66601ee2a5e.bindPopup(popup_54cffbe92e1af805dbbb473b70a1cc45)
+        ;
+
+        
+    
+    
+            circle_marker_21bf9073a5dbeafd2aedb66601ee2a5e.bindTooltip(
+                `<div>
+                     PySTL
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1c9f59fcdb5e19b0174432a500ca1a1b = L.circleMarker(
+                [33.7544657, -84.3898151],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_da7094e904c84d0c7dea5452d4559d41 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f0f22ebb66eab9ee1168dfcc5dce815 = $(`<div id="html_5f0f22ebb66eab9ee1168dfcc5dce815" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-atlanta' target='_blank'>PyAtl: Atlanta Python Programmers</a></div>`)[0];
+                popup_da7094e904c84d0c7dea5452d4559d41.setContent(html_5f0f22ebb66eab9ee1168dfcc5dce815);
+            
+        
+
+        circle_marker_1c9f59fcdb5e19b0174432a500ca1a1b.bindPopup(popup_da7094e904c84d0c7dea5452d4559d41)
+        ;
+
+        
+    
+    
+            circle_marker_1c9f59fcdb5e19b0174432a500ca1a1b.bindTooltip(
+                `<div>
+                     PyAtl: Atlanta Python Programmers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e882113f8f49032b3da69abd5903ecfb = L.circleMarker(
+                [-1.2890006, 36.8172812],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_957c7b3d619707b3adf884a363d81452 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ca3913e9fc647b734d148e1c9a4b132b = $(`<div id="html_ca3913e9fc647b734d148e1c9a4b132b" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-nairobi' target='_blank'>Python-Nairobi</a></div>`)[0];
+                popup_957c7b3d619707b3adf884a363d81452.setContent(html_ca3913e9fc647b734d148e1c9a4b132b);
+            
+        
+
+        circle_marker_e882113f8f49032b3da69abd5903ecfb.bindPopup(popup_957c7b3d619707b3adf884a363d81452)
+        ;
+
+        
+    
+    
+            circle_marker_e882113f8f49032b3da69abd5903ecfb.bindTooltip(
+                `<div>
+                     Python-Nairobi
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9c2c5a255a048bc9c52d0d4e2b3c49b2 = L.circleMarker(
+                [28.5421218, -81.379045],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_7f03e0e80b16e5f221e4a42d37f02ced = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a2494e5f09f650f19e0529e04cad2d3e = $(`<div id="html_a2494e5f09f650f19e0529e04cad2d3e" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/OrlandoPython' target='_blank'>The Orlando Python User Group</a></div>`)[0];
+                popup_7f03e0e80b16e5f221e4a42d37f02ced.setContent(html_a2494e5f09f650f19e0529e04cad2d3e);
+            
+        
+
+        circle_marker_9c2c5a255a048bc9c52d0d4e2b3c49b2.bindPopup(popup_7f03e0e80b16e5f221e4a42d37f02ced)
+        ;
+
+        
+    
+    
+            circle_marker_9c2c5a255a048bc9c52d0d4e2b3c49b2.bindTooltip(
+                `<div>
+                     The Orlando Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_1293d617aee3a911e7b84b20bab2e05c = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_cd24d2b3238e1125816368e84fa90d67 = L.circleMarker(
+                [18.4713858, -69.8918436],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_1293d617aee3a911e7b84b20bab2e05c);
+        
+    
+        var popup_d26994bc6c2cc170d848ee54452e4fa7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c31143dac93c74939011c500c87ce17f = $(`<div id="html_c31143dac93c74939011c500c87ce17f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonsdq' target='_blank'>PythonSDQ</a></div>`)[0];
+                popup_d26994bc6c2cc170d848ee54452e4fa7.setContent(html_c31143dac93c74939011c500c87ce17f);
+            
+        
+
+        circle_marker_cd24d2b3238e1125816368e84fa90d67.bindPopup(popup_d26994bc6c2cc170d848ee54452e4fa7)
+        ;
+
+        
+    
+    
+            circle_marker_cd24d2b3238e1125816368e84fa90d67.bindTooltip(
+                `<div>
+                     PythonSDQ
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9fb74e02fc1af0d681a23cdc75067d64 = L.circleMarker(
+                [18.4713858, -69.8918436],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_1293d617aee3a911e7b84b20bab2e05c);
+        
+    
+        var popup_2ae4ffcc03d56ec5c6402834cc5f678a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b87fa208fa47043a5d32cc92d269d5f9 = $(`<div id="html_b87fa208fa47043a5d32cc92d269d5f9" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiessdq' target='_blank'>PyladiesSDQ</a></div>`)[0];
+                popup_2ae4ffcc03d56ec5c6402834cc5f678a.setContent(html_b87fa208fa47043a5d32cc92d269d5f9);
+            
+        
+
+        circle_marker_9fb74e02fc1af0d681a23cdc75067d64.bindPopup(popup_2ae4ffcc03d56ec5c6402834cc5f678a)
+        ;
+
+        
+    
+    
+            circle_marker_9fb74e02fc1af0d681a23cdc75067d64.bindTooltip(
+                `<div>
+                     PyladiesSDQ
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_1293d617aee3a911e7b84b20bab2e05c.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_186cf4043694fa8d5b4ebc6cfb000815 = L.circleMarker(
+                [25.7741566, -80.1935973],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_7c4aaea8979bb1959aed20cae233a4b5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_46b234cc13a373ded2fafe32ee8e0e26 = $(`<div id="html_46b234cc13a373ded2fafe32ee8e0e26" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-soflo' target='_blank'>PyLadies SoFlo</a></div>`)[0];
+                popup_7c4aaea8979bb1959aed20cae233a4b5.setContent(html_46b234cc13a373ded2fafe32ee8e0e26);
+            
+        
+
+        circle_marker_186cf4043694fa8d5b4ebc6cfb000815.bindPopup(popup_7c4aaea8979bb1959aed20cae233a4b5)
+        ;
+
+        
+    
+    
+            circle_marker_186cf4043694fa8d5b4ebc6cfb000815.bindTooltip(
+                `<div>
+                     PyLadies SoFlo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cf6d9d57502fae248e60b9cde13e0737 = L.circleMarker(
+                [18.5213738, 73.8545071],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_5629dd4db821fdc23c5285a32daa85fe = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_389235b7837f4e44457db68eb7099710 = $(`<div id="html_389235b7837f4e44457db68eb7099710" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PythonPune' target='_blank'>PythonPune</a></div>`)[0];
+                popup_5629dd4db821fdc23c5285a32daa85fe.setContent(html_389235b7837f4e44457db68eb7099710);
+            
+        
+
+        circle_marker_cf6d9d57502fae248e60b9cde13e0737.bindPopup(popup_5629dd4db821fdc23c5285a32daa85fe)
+        ;
+
+        
+    
+    
+            circle_marker_cf6d9d57502fae248e60b9cde13e0737.bindTooltip(
+                `<div>
+                     PythonPune
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b10da78821e443f1d899e77d83a33d7a = L.circleMarker(
+                [47.6571934, -117.42351],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_ac699361261d4a64ed5c4c65d468293a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f84ee7125d2c5884698b34b9bd7bef30 = $(`<div id="html_f84ee7125d2c5884698b34b9bd7bef30" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-spokane' target='_blank'>Spokane Python User Group</a></div>`)[0];
+                popup_ac699361261d4a64ed5c4c65d468293a.setContent(html_f84ee7125d2c5884698b34b9bd7bef30);
+            
+        
+
+        circle_marker_b10da78821e443f1d899e77d83a33d7a.bindPopup(popup_ac699361261d4a64ed5c4c65d468293a)
+        ;
+
+        
+    
+    
+            circle_marker_b10da78821e443f1d899e77d83a33d7a.bindTooltip(
+                `<div>
+                     Spokane Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_969d9a8f7c552b495c04211132108abe = L.circleMarker(
+                [39.7392364, -104.984862],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_755f99c2bac89c41af5d8ef4e0a800aa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_35798309f43905cf7f6c710707de4f29 = $(`<div id="html_35798309f43905cf7f6c710707de4f29" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/denverpython' target='_blank'>Denver Python Users Group</a></div>`)[0];
+                popup_755f99c2bac89c41af5d8ef4e0a800aa.setContent(html_35798309f43905cf7f6c710707de4f29);
+            
+        
+
+        circle_marker_969d9a8f7c552b495c04211132108abe.bindPopup(popup_755f99c2bac89c41af5d8ef4e0a800aa)
+        ;
+
+        
+    
+    
+            circle_marker_969d9a8f7c552b495c04211132108abe.bindTooltip(
+                `<div>
+                     Denver Python Users Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f016ebb2bb895d140f0925cc6404760b = L.circleMarker(
+                [49.2608724, -123.113952],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_f6266ea250d047f4d7a673582411705d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_defa44e19036c0a20e4788dfb32d4364 = $(`<div id="html_defa44e19036c0a20e4788dfb32d4364" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-vancouver' target='_blank'>PyLadies Vancouver</a></div>`)[0];
+                popup_f6266ea250d047f4d7a673582411705d.setContent(html_defa44e19036c0a20e4788dfb32d4364);
+            
+        
+
+        circle_marker_f016ebb2bb895d140f0925cc6404760b.bindPopup(popup_f6266ea250d047f4d7a673582411705d)
+        ;
+
+        
+    
+    
+            circle_marker_f016ebb2bb895d140f0925cc6404760b.bindTooltip(
+                `<div>
+                     PyLadies Vancouver
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f43675e9cdf2f9642f2da63b9f351d85 = L.circleMarker(
+                [47.6144219, -122.192337],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_a645335361dc3c10f39906f79fe23c28 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e83a7b543a29e766e092c82518b8fd3e = $(`<div id="html_e83a7b543a29e766e092c82518b8fd3e" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/seattle-pyladies' target='_blank'>Seattle PyLadies</a></div>`)[0];
+                popup_a645335361dc3c10f39906f79fe23c28.setContent(html_e83a7b543a29e766e092c82518b8fd3e);
+            
+        
+
+        circle_marker_f43675e9cdf2f9642f2da63b9f351d85.bindPopup(popup_a645335361dc3c10f39906f79fe23c28)
+        ;
+
+        
+    
+    
+            circle_marker_f43675e9cdf2f9642f2da63b9f351d85.bindTooltip(
+                `<div>
+                     Seattle PyLadies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0f2e45bccc2841a66cd7ab24d3c8e18d = L.circleMarker(
+                [47.6038321, -122.330062],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_c8a6f6f72240af2312d65948e0b9d31d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dd9dc562cb4d48f1b3fa8c50366c2806 = $(`<div id="html_dd9dc562cb4d48f1b3fa8c50366c2806" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/psppython' target='_blank'>Puget Sound Programming Python (PuPPy)</a></div>`)[0];
+                popup_c8a6f6f72240af2312d65948e0b9d31d.setContent(html_dd9dc562cb4d48f1b3fa8c50366c2806);
+            
+        
+
+        circle_marker_0f2e45bccc2841a66cd7ab24d3c8e18d.bindPopup(popup_c8a6f6f72240af2312d65948e0b9d31d)
+        ;
+
+        
+    
+    
+            circle_marker_0f2e45bccc2841a66cd7ab24d3c8e18d.bindTooltip(
+                `<div>
+                     Puget Sound Programming Python (PuPPy)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bfd401807d7bf3cc77d9e3b8a1a466f0 = L.circleMarker(
+                [17.360589, 78.4740613],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_f0d7b3d25fcc2277798beda7ec165112 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f9fa624f78cf7f645f40f81306167191 = $(`<div id="html_f9fa624f78cf7f645f40f81306167191" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/hydpygroup' target='_blank'>Hyderabad Python User Group</a></div>`)[0];
+                popup_f0d7b3d25fcc2277798beda7ec165112.setContent(html_f9fa624f78cf7f645f40f81306167191);
+            
+        
+
+        circle_marker_bfd401807d7bf3cc77d9e3b8a1a466f0.bindPopup(popup_f0d7b3d25fcc2277798beda7ec165112)
+        ;
+
+        
+    
+    
+            circle_marker_bfd401807d7bf3cc77d9e3b8a1a466f0.bindTooltip(
+                `<div>
+                     Hyderabad Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a279c98ee2e18988a58af1385556d6dc = L.circleMarker(
+                [40.7596198, -111.886797],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_1b093933c805b5b539e792dfcd589cdc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_12906a8454259f141099f7433e799aa2 = $(`<div id="html_12906a8454259f141099f7433e799aa2" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Salt-Lake-Pyladies' target='_blank'>Salt Lake PyLadies</a></div>`)[0];
+                popup_1b093933c805b5b539e792dfcd589cdc.setContent(html_12906a8454259f141099f7433e799aa2);
+            
+        
+
+        circle_marker_a279c98ee2e18988a58af1385556d6dc.bindPopup(popup_1b093933c805b5b539e792dfcd589cdc)
+        ;
+
+        
+    
+    
+            circle_marker_a279c98ee2e18988a58af1385556d6dc.bindTooltip(
+                `<div>
+                     Salt Lake PyLadies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d38e1fc35bcf5504707f3f3f27090cdb = L.circleMarker(
+                [45.4871723, -122.80378],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_d250cb93c8c8c67cc49f732af7368f46 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c3463ebd422dff76dbe6f8ec9c93dec5 = $(`<div id="html_c3463ebd422dff76dbe6f8ec9c93dec5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Python-Software-Foundation-Meetup' target='_blank'>Python Software Foundation Meetup</a></div>`)[0];
+                popup_d250cb93c8c8c67cc49f732af7368f46.setContent(html_c3463ebd422dff76dbe6f8ec9c93dec5);
+            
+        
+
+        circle_marker_d38e1fc35bcf5504707f3f3f27090cdb.bindPopup(popup_d250cb93c8c8c67cc49f732af7368f46)
+        ;
+
+        
+    
+    
+            circle_marker_d38e1fc35bcf5504707f3f3f27090cdb.bindTooltip(
+                `<div>
+                     Python Software Foundation Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2b3d3053f1a96253657920560d50db0 = L.circleMarker(
+                [11.0101922, -74.8231794],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_e292ba12d88f2a9cdbb787709b57f741 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f51bc1e9f5dca2c5716005e744996623 = $(`<div id="html_f51bc1e9f5dca2c5716005e744996623" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonbaq' target='_blank'>Python Barranquilla</a></div>`)[0];
+                popup_e292ba12d88f2a9cdbb787709b57f741.setContent(html_f51bc1e9f5dca2c5716005e744996623);
+            
+        
+
+        circle_marker_e2b3d3053f1a96253657920560d50db0.bindPopup(popup_e292ba12d88f2a9cdbb787709b57f741)
+        ;
+
+        
+    
+    
+            circle_marker_e2b3d3053f1a96253657920560d50db0.bindTooltip(
+                `<div>
+                     Python Barranquilla
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_78337721bd9ce2fb2a1a392ac65e578b = L.circleMarker(
+                [12.9767936, 77.590082],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_fca6dca136c2376038bc1400d450dd55 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3de6d22dd02d1fa72f1c760de6b28486 = $(`<div id="html_3de6d22dd02d1fa72f1c760de6b28486" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/bangpypers' target='_blank'>BangPypers - Bangalore Python Users Group</a></div>`)[0];
+                popup_fca6dca136c2376038bc1400d450dd55.setContent(html_3de6d22dd02d1fa72f1c760de6b28486);
+            
+        
+
+        circle_marker_78337721bd9ce2fb2a1a392ac65e578b.bindPopup(popup_fca6dca136c2376038bc1400d450dd55)
+        ;
+
+        
+    
+    
+            circle_marker_78337721bd9ce2fb2a1a392ac65e578b.bindTooltip(
+                `<div>
+                     BangPypers - Bangalore Python Users Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_896db5db4855670954f0cc2306025b5f = L.circleMarker(
+                [36.1674263, -115.1484131],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_4b8dae0d76f5cc59c4b2ad552e6c1ffb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_78bdfdf56e0b0a26a9a94eab28c8edbb = $(`<div id="html_78bdfdf56e0b0a26a9a94eab28c8edbb" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/vegaspy' target='_blank'>VegasPy - Las Vegas Python User Group</a></div>`)[0];
+                popup_4b8dae0d76f5cc59c4b2ad552e6c1ffb.setContent(html_78bdfdf56e0b0a26a9a94eab28c8edbb);
+            
+        
+
+        circle_marker_896db5db4855670954f0cc2306025b5f.bindPopup(popup_4b8dae0d76f5cc59c4b2ad552e6c1ffb)
+        ;
+
+        
+    
+    
+            circle_marker_896db5db4855670954f0cc2306025b5f.bindTooltip(
+                `<div>
+                     VegasPy - Las Vegas Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_e450f9989b11ea0ae2f03f745dce63cb = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_2c7c62e9428301909a42ade2e979d8e1 = L.circleMarker(
+                [6.2697324, -75.6025597],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_e450f9989b11ea0ae2f03f745dce63cb);
+        
+    
+        var popup_a6336e1daa22e43fddbfb5ee9bd9e805 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_569e67bb042c92dece08bd120e31ecec = $(`<div id="html_569e67bb042c92dece08bd120e31ecec" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-co-medellin' target='_blank'>PyLadies Medellín</a></div>`)[0];
+                popup_a6336e1daa22e43fddbfb5ee9bd9e805.setContent(html_569e67bb042c92dece08bd120e31ecec);
+            
+        
+
+        circle_marker_2c7c62e9428301909a42ade2e979d8e1.bindPopup(popup_a6336e1daa22e43fddbfb5ee9bd9e805)
+        ;
+
+        
+    
+    
+            circle_marker_2c7c62e9428301909a42ade2e979d8e1.bindTooltip(
+                `<div>
+                     PyLadies Medellín
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b0abc789dad2f4174fbfe8d36ddb2418 = L.circleMarker(
+                [6.2697324, -75.6025597],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_e450f9989b11ea0ae2f03f745dce63cb);
+        
+    
+        var popup_6f36c67a66d358c1184ab3bcf6e2e3b5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6bc1257c82caced88faaf164eaf9c8e9 = $(`<div id="html_6bc1257c82caced88faaf164eaf9c8e9" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-medellin' target='_blank'>Python Medellín</a></div>`)[0];
+                popup_6f36c67a66d358c1184ab3bcf6e2e3b5.setContent(html_6bc1257c82caced88faaf164eaf9c8e9);
+            
+        
+
+        circle_marker_b0abc789dad2f4174fbfe8d36ddb2418.bindPopup(popup_6f36c67a66d358c1184ab3bcf6e2e3b5)
+        ;
+
+        
+    
+    
+            circle_marker_b0abc789dad2f4174fbfe8d36ddb2418.bindTooltip(
+                `<div>
+                     Python Medellín
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_e450f9989b11ea0ae2f03f745dce63cb.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_3b86e1c125e285ed32bbd845eae84e26 = L.circleMarker(
+                [33.4942189, -111.926018],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_767772ba300c1467695b62c225ff48ee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_96c7571d1a7257607e8fd682a5893408 = $(`<div id="html_96c7571d1a7257607e8fd682a5893408" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/phoenix-python-meetup-group' target='_blank'>DesertPy - Phoenix Python Meetup Group</a></div>`)[0];
+                popup_767772ba300c1467695b62c225ff48ee.setContent(html_96c7571d1a7257607e8fd682a5893408);
+            
+        
+
+        circle_marker_3b86e1c125e285ed32bbd845eae84e26.bindPopup(popup_767772ba300c1467695b62c225ff48ee)
+        ;
+
+        
+    
+    
+            circle_marker_3b86e1c125e285ed32bbd845eae84e26.bindTooltip(
+                `<div>
+                     DesertPy - Phoenix Python Meetup Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4521d382aaaddb5b0598c45f316e8e7b = L.circleMarker(
+                [8.559559, -81.1308434],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_d08f15d1ae94d1a9d93ead60de75f809 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4268780303362d0d63d4a96c08336930 = $(`<div id="html_4268780303362d0d63d4a96c08336930" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/python-panama' target='_blank'>Python Panamá</a></div>`)[0];
+                popup_d08f15d1ae94d1a9d93ead60de75f809.setContent(html_4268780303362d0d63d4a96c08336930);
+            
+        
+
+        circle_marker_4521d382aaaddb5b0598c45f316e8e7b.bindPopup(popup_d08f15d1ae94d1a9d93ead60de75f809)
+        ;
+
+        
+    
+    
+            circle_marker_4521d382aaaddb5b0598c45f316e8e7b.bindTooltip(
+                `<div>
+                     Python Panamá
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_547aecd79fa6c335be3bc1fb12754330 = L.circleMarker(
+                [32.2228765, -110.974847],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_22d74d9e08d7221ddb6d458b50d4c8a9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_889b6734d19267e69f932302ea3f86ae = $(`<div id="html_889b6734d19267e69f932302ea3f86ae" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Tucson-Python-Meetup' target='_blank'>Tucson Python Meetup</a></div>`)[0];
+                popup_22d74d9e08d7221ddb6d458b50d4c8a9.setContent(html_889b6734d19267e69f932302ea3f86ae);
+            
+        
+
+        circle_marker_547aecd79fa6c335be3bc1fb12754330.bindPopup(popup_22d74d9e08d7221ddb6d458b50d4c8a9)
+        ;
+
+        
+    
+    
+            circle_marker_547aecd79fa6c335be3bc1fb12754330.bindTooltip(
+                `<div>
+                     Tucson Python Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_626eed96db9665e2491a52577188c66b = L.circleMarker(
+                [37.6820583, -121.768053],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_81879d23614af5b5a2139ab33ce16617 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6017f25d61ec8f224a21035cb639503f = $(`<div id="html_6017f25d61ec8f224a21035cb639503f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/californiapython' target='_blank'>California Online Python Usergroup</a></div>`)[0];
+                popup_81879d23614af5b5a2139ab33ce16617.setContent(html_6017f25d61ec8f224a21035cb639503f);
+            
+        
+
+        circle_marker_626eed96db9665e2491a52577188c66b.bindPopup(popup_81879d23614af5b5a2139ab33ce16617)
+        ;
+
+        
+    
+    
+            circle_marker_626eed96db9665e2491a52577188c66b.bindTooltip(
+                `<div>
+                     California Online Python Usergroup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_d8589e3714abe75e63b07d16052a34c4 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_eeb925b2d9ffd8b02dd04e36ce9a27e2 = L.circleMarker(
+                [37.7879363, -122.4075201],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_d8589e3714abe75e63b07d16052a34c4);
+        
+    
+        var popup_c7c1e8143ff2913f7e62df8025ec04e0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0767b5cc6c937f01dcbcd5ca1ae0f603 = $(`<div id="html_0767b5cc6c937f01dcbcd5ca1ae0f603" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladiessf' target='_blank'>PyLadies of San Francisco</a></div>`)[0];
+                popup_c7c1e8143ff2913f7e62df8025ec04e0.setContent(html_0767b5cc6c937f01dcbcd5ca1ae0f603);
+            
+        
+
+        circle_marker_eeb925b2d9ffd8b02dd04e36ce9a27e2.bindPopup(popup_c7c1e8143ff2913f7e62df8025ec04e0)
+        ;
+
+        
+    
+    
+            circle_marker_eeb925b2d9ffd8b02dd04e36ce9a27e2.bindTooltip(
+                `<div>
+                     PyLadies of San Francisco
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1648e7d27daa61a6520d89069429f423 = L.circleMarker(
+                [37.7879363, -122.4075201],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_d8589e3714abe75e63b07d16052a34c4);
+        
+    
+        var popup_5cd011168cf55d5b06185bd2961d6387 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f153cbfea81b1a5574d141a0db4f99d5 = $(`<div id="html_f153cbfea81b1a5574d141a0db4f99d5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/the-san-francisco-django-meetup-group' target='_blank'>The San Francisco Django Meetup Group</a></div>`)[0];
+                popup_5cd011168cf55d5b06185bd2961d6387.setContent(html_f153cbfea81b1a5574d141a0db4f99d5);
+            
+        
+
+        circle_marker_1648e7d27daa61a6520d89069429f423.bindPopup(popup_5cd011168cf55d5b06185bd2961d6387)
+        ;
+
+        
+    
+    
+            circle_marker_1648e7d27daa61a6520d89069429f423.bindTooltip(
+                `<div>
+                     The San Francisco Django Meetup Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c8fd48ad12f39401aa90031da08097d5 = L.circleMarker(
+                [37.7879363, -122.4075201],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_d8589e3714abe75e63b07d16052a34c4);
+        
+    
+        var popup_6f34f5338d70ef3fa4a78114a75e2a2b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bb3517bdce8f8609dc44250113623a65 = $(`<div id="html_bb3517bdce8f8609dc44250113623a65" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/sfpython' target='_blank'>San Francisco Python Meetup Group</a></div>`)[0];
+                popup_6f34f5338d70ef3fa4a78114a75e2a2b.setContent(html_bb3517bdce8f8609dc44250113623a65);
+            
+        
+
+        circle_marker_c8fd48ad12f39401aa90031da08097d5.bindPopup(popup_6f34f5338d70ef3fa4a78114a75e2a2b)
+        ;
+
+        
+    
+    
+            circle_marker_c8fd48ad12f39401aa90031da08097d5.bindTooltip(
+                `<div>
+                     San Francisco Python Meetup Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_d8589e3714abe75e63b07d16052a34c4.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_bd55a3f89b8a436ca3aca6b3ee91b135 = L.circleMarker(
+                [37.496904, -122.3330573],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_168d3c35f5ee92ed704aa4b53f9dd536 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e1e860a7c58d2da82cb0dfb7349092f4 = $(`<div id="html_e1e860a7c58d2da82cb0dfb7349092f4" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Pyninsula-Python-Peninsula-Meetup' target='_blank'>Pyninsula -- Python Peninsula Meetup</a></div>`)[0];
+                popup_168d3c35f5ee92ed704aa4b53f9dd536.setContent(html_e1e860a7c58d2da82cb0dfb7349092f4);
+            
+        
+
+        circle_marker_bd55a3f89b8a436ca3aca6b3ee91b135.bindPopup(popup_168d3c35f5ee92ed704aa4b53f9dd536)
+        ;
+
+        
+    
+    
+            circle_marker_bd55a3f89b8a436ca3aca6b3ee91b135.bindTooltip(
+                `<div>
+                     Pyninsula -- Python Peninsula Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_686078749229bab71af534b6f9c4a2a5 = L.circleMarker(
+                [37.3893889, -122.0832101],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_21fcb56decfa27a48c45b646d0f69f29 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_40ed34db6f070aca2d94465a6ea7aad4 = $(`<div id="html_40ed34db6f070aca2d94465a6ea7aad4" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/baypiggies' target='_blank'>BAyPIGgies</a></div>`)[0];
+                popup_21fcb56decfa27a48c45b646d0f69f29.setContent(html_40ed34db6f070aca2d94465a6ea7aad4);
+            
+        
+
+        circle_marker_686078749229bab71af534b6f9c4a2a5.bindPopup(popup_21fcb56decfa27a48c45b646d0f69f29)
+        ;
+
+        
+    
+    
+            circle_marker_686078749229bab71af534b6f9c4a2a5.bindTooltip(
+                `<div>
+                     BAyPIGgies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_662a91e56424bee1cd8fc8b0b94c0539 = L.circleMarker(
+                [37.3688301, -122.036349],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_404c9c25af186ebe7d5cea47fa82f825 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d5b58c17220869713820e6ec8ca4e33c = $(`<div id="html_d5b58c17220869713820e6ec8ca4e33c" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/PyLadies-Silicon-Valley' target='_blank'>PyLadies Silicon Valley</a></div>`)[0];
+                popup_404c9c25af186ebe7d5cea47fa82f825.setContent(html_d5b58c17220869713820e6ec8ca4e33c);
+            
+        
+
+        circle_marker_662a91e56424bee1cd8fc8b0b94c0539.bindPopup(popup_404c9c25af186ebe7d5cea47fa82f825)
+        ;
+
+        
+    
+    
+            circle_marker_662a91e56424bee1cd8fc8b0b94c0539.bindTooltip(
+                `<div>
+                     PyLadies Silicon Valley
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1d32606dc3b5f71da72f336856b383ea = L.circleMarker(
+                [28.467178, -16.2507843],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_7f886076fe46ea69106a2b4dae634ee1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0b232e4d39d3efc89b096aeae41163d6 = $(`<div id="html_0b232e4d39d3efc89b096aeae41163d6" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/santa-cruz-python' target='_blank'>Santa Cruz Python, Machine Learning & AI Meetup</a></div>`)[0];
+                popup_7f886076fe46ea69106a2b4dae634ee1.setContent(html_0b232e4d39d3efc89b096aeae41163d6);
+            
+        
+
+        circle_marker_1d32606dc3b5f71da72f336856b383ea.bindPopup(popup_7f886076fe46ea69106a2b4dae634ee1)
+        ;
+
+        
+    
+    
+            circle_marker_1d32606dc3b5f71da72f336856b383ea.bindTooltip(
+                `<div>
+                     Santa Cruz Python, Machine Learning & AI Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d630409fabfce75d2640eb9f0df68ac4 = L.circleMarker(
+                [33.9824949, -117.374238],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_61f036551fbdf9760205898a2d0ecdcb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1c4f74d555bc11c112c23499633b8510 = $(`<div id="html_1c4f74d555bc11c112c23499633b8510" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/iepython' target='_blank'>Inland Empire Python Users Group</a></div>`)[0];
+                popup_61f036551fbdf9760205898a2d0ecdcb.setContent(html_1c4f74d555bc11c112c23499633b8510);
+            
+        
+
+        circle_marker_d630409fabfce75d2640eb9f0df68ac4.bindPopup(popup_61f036551fbdf9760205898a2d0ecdcb)
+        ;
+
+        
+    
+    
+            circle_marker_d630409fabfce75d2640eb9f0df68ac4.bindTooltip(
+                `<div>
+                     Inland Empire Python Users Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_17e49447d827b266396ae23bded8e2ba = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_ea408d6fbbb7728dc06aaa7ffcca02fd = L.circleMarker(
+                [34.0536909, -118.242766],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_17e49447d827b266396ae23bded8e2ba);
+        
+    
+        var popup_dd99227955a342178630e8a20606e3f4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0dca7674842244c4bd9336de3a4a24a1 = $(`<div id="html_0dca7674842244c4bd9336de3a4a24a1" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/Pyladies-LA' target='_blank'>PyLadies of Los Angeles</a></div>`)[0];
+                popup_dd99227955a342178630e8a20606e3f4.setContent(html_0dca7674842244c4bd9336de3a4a24a1);
+            
+        
+
+        circle_marker_ea408d6fbbb7728dc06aaa7ffcca02fd.bindPopup(popup_dd99227955a342178630e8a20606e3f4)
+        ;
+
+        
+    
+    
+            circle_marker_ea408d6fbbb7728dc06aaa7ffcca02fd.bindTooltip(
+                `<div>
+                     PyLadies of Los Angeles
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_87aa4193e178779291efe218e1424182 = L.circleMarker(
+                [34.0536909, -118.242766],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_17e49447d827b266396ae23bded8e2ba);
+        
+    
+        var popup_a1afefcdaef3704ad56c43dc46d155f6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a4d98d3ae09e78db5d35ba116e9e9425 = $(`<div id="html_a4d98d3ae09e78db5d35ba116e9e9425" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/socalpython' target='_blank'>SoCal Python</a></div>`)[0];
+                popup_a1afefcdaef3704ad56c43dc46d155f6.setContent(html_a4d98d3ae09e78db5d35ba116e9e9425);
+            
+        
+
+        circle_marker_87aa4193e178779291efe218e1424182.bindPopup(popup_a1afefcdaef3704ad56c43dc46d155f6)
+        ;
+
+        
+    
+    
+            circle_marker_87aa4193e178779291efe218e1424182.bindTooltip(
+                `<div>
+                     SoCal Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_17e49447d827b266396ae23bded8e2ba.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_834e57502f90de6e715e80ead2c47f42 = L.circleMarker(
+                [34.4221319, -119.702667],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_3bfac183e8bea76856df125f8839086b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6d834c4ed7578ce8ea1727b5c2040015 = $(`<div id="html_6d834c4ed7578ce8ea1727b5c2040015" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/central-coast-python' target='_blank'>Central Coast Python</a></div>`)[0];
+                popup_3bfac183e8bea76856df125f8839086b.setContent(html_6d834c4ed7578ce8ea1727b5c2040015);
+            
+        
+
+        circle_marker_834e57502f90de6e715e80ead2c47f42.bindPopup(popup_3bfac183e8bea76856df125f8839086b)
+        ;
+
+        
+    
+    
+            circle_marker_834e57502f90de6e715e80ead2c47f42.bindTooltip(
+                `<div>
+                     Central Coast Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e78a1f25cc87bda5b0754c888e136afc = L.circleMarker(
+                [32.7174202, -117.162772],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_3e21c5ada22b9b2348c8c94bc5a09e50 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f4fd049d19fd9b805d4d6d835b30b60a = $(`<div id="html_f4fd049d19fd9b805d4d6d835b30b60a" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonsd' target='_blank'>San Diego Python Users Group</a></div>`)[0];
+                popup_3e21c5ada22b9b2348c8c94bc5a09e50.setContent(html_f4fd049d19fd9b805d4d6d835b30b60a);
+            
+        
+
+        circle_marker_e78a1f25cc87bda5b0754c888e136afc.bindPopup(popup_3e21c5ada22b9b2348c8c94bc5a09e50)
+        ;
+
+        
+    
+    
+            circle_marker_e78a1f25cc87bda5b0754c888e136afc.bindTooltip(
+                `<div>
+                     San Diego Python Users Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c956e8f4815752e4d4af0e2ecaf5759 = L.circleMarker(
+                [37.5666791, 126.9782914],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_f69cd5e1b052aecdab73f7014e66f285 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5b88b3e0054e07b0c26e0f5ff5c3a78f = $(`<div id="html_5b88b3e0054e07b0c26e0f5ff5c3a78f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/seoul-pyladies-meetup' target='_blank'>PyLadies Seoul Meetup</a></div>`)[0];
+                popup_f69cd5e1b052aecdab73f7014e66f285.setContent(html_5b88b3e0054e07b0c26e0f5ff5c3a78f);
+            
+        
+
+        circle_marker_5c956e8f4815752e4d4af0e2ecaf5759.bindPopup(popup_f69cd5e1b052aecdab73f7014e66f285)
+        ;
+
+        
+    
+    
+            circle_marker_5c956e8f4815752e4d4af0e2ecaf5759.bindTooltip(
+                `<div>
+                     PyLadies Seoul Meetup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cf87e962afc336a18622dfa538fcefd0 = L.circleMarker(
+                [-26.205, 28.049722],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_2f94fd8eb71d352b5a5fd8b4bcdefb19 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_74b0dfe1a94d977546352b6a93b322e2 = $(`<div id="html_74b0dfe1a94d977546352b6a93b322e2" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/gauteng-python-users-group' target='_blank'>Gauteng Python User Group</a></div>`)[0];
+                popup_2f94fd8eb71d352b5a5fd8b4bcdefb19.setContent(html_74b0dfe1a94d977546352b6a93b322e2);
+            
+        
+
+        circle_marker_cf87e962afc336a18622dfa538fcefd0.bindPopup(popup_2f94fd8eb71d352b5a5fd8b4bcdefb19)
+        ;
+
+        
+    
+    
+            circle_marker_cf87e962afc336a18622dfa538fcefd0.bindTooltip(
+                `<div>
+                     Gauteng Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d59fd2f09bb5520e1502e59995460f9d = L.circleMarker(
+                [-25.966213, 32.56745],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_c3cf666ee8060a616630382f2d5c605c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_466b39d00682fbf15d35fd870c2a0da9 = $(`<div id="html_466b39d00682fbf15d35fd870c2a0da9" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/mpt-pyladies' target='_blank'>PyLadies Maputo Meetup Group</a></div>`)[0];
+                popup_c3cf666ee8060a616630382f2d5c605c.setContent(html_466b39d00682fbf15d35fd870c2a0da9);
+            
+        
+
+        circle_marker_d59fd2f09bb5520e1502e59995460f9d.bindPopup(popup_c3cf666ee8060a616630382f2d5c605c)
+        ;
+
+        
+    
+    
+            circle_marker_d59fd2f09bb5520e1502e59995460f9d.bindTooltip(
+                `<div>
+                     PyLadies Maputo Meetup Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_10d7ef4b315360990ea35396fd67a571 = L.circleMarker(
+                [13.7524938, 100.4935089],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_3ebbfa510916750b148eafc1b1f70403 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_be41e8ee0cfc067a61f1f8d6605ccd6f = $(`<div id="html_be41e8ee0cfc067a61f1f8d6605ccd6f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/only_devs_bangkok' target='_blank'>Only Devs Bangkok (formerly ThaiPy)</a></div>`)[0];
+                popup_3ebbfa510916750b148eafc1b1f70403.setContent(html_be41e8ee0cfc067a61f1f8d6605ccd6f);
+            
+        
+
+        circle_marker_10d7ef4b315360990ea35396fd67a571.bindPopup(popup_3ebbfa510916750b148eafc1b1f70403)
+        ;
+
+        
+    
+    
+            circle_marker_10d7ef4b315360990ea35396fd67a571.bindTooltip(
+                `<div>
+                     Only Devs Bangkok (formerly ThaiPy)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_401ca5c85ba72a168dfc8fb0eab828f7 = L.circleMarker(
+                [35.6768601, 139.7638947],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_d14f0917405bb6b10ad5dfcfe702b601 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a11389b731bde755fba4f804bab8d72f = $(`<div id="html_a11389b731bde755fba4f804bab8d72f" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/tokyopython' target='_blank'>Tokyo Python</a></div>`)[0];
+                popup_d14f0917405bb6b10ad5dfcfe702b601.setContent(html_a11389b731bde755fba4f804bab8d72f);
+            
+        
+
+        circle_marker_401ca5c85ba72a168dfc8fb0eab828f7.bindPopup(popup_d14f0917405bb6b10ad5dfcfe702b601)
+        ;
+
+        
+    
+    
+            circle_marker_401ca5c85ba72a168dfc8fb0eab828f7.bindTooltip(
+                `<div>
+                     Tokyo Python
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6b20a9b59081536b8c8e8ee6655e50b1 = L.circleMarker(
+                [-20.2933761, 57.4978036],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_6d26a2f49586804e2b717e9bbc405cdf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8e072bb87bc59290ccd3fdcc789bc73e = $(`<div id="html_8e072bb87bc59290ccd3fdcc789bc73e" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pymauritius' target='_blank'>Python Mauritius Usergroup</a></div>`)[0];
+                popup_6d26a2f49586804e2b717e9bbc405cdf.setContent(html_8e072bb87bc59290ccd3fdcc789bc73e);
+            
+        
+
+        circle_marker_6b20a9b59081536b8c8e8ee6655e50b1.bindPopup(popup_6d26a2f49586804e2b717e9bbc405cdf)
+        ;
+
+        
+    
+    
+            circle_marker_6b20a9b59081536b8c8e8ee6655e50b1.bindTooltip(
+                `<div>
+                     Python Mauritius Usergroup
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_82a58b5b7a698f2e0a616b75f859e757 = L.circleMarker(
+                [25.0375198, 121.5636796],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_8769cf654746604c4d87ac75f3c28b25 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2f07f1c4b1a09ecc08ff96e600f41ff3 = $(`<div id="html_2f07f1c4b1a09ecc08ff96e600f41ff3" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/taipei_py' target='_blank'>Taipei.py 臺北 Python 使用者群組</a></div>`)[0];
+                popup_8769cf654746604c4d87ac75f3c28b25.setContent(html_2f07f1c4b1a09ecc08ff96e600f41ff3);
+            
+        
+
+        circle_marker_82a58b5b7a698f2e0a616b75f859e757.bindPopup(popup_8769cf654746604c4d87ac75f3c28b25)
+        ;
+
+        
+    
+    
+            circle_marker_82a58b5b7a698f2e0a616b75f859e757.bindTooltip(
+                `<div>
+                     Taipei.py 臺北 Python 使用者群組
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0f47040e7c1dc35e517e6437db53ac1b = L.circleMarker(
+                [-16.4955455, -68.1336229],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_9f19ed0013e5950d69ca51421c2b46ea = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a5049ec5e4a02d01fbf9733a62bbe14d = $(`<div id="html_a5049ec5e4a02d01fbf9733a62bbe14d" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/La-Paz-PyLadies-Meetup' target='_blank'>PyLadies La Paz</a></div>`)[0];
+                popup_9f19ed0013e5950d69ca51421c2b46ea.setContent(html_a5049ec5e4a02d01fbf9733a62bbe14d);
+            
+        
+
+        circle_marker_0f47040e7c1dc35e517e6437db53ac1b.bindPopup(popup_9f19ed0013e5950d69ca51421c2b46ea)
+        ;
+
+        
+    
+    
+            circle_marker_0f47040e7c1dc35e517e6437db53ac1b.bindTooltip(
+                `<div>
+                     PyLadies La Paz
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3178388ba3b430aec8a6b9fb0c171819 = L.circleMarker(
+                [14.5904492, 120.9803621],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_d7a3cbe44c2631775db128b80a0562c5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_36dfed087ac7cfdfc0a2d611a185d8b8 = $(`<div id="html_36dfed087ac7cfdfc0a2d611a185d8b8" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonph' target='_blank'>Python Philippines</a></div>`)[0];
+                popup_d7a3cbe44c2631775db128b80a0562c5.setContent(html_36dfed087ac7cfdfc0a2d611a185d8b8);
+            
+        
+
+        circle_marker_3178388ba3b430aec8a6b9fb0c171819.bindPopup(popup_d7a3cbe44c2631775db128b80a0562c5)
+        ;
+
+        
+    
+    
+            circle_marker_3178388ba3b430aec8a6b9fb0c171819.bindTooltip(
+                `<div>
+                     Python Philippines
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fcbe400a4c0f34ef46d065a12aba101a = L.circleMarker(
+                [10.47, 123.83],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_e95ee21edab4c905cfa1c90ea9782ead = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_76070b83ef562eb67fbc49d6202213f0 = $(`<div id="html_76070b83ef562eb67fbc49d6202213f0" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pizzapy-ph' target='_blank'>PizzaPy - Cebu Python Users Group</a></div>`)[0];
+                popup_e95ee21edab4c905cfa1c90ea9782ead.setContent(html_76070b83ef562eb67fbc49d6202213f0);
+            
+        
+
+        circle_marker_fcbe400a4c0f34ef46d065a12aba101a.bindPopup(popup_e95ee21edab4c905cfa1c90ea9782ead)
+        ;
+
+        
+    
+    
+            circle_marker_fcbe400a4c0f34ef46d065a12aba101a.bindTooltip(
+                `<div>
+                     PizzaPy - Cebu Python Users Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d3273d3dcc9f9b28dc2757abeb5ad9d2 = L.circleMarker(
+                [21.304547, -157.855676],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_7998942e91a9f0429059f5907484d51a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_65db77248cd9a877e927c0fb3c078dcc = $(`<div id="html_65db77248cd9a877e927c0fb3c078dcc" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyhawaii-python-users-group' target='_blank'>PyHawaii: Python User Group</a></div>`)[0];
+                popup_7998942e91a9f0429059f5907484d51a.setContent(html_65db77248cd9a877e927c0fb3c078dcc);
+            
+        
+
+        circle_marker_d3273d3dcc9f9b28dc2757abeb5ad9d2.bindPopup(popup_7998942e91a9f0429059f5907484d51a)
+        ;
+
+        
+    
+    
+            circle_marker_d3273d3dcc9f9b28dc2757abeb5ad9d2.bindTooltip(
+                `<div>
+                     PyHawaii: Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_6f2f0f225850be88b83c56f1a465fc61 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_943744793a52094a891faad7556ae655 = L.circleMarker(
+                [9.8694792, -83.7980749],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_6f2f0f225850be88b83c56f1a465fc61);
+        
+    
+        var popup_09eaa0f978398a9450f55ca76d241dd6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_19e6b5533c69c0d3077befb5abe24c08 = $(`<div id="html_19e6b5533c69c0d3077befb5abe24c08" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-santiago-de-chile' target='_blank'>PyLadies Santiago de Chile</a></div>`)[0];
+                popup_09eaa0f978398a9450f55ca76d241dd6.setContent(html_19e6b5533c69c0d3077befb5abe24c08);
+            
+        
+
+        circle_marker_943744793a52094a891faad7556ae655.bindPopup(popup_09eaa0f978398a9450f55ca76d241dd6)
+        ;
+
+        
+    
+    
+            circle_marker_943744793a52094a891faad7556ae655.bindTooltip(
+                `<div>
+                     PyLadies Santiago de Chile
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ebab211d01bd0737870cdba1dc099678 = L.circleMarker(
+                [9.8694792, -83.7980749],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_6f2f0f225850be88b83c56f1a465fc61);
+        
+    
+        var popup_ee18dcc21c7f84eedcc8787f9f7c76f4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7b82f2f70007d179a68d1db2c24beb58 = $(`<div id="html_7b82f2f70007d179a68d1db2c24beb58" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonchiledev' target='_blank'>PythonChile</a></div>`)[0];
+                popup_ee18dcc21c7f84eedcc8787f9f7c76f4.setContent(html_7b82f2f70007d179a68d1db2c24beb58);
+            
+        
+
+        circle_marker_ebab211d01bd0737870cdba1dc099678.bindPopup(popup_ee18dcc21c7f84eedcc8787f9f7c76f4)
+        ;
+
+        
+    
+    
+            circle_marker_ebab211d01bd0737870cdba1dc099678.bindTooltip(
+                `<div>
+                     PythonChile
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_6f2f0f225850be88b83c56f1a465fc61.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_c20c00bdc4726a8397ff660ace680426 = L.circleMarker(
+                [7.0648306, 125.6080623],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_2b61838f7cd6ddbb07a44a9d5c4065cc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_71e12184c92021c1b8c659db906eedf9 = $(`<div id="html_71e12184c92021c1b8c659db906eedf9" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/durianpy' target='_blank'>DurianPy - Davao Python User Group</a></div>`)[0];
+                popup_2b61838f7cd6ddbb07a44a9d5c4065cc.setContent(html_71e12184c92021c1b8c659db906eedf9);
+            
+        
+
+        circle_marker_c20c00bdc4726a8397ff660ace680426.bindPopup(popup_2b61838f7cd6ddbb07a44a9d5c4065cc)
+        ;
+
+        
+    
+    
+            circle_marker_c20c00bdc4726a8397ff660ace680426.bindTooltip(
+                `<div>
+                     DurianPy - Davao Python User Group
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5269560e4e1ccc8b2b26e0500f106c83 = L.circleMarker(
+                [-5.1342962, 119.4124282],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_d7d7e97c28d3b68854eea49e5bc762f3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6c787bc86b0210aa6b52f449d1c8bd1e = $(`<div id="html_6c787bc86b0210aa6b52f449d1c8bd1e" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/mks-py' target='_blank'>mks.py</a></div>`)[0];
+                popup_d7d7e97c28d3b68854eea49e5bc762f3.setContent(html_6c787bc86b0210aa6b52f449d1c8bd1e);
+            
+        
+
+        circle_marker_5269560e4e1ccc8b2b26e0500f106c83.bindPopup(popup_d7d7e97c28d3b68854eea49e5bc762f3)
+        ;
+
+        
+    
+    
+            circle_marker_5269560e4e1ccc8b2b26e0500f106c83.bindTooltip(
+                `<div>
+                     mks.py
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b702a06935e89b53fad0f4b4f92a86e = L.circleMarker(
+                [-34.9281805, 138.5999312],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_8a24e1c727a4a7c93fe8f122ab1182e0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a6a92b85213829dc330695b4cb5452d2 = $(`<div id="html_a6a92b85213829dc330695b4cb5452d2" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonadelaide' target='_blank'>Python Adelaide</a></div>`)[0];
+                popup_8a24e1c727a4a7c93fe8f122ab1182e0.setContent(html_a6a92b85213829dc330695b4cb5452d2);
+            
+        
+
+        circle_marker_0b702a06935e89b53fad0f4b4f92a86e.bindPopup(popup_8a24e1c727a4a7c93fe8f122ab1182e0)
+        ;
+
+        
+    
+    
+            circle_marker_0b702a06935e89b53fad0f4b4f92a86e.bindTooltip(
+                `<div>
+                     Python Adelaide
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e7e86c9f28730a3e0bcaa833e607547e = L.circleMarker(
+                [-35.2975906, 149.1012676],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_ebec7e9896beadcbb5b30872f2a6c0a6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c12c4ad427016096e117417821a87ab5 = $(`<div id="html_c12c4ad427016096e117417821a87ab5" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pyladies-canberra' target='_blank'>Women's Programming Network (PyLadies) Canberra</a></div>`)[0];
+                popup_ebec7e9896beadcbb5b30872f2a6c0a6.setContent(html_c12c4ad427016096e117417821a87ab5);
+            
+        
+
+        circle_marker_e7e86c9f28730a3e0bcaa833e607547e.bindPopup(popup_ebec7e9896beadcbb5b30872f2a6c0a6)
+        ;
+
+        
+    
+    
+            circle_marker_e7e86c9f28730a3e0bcaa833e607547e.bindTooltip(
+                `<div>
+                     Women's Programming Network (PyLadies) Canberra
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_e41ed600dd31682bc59ed2fe65ff3234 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+}
+            );
+        
+    
+            var circle_marker_9ff2ed2290d3af3163e483c5ac20a279 = L.circleMarker(
+                [-36.852095, 174.7631803],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_e41ed600dd31682bc59ed2fe65ff3234);
+        
+    
+        var popup_51403a1aa664215e219b73b06d5d6b98 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aa229f372d80450ca372cc3a1d569aca = $(`<div id="html_aa229f372d80450ca372cc3a1d569aca" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonnz-online' target='_blank'>Python New Zealand - Online Events</a></div>`)[0];
+                popup_51403a1aa664215e219b73b06d5d6b98.setContent(html_aa229f372d80450ca372cc3a1d569aca);
+            
+        
+
+        circle_marker_9ff2ed2290d3af3163e483c5ac20a279.bindPopup(popup_51403a1aa664215e219b73b06d5d6b98)
+        ;
+
+        
+    
+    
+            circle_marker_9ff2ed2290d3af3163e483c5ac20a279.bindTooltip(
+                `<div>
+                     Python New Zealand - Online Events
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1376b3aa0dccd341ad8b83e1abcc00b = L.circleMarker(
+                [-36.852095, 174.7631803],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_e41ed600dd31682bc59ed2fe65ff3234);
+        
+    
+        var popup_3677cffe4853f15aa92df7b379e35ea7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_00f96a0c1fbdcdfe2e6400723c0f1fb3 = $(`<div id="html_00f96a0c1fbdcdfe2e6400723c0f1fb3" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonnz-auckland' target='_blank'>Python New Zealand - Auckland</a></div>`)[0];
+                popup_3677cffe4853f15aa92df7b379e35ea7.setContent(html_00f96a0c1fbdcdfe2e6400723c0f1fb3);
+            
+        
+
+        circle_marker_e1376b3aa0dccd341ad8b83e1abcc00b.bindPopup(popup_3677cffe4853f15aa92df7b379e35ea7)
+        ;
+
+        
+    
+    
+            circle_marker_e1376b3aa0dccd341ad8b83e1abcc00b.bindTooltip(
+                `<div>
+                     Python New Zealand - Auckland
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_e41ed600dd31682bc59ed2fe65ff3234.addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+            var circle_marker_9cbf398dfa5485630dc6c67934e46375 = L.circleMarker(
+                [-41.2887953, 174.7772114],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_e8e4a48026486d02c301e18c2f8bff69 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_14468b116a4b0cfeecea36402819e755 = $(`<div id="html_14468b116a4b0cfeecea36402819e755" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonnz-wellington' target='_blank'>Python New Zealand - Wellington</a></div>`)[0];
+                popup_e8e4a48026486d02c301e18c2f8bff69.setContent(html_14468b116a4b0cfeecea36402819e755);
+            
+        
+
+        circle_marker_9cbf398dfa5485630dc6c67934e46375.bindPopup(popup_e8e4a48026486d02c301e18c2f8bff69)
+        ;
+
+        
+    
+    
+            circle_marker_9cbf398dfa5485630dc6c67934e46375.bindTooltip(
+                `<div>
+                     Python New Zealand - Wellington
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_903f73e025a4ba618ee15a9cd257edcb = L.circleMarker(
+                [-43.530955, 172.6364343],
+                {"bubblingMouseEvents": true, "color": "#ee9041", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ee9041", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 0}
+            ).addTo(map_b06fea9d14a4ff33ded9cbdc21a5501a);
+        
+    
+        var popup_de542514fbf8be7efd5a17e142231c3d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5c7aadd856efd6336a27d439c90d22c1 = $(`<div id="html_5c7aadd856efd6336a27d439c90d22c1" style="width: 100.0%; height: 100.0%;"><a href='https://www.meetup.com/pythonnz-christchurch' target='_blank'>Python New Zealand - Christchurch</a></div>`)[0];
+                popup_de542514fbf8be7efd5a17e142231c3d.setContent(html_5c7aadd856efd6336a27d439c90d22c1);
+            
+        
+
+        circle_marker_903f73e025a4ba618ee15a9cd257edcb.bindPopup(popup_de542514fbf8be7efd5a17e142231c3d)
+        ;
+
+        
+    
+    
+            circle_marker_903f73e025a4ba618ee15a9cd257edcb.bindTooltip(
+                `<div>
+                     Python New Zealand - Christchurch
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
