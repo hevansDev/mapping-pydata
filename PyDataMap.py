@@ -15,10 +15,34 @@ from geopy.extra.rate_limiter import RateLimiter
 from playwright.async_api import async_playwright
 
 CACHE_FILE = Path("geocode_cache.json")
-MANUAL_GROUPS_FILE = Path("pydata_groups_manual.csv")
 
 ESRI_TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
 ESRI_ATTR = 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+
+# Each Meetup Pro network this project tracks. PyData keeps its original
+# filenames so existing links (GitHub Pages, README, anyone's bookmarks)
+# keep working; new networks get their own prefix instead of being folded
+# into the pydata_* files.
+NETWORKS = {
+    'pydata': {
+        'label': 'PyData',
+        'meetup_pro_url': 'https://www.meetup.com/pro/pydata/',
+        'csv_file': 'pydata_groups.csv',
+        'manual_csv_file': 'pydata_groups_manual.csv',
+        'min_expected_groups': 135,
+        'map_prefix': 'pydata',
+    },
+    'psf': {
+        'label': 'PSF Python Network',
+        'meetup_pro_url': 'https://www.meetup.com/pro/python-software-foundation-meetups/',
+        'csv_file': 'psf_groups.csv',
+        'manual_csv_file': None,
+        'min_expected_groups': 90,
+        'map_prefix': 'psf',
+    },
+}
+
+NETWORK_LABELS = {key: cfg['label'] for key, cfg in NETWORKS.items()}
 
 # Columns that should always be whole numbers (never floats or sets)
 INT_COLUMNS = ['members', 'past_events_count', 'organizer_count', 'days_since_last_event', 'pro_network_misses', 'upcoming_events_count']
@@ -45,9 +69,9 @@ def sanitise_dataframe(df):
     return df
 
 
-def get_cached_pydata_groups():
-    if Path("pydata_groups.csv").exists():
-        df = pd.read_csv("pydata_groups.csv")
+def get_cached_groups(csv_file, network_key):
+    if Path(csv_file).exists():
+        df = pd.read_csv(csv_file)
         if 'in_pro_network' not in df.columns:
             df['in_pro_network'] = False
         if 'pro_network_misses' not in df.columns:
@@ -64,6 +88,12 @@ def get_cached_pydata_groups():
         if 'source' in df.columns:
             has_source = df['source'].notna() & (df['source'].astype(str).str.strip() != '')
             df.loc[has_source, 'non_meetup'] = True
+        # Every row in this file belongs to this network. Older CSVs (from
+        # before multi-network support) won't have the column at all.
+        if 'network' not in df.columns:
+            df['network'] = network_key
+        else:
+            df['network'] = df['network'].fillna(network_key)
         # Backwards compat: derive count from old boolean column if present
         if 'upcoming_events_count' not in df.columns:
             if 'has_upcoming_events' in df.columns:
@@ -75,13 +105,20 @@ def get_cached_pydata_groups():
     return None
 
 
-def load_manual_groups():
-    if not MANUAL_GROUPS_FILE.exists():
+def load_manual_groups(manual_csv_file, network_key):
+    if not manual_csv_file:
         return []
-    df = pd.read_csv(MANUAL_GROUPS_FILE)
+    manual_path = Path(manual_csv_file)
+    if not manual_path.exists():
+        return []
+    df = pd.read_csv(manual_path)
     df = sanitise_dataframe(df)
     if 'source' not in df.columns:
         df['source'] = 'manual'
+    if 'network' not in df.columns:
+        df['network'] = network_key
+    else:
+        df['network'] = df['network'].fillna(network_key)
     # Manual groups have no Meetup presence and therefore no reliable
     # activity data (upcoming/past events). Default them to non_meetup so
     # they render with a neutral marker instead of active/inactive styling,
@@ -91,25 +128,46 @@ def load_manual_groups():
     else:
         df['non_meetup'] = df['non_meetup'].fillna(True).astype(bool)
     records = df.to_dict(orient='records')
-    print(f"Loaded {len(records)} manual groups from {MANUAL_GROUPS_FILE}")
+    print(f"Loaded {len(records)} manual groups from {manual_path}")
     return records
 
 
-# Scrape all PyData groups from meetup.com/pro/pydata
-async def get_pydata_groups():
+# Scrape all groups listed on a Meetup Pro network page (e.g.
+# meetup.com/pro/pydata or meetup.com/pro/python-software-foundation-meetups).
+# Every Meetup Pro network page has the same structure, so this one scraper
+# works for any of them — just point it at a different pro_network_url.
+async def scrape_meetup_pro_network(pro_network_url, network_key):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 1280, 'height': 800})
-        await page.goto('https://www.meetup.com/pro/pydata/')
+        await page.goto(pro_network_url)
         await page.wait_for_selector('[data-testid="group"]')
 
-        groups = await page.evaluate('''
+        # Two earlier theories for the group count capping out - a nested
+        # scroll container needing its own scroll calls, and an instant
+        # jump-to-bottom not triggering gradual-load logic - were both
+        # tried and both ruled out empirically: across repeated live runs
+        # with unchanged code, the count bounced around (40, 60, 60, 20,
+        # 40, 40) instead of settling once a real client-side fix landed,
+        # and it always plateaus within the first handful of iterations
+        # regardless of which scroll strategy is used. That pattern points
+        # to something server-side (e.g. rate limiting a script that's hit
+        # the page repeatedly today) rather than a fixable client bug, so
+        # this has been simplified back down rather than layering on more
+        # speculative scroll mechanics. The diagnostic print below is kept
+        # so a future run (ideally after a longer gap) can confirm.
+        result = await page.evaluate('''
             async () => {
                 const allGroups = new Map();
                 let lastCount = 0;
                 let stableCount = 0;
+                let iterations = 0;
+                const maxIterations = 200; // hard safety cap (~8-15 min worst case)
+                const requiredStable = 10;
 
-                while (stableCount < 10) {
+                while (stableCount < requiredStable && iterations < maxIterations) {
+                    iterations++;
+
                     document.querySelectorAll('[data-testid="group"]').forEach(el => {
                         const link = el.querySelector('a');
                         const url = link?.href || '';
@@ -140,13 +198,25 @@ async def get_pydata_groups():
                     else stableCount = 0;
                     lastCount = allGroups.size;
                 }
-                return Array.from(allGroups.values());
+
+                return {
+                    groups: Array.from(allGroups.values()),
+                    iterations,
+                    hitMaxIterations: iterations >= maxIterations,
+                };
             }
         ''')
         await browser.close()
 
+    groups = result['groups']
+    print(
+        f"[{network_key}] Scroll loop: {len(groups)} groups after {result['iterations']} iterations "
+        f"(hit max iterations: {result['hitMaxIterations']})"
+    )
+
     for g in groups:
         g['in_pro_network'] = True
+        g['network'] = network_key
 
     return groups
 
@@ -271,14 +341,29 @@ def save_cache(cache):
         json.dump(cache, f, indent=2)
 
 
-# Get the geocoding query for a group name
-def get_query_for_group(name, cache):
+# Get the geocoding query for a group. Prefers the city Meetup itself
+# reports for the group (scraped alongside the name) over trying to parse a
+# location out of the group's freeform name — that name-based fallback only
+# works for a "PyData {City}" naming convention and falls apart for names
+# like "PyLadies London", "Django London", "Python User Group Freiburg",
+# emoji-laden names, etc. from less consistently-named networks. New/tiny
+# groups sometimes show a "New group" placeholder instead of a real city;
+# fall back to the name heuristic in that case.
+def get_query_for_group(name, city, cache):
     if name in cache['hints']:
         return cache['hints'][name]
+    city = str(city or '').strip()
+    if city and city.lower() not in ('new group', 'unknown', 'nan'):
+        return city
     return name.replace('PyData ', '').replace(' Meetup', '').replace(' Group', '').replace('PyData', '')
 
 
-# Geocode groups with caching
+# Geocode groups with caching. Every group is kept in the result even if it
+# couldn't be geocoded — it just won't have lat/lon and so won't get a
+# marker until a hint or coordinate fix is added. Dropping ungeocodable
+# groups entirely (as this used to do) is much worse: on a network with
+# less consistent naming than PyData's, that can silently throw away most
+# of a fresh scrape.
 def geocode_groups(groups):
     cache = load_cache()
 
@@ -288,13 +373,15 @@ def geocode_groups(groups):
     results = []
     cache_hits = 0
     api_calls = 0
+    geocoded_count = 0
 
     for group in groups:
         name = group['name']
-        query = get_query_for_group(name, cache)
+        query = get_query_for_group(name, group.get('city'), cache)
 
         if query is None:
             print(f"⊘ {name} (skipped)")
+            results.append({**group, 'query': query})
             continue
 
         if query in cache['coords']:
@@ -307,6 +394,7 @@ def geocode_groups(groups):
             })
             print(f"✓ {name} -> {query} ({cached['lat']:.2f}, {cached['lon']:.2f}) [cached]")
             cache_hits += 1
+            geocoded_count += 1
             continue
 
         try:
@@ -325,14 +413,17 @@ def geocode_groups(groups):
                 })
                 print(f"✓ {name} -> {query} ({location.latitude:.2f}, {location.longitude:.2f})")
                 api_calls += 1
+                geocoded_count += 1
             else:
-                print(f"✗ {name} -> {query} (not found)")
+                print(f"✗ {name} -> {query} (not found — kept without coordinates)")
+                results.append({**group, 'query': query})
         except Exception as e:
-            print(f"✗ {name} -> {query} (error: {type(e).__name__})")
+            print(f"✗ {name} -> {query} (error: {type(e).__name__} — kept without coordinates)")
+            results.append({**group, 'query': query})
 
     save_cache(cache)
 
-    print(f"\nGeocoded {len(results)} of {len(groups)} groups")
+    print(f"\nRetained {len(results)} of {len(groups)} groups ({geocoded_count} with coordinates, {len(results) - geocoded_count} need a hint)")
     print(f"Cache hits: {cache_hits}, API calls: {api_calls}")
 
     return results
@@ -420,6 +511,45 @@ def format_alt_links_html(g):
     return f"<br>🔗 Also: {rendered}"
 
 
+# Merge groups scraped from multiple Meetup Pro networks into one list, one
+# row per unique Meetup URL. If the same group shows up in more than one
+# network's scrape, it's kept as a single row (so it only ever gets one
+# marker) with a 'networks' field listing every network it belongs to,
+# rather than being silently dropped or duplicated.
+def merge_all_networks(networks_data):
+    merged = {}
+    order = []
+    for network_key, groups in networks_data.items():
+        for g in groups:
+            url = g.get('url')
+            if not url:
+                continue
+            if url in merged:
+                existing_networks = str(merged[url].get('networks') or '').split(',')
+                existing_networks = [n for n in existing_networks if n]
+                if network_key not in existing_networks:
+                    existing_networks.append(network_key)
+                merged[url]['networks'] = ','.join(existing_networks)
+            else:
+                g = {**g, 'networks': network_key}
+                merged[url] = g
+                order.append(url)
+    return [merged[url] for url in order]
+
+
+# Render a group's network membership as a small HTML fragment, or '' if it
+# only belongs to one network (the map's own title/branding already makes
+# that obvious, so this is only useful on the combined map for groups that
+# are cross-listed in more than one network).
+def format_networks_html(g):
+    networks = str(g.get('networks') or g.get('network') or '').split(',')
+    networks = [n for n in networks if n]
+    if len(networks) <= 1:
+        return ''
+    labels = [NETWORK_LABELS.get(n, n) for n in networks]
+    return f"<br>🐍 {' + '.join(labels)}"
+
+
 # Build popup HTML for a group
 def build_popup_html(g):
     header = f"""<b><a href='{g['url']}' target='_blank'>{g['name']}</a></b><br>
@@ -430,7 +560,7 @@ def build_popup_html(g):
     # rather than showing misleading zeros or a fabricated Leaders link.
     if g.get('non_meetup'):
         return f"""
-        {header}{format_alt_links_html(g)}
+        {header}{format_networks_html(g)}{format_alt_links_html(g)}
     """
 
     days = g.get('days_since_last_event')
@@ -441,7 +571,7 @@ def build_popup_html(g):
     members = g.get('members') or 0
 
     return f"""
-        {header}<br>
+        {header}{format_networks_html(g)}<br>
         👥 {members} members<br>
         📅 {past_count} past events<br>
         ⏱️ Last event: {days_str}<br>
@@ -474,7 +604,7 @@ def create_marker(g, style='orange'):
         fill_color = '#ee9041'
         fill_opacity = 0.7
         radius = 8
-        popup = f"<a href='{g['url']}' target='_blank'>{g['name']}</a>{format_alt_links_html(g)}"
+        popup = f"<a href='{g['url']}' target='_blank'>{g['name']}</a>{format_networks_html(g)}{format_alt_links_html(g)}"
         tooltip = g['name']
 
     return folium.CircleMarker(
@@ -615,28 +745,33 @@ def load_enrichment_cache(csv_file='pydata_groups.csv'):
     return cache
 
 
-async def main():
+# Run the full scrape -> geocode -> enrich -> manual-merge pipeline for one
+# Meetup Pro network, save its CSV, and return the enriched group list.
+async def process_network(network_key, cfg):
+    label = cfg['label']
+    csv_file = cfg['csv_file']
+
     print("=" * 60)
-    print("Fetching PyData groups from cache...")
-    groups = get_cached_pydata_groups()
+    print(f"[{label}] Fetching groups from cache...")
+    groups = get_cached_groups(csv_file, network_key)
     print("=" * 60)
 
-    print("Looking for new PyData groups on Meetup...")
-    new_groups = await get_pydata_groups()
+    print(f"[{label}] Looking for new groups on Meetup...")
+    new_groups = await scrape_meetup_pro_network(cfg['meetup_pro_url'], network_key)
     pro_urls = {g['url'] for g in new_groups}
-    print(f"Found {len(new_groups)} groups in Pro network")
+    print(f"[{label}] Found {len(new_groups)} groups in Pro network")
 
     if new_groups:
-        print(f"Found {len(new_groups)} new groups\n", flush=True)
+        print(f"[{label}] Found {len(new_groups)} new groups\n", flush=True)
 
         print("=" * 60, flush=True)
-        print("Geocoding new groups...")
+        print(f"[{label}] Geocoding new groups...")
         groups_with_coords = geocode_groups(new_groups)
         for g in groups_with_coords:
             g['country'] = get_country_from_cache(g.get('query', ''))
 
         print("=" * 60, flush=True)
-        print("Append new groups to cache...")
+        print(f"[{label}] Append new groups to cache...")
         if groups is not None:
             existing_urls = set(g['url'] for g in groups)
             combined_groups = groups + [g for g in groups_with_coords if g['url'] not in existing_urls]
@@ -649,7 +784,7 @@ async def main():
         cached_pro_count = sum(1 for g in combined_groups if g.get('in_pro_network', False))
         if len(new_groups) < cached_pro_count * 0.8:
             print(
-                f"\n⚠️  Scrape returned only {len(new_groups)} groups vs "
+                f"\n⚠️  [{label}] Scrape returned only {len(new_groups)} groups vs "
                 f"{cached_pro_count} cached Pro groups "
                 f"— skipping Pro network status update to avoid false removals."
             )
@@ -668,10 +803,10 @@ async def main():
                     misses = int(g.get('pro_network_misses') or 0) + 1
                     g['pro_network_misses'] = misses
                     if misses >= 3:
-                        print(f"  ⚠️  No longer in Pro network (confirmed {misses}x): {g['name']}")
+                        print(f"  ⚠️  [{label}] No longer in Pro network (confirmed {misses}x): {g['name']}")
                         g['in_pro_network'] = False
                     else:
-                        print(f"  ⚠️  Not seen in Pro network (miss {misses}/3): {g['name']} — keeping for now")
+                        print(f"  ⚠️  [{label}] Not seen in Pro network (miss {misses}/3): {g['name']} — keeping for now")
                         g['in_pro_network'] = True  # keep until confirmed absent
                 else:
                     g['in_pro_network'] = False
@@ -679,21 +814,23 @@ async def main():
 
         df = pd.DataFrame(combined_groups)
         df = sanitise_dataframe(df)
-        df.to_csv('pydata_groups.csv', index=False)
+        df.to_csv(csv_file, index=False)
 
-        print("Reloading cache...")
-        groups = get_cached_pydata_groups()
-
-    print("\n" + "=" * 60)
-    if len(groups) < 135:
-        raise Exception(f"Expected at least 135 groups in cache, found {len(groups)}. Scrape may have been incomplete.")
+        print(f"[{label}] Reloading cache...")
+        groups = get_cached_groups(csv_file, network_key)
 
     print("\n" + "=" * 60)
-    print(f"Enriching {len(groups)} groups with event details...")
+    if len(groups) < cfg['min_expected_groups']:
+        raise Exception(
+            f"[{label}] Expected at least {cfg['min_expected_groups']} groups in cache, "
+            f"found {len(groups)}. Scrape may have been incomplete."
+        )
+
+    print(f"[{label}] Enriching {len(groups)} groups with event details...")
     print("=" * 60, flush=True)
 
-    enrichment_cache = load_enrichment_cache()
-    print(f"Loaded {len(enrichment_cache)} groups from enrichment cache\n", flush=True)
+    enrichment_cache = load_enrichment_cache(csv_file)
+    print(f"[{label}] Loaded {len(enrichment_cache)} groups from enrichment cache\n", flush=True)
 
     all_groups_enriched = []
     fresh_count = 0
@@ -707,7 +844,7 @@ async def main():
         page = await browser.new_page(viewport={'width': 1280, 'height': 800})
 
         for i, group in enumerate(groups):
-            print(f"[{i + 1}/{len(groups)}] {group['name']}...", end=' ', flush=True)
+            print(f"[{label}][{i + 1}/{len(groups)}] {group['name']}...", end=' ', flush=True)
 
             details = None
             last_error = None
@@ -761,27 +898,62 @@ async def main():
         await browser.close()
 
     print("\n" + "=" * 60)
-    print(f"Enrichment complete: {fresh_count} fresh, {cached_count} cached, {failed_count} failed")
+    print(f"[{label}] Enrichment complete: {fresh_count} fresh, {cached_count} cached, {failed_count} failed")
 
-    manual_groups = load_manual_groups()
+    manual_groups = load_manual_groups(cfg.get('manual_csv_file'), network_key)
     if manual_groups:
         meetup_urls = {g['url'] for g in all_groups_enriched}
         new_manual = [g for g in manual_groups if g['url'] not in meetup_urls]
         all_groups_enriched = all_groups_enriched + new_manual
-        print(f"Added {len(new_manual)} manual groups (total: {len(all_groups_enriched)})")
-
-    print("Generating maps...")
-    print("=" * 60, flush=True)
-
-    create_world_map(all_groups_enriched, 'pydata_world_map.html')
-    create_world_map_layers(all_groups_enriched, 'pydata_world_map_active.html')
-    create_world_map_inactive(all_groups_enriched, 'pydata_world_map_inactive.html')
-    create_world_map_non_pro(all_groups_enriched, 'pydata_world_map_non_pro.html')
+        print(f"[{label}] Added {len(new_manual)} manual groups (total: {len(all_groups_enriched)})")
 
     df = pd.DataFrame(all_groups_enriched)
     df = sanitise_dataframe(df)
-    df.to_csv('pydata_groups.csv', index=False)
-    print("Saved pydata_groups.csv", flush=True)
+    df.to_csv(csv_file, index=False)
+    print(f"[{label}] Saved {csv_file}", flush=True)
+
+    return all_groups_enriched
+
+
+async def main():
+    networks_data = {}
+
+    for network_key, cfg in NETWORKS.items():
+        # One network having a bad run (a partial scrape, a sanity-check
+        # failure, etc.) shouldn't take down every other network's maps —
+        # skip it, leave its previously-saved CSV/maps untouched, and carry
+        # on so the rest of the run still completes.
+        try:
+            groups_enriched = await process_network(network_key, cfg)
+            networks_data[network_key] = groups_enriched
+
+            print(f"[{cfg['label']}] Generating maps...")
+            print("=" * 60, flush=True)
+            prefix = cfg['map_prefix']
+            create_world_map(groups_enriched, f'{prefix}_world_map.html')
+            create_world_map_layers(groups_enriched, f'{prefix}_world_map_active.html')
+            create_world_map_inactive(groups_enriched, f'{prefix}_world_map_inactive.html')
+            create_world_map_non_pro(groups_enriched, f'{prefix}_world_map_non_pro.html')
+        except Exception as e:
+            print("\n" + "=" * 60)
+            print(f"⚠ [{cfg['label']}] failed: {type(e).__name__}: {e}")
+            print(f"⚠ Skipping this network for this run — its CSV and maps are left as-is.")
+            print("=" * 60, flush=True)
+
+    if not networks_data:
+        print("\n" + "=" * 60)
+        print("No networks succeeded this run — skipping combined maps.")
+        print("=" * 60, flush=True)
+        return
+
+    print("\n" + "=" * 60)
+    print("Generating combined maps across all networks...")
+    print("=" * 60, flush=True)
+    all_groups = merge_all_networks(networks_data)
+    create_world_map(all_groups, 'all_python_world_map.html')
+    create_world_map_layers(all_groups, 'all_python_world_map_active.html')
+    create_world_map_inactive(all_groups, 'all_python_world_map_inactive.html')
+    print(f"Combined map covers {len(all_groups)} unique groups across {len(networks_data)} networks")
 
     print("\n" + "=" * 60)
     print("Done!")
