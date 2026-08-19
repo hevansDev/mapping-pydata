@@ -9,6 +9,7 @@
     "PyData Katsina": "Katsina, Nigeria",
     "Copenhagen Julia Meetup Group": "Copenhagen, Denmark",
     "PyData Boston - Cambridge": "Boston, Massachusetts, USA",
+    "The Boston Python User Group": "Cambridge, Massachusetts, USA",
     "PyData Athens": "Athens, Greece",
     "Pydata Belgium": "Brussels, Belgium",
     "Datenanalyse, Data Science und Statistik - PyData Dortmund": "Dortmund, Germany",
@@ -1177,6 +1178,11 @@
       "lat": 42.3588336,
       "lon": -71.0578303,
       "display_name": "Boston, Suffolk County, Massachusetts, United States"
+    },
+    "Cambridge, Massachusetts, USA": {
+      "lat": 42.373611,
+      "lon": -71.110558,
+      "display_name": "Cambridge, Massachusetts, USA"
     },
     "Ottawa": {
       "lat": 45.4208777,
