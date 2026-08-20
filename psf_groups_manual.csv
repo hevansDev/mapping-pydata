@@ -1,0 +1,115 @@
+name,url,city,country,lat,lon,source,non_meetup
+PyLadies Ankara,https://pyladies.com/locations/ankara,Ankara,Turkey,39.9208,32.854,pyladies.com,True
+PyLadies Athens,https://github.com/PyLadies-Athens,Athens,Greece,37.9756,23.7348,pyladies.com,True
+PyLadies Antananarivo,https://pyladies.com/locations/tnr,Antananarivo,Madagascar,-18.91,47.5256,pyladies.com,True
+PyLadies Aracati,https://twitter.com/PyladiesAracati,Aracati,Brazil,-4.5583,-37.7679,pyladies.com,True
+PyLadies Arequipa,https://github.com/PyladiesAqp,Arequipa,Peru,-16.3989,-71.537,pyladies.com,True
+PyLadies Atlanta,https://pyladies.com/locations/atl,"Atlanta, GA",United States,33.7545,-84.3898,pyladies.com,True
+PyLadies Austin,https://www.meetup.com/pyladies-atx/,"Austin, TX",United States,30.2711,-97.7437,pyladies.com,True
+PyLadies Australia,http://australia.pyladies.com/,Australia,Australia,-35.2965,149.1296,pyladies.com,True
+PyLadies Bandung,https://www.instagram.com/pyladies.bdg/,Bandung,Indonesia,-6.9218,107.6071,pyladies.com,True
+PyLadies Bangalore,https://www.meetup.com/PyLadies-Bangalore-Chapter/,Bangalore,India,12.9768,77.5901,pyladies.com,True
+PyLadies Bauchi,https://twitter.com/pyladiesbauchi,Bauchi,Nigeria,10.6228,10.0288,pyladies.com,True
+PyLadies Belem,https://facebook.com/pyladiesbelem,Belem,Brazil,-1.4506,-48.4682,pyladies.com,True
+PyLadies Belo Horizonte,https://www.meetup.com/PyLadies-BH-Meetup/,Belo Horizonte,Brazil,-19.9227,-43.9451,pyladies.com,True
+PyLadies Bhubaneswar,https://pyladies.com/locations/bbsr,Bhubaneswar,India,20.2603,85.8395,pyladies.com,True
+PyLadies Blumenau,https://github.com/pyladies-blumenau,Blumenau,Brazil,-26.9196,-49.0658,pyladies.com,True
+PyLadies Boulder,https://twitter.com/PyLadiesCO,"Boulder, CO",United States,40.015,-105.2705,pyladies.com,True
+PyLadies Bratislava,https://facebook.com/PyLadiesBratislava,Bratislava,Slovakia,48.1517,17.1093,pyladies.com,True
+PyLadies Brazil,http://brasil.pyladies.com/,Brazil,Brazil,12.4462,-69.9251,pyladies.com,True
+PyLadies Brisbane,https://www.meetup.com/BrisbanePyLadies/,Brisbane,Australia,-27.469,153.0235,pyladies.com,True
+PyLadies Brno,https://www.meetup.com/pyladiescz/,Brno,Czech Republic,49.1922,16.6113,pyladies.com,True
+PyLadies Calgary,https://github.com/pyladiescalgary,Calgary,Canada,51.0456,-114.0575,pyladies.com,True
+PyLadies Campinas,https://github.com/pyladiescps,Campinas,Brazil,-22.9056,-47.0596,pyladies.com,True
+PyLadies Canakkale,https://twitter.com/PyladiesTurkey,Canakkale,Turkey,40.055,26.9278,pyladies.com,True
+PyLadies Caxias do Sul,https://www.meetup.com/PyLadiesCaxiasdoSul/,Caxias do Sul,Brazil,-29.1685,-51.1796,pyladies.com,True
+PyLadies CDMX,https://www.meetup.com/Mexico-City-Pyladies-Meetup/,Mexico City,Mexico,19.3208,-99.1515,pyladies.com,True
+PyLadies Chennai,https://www.meetup.com/pyladieschennai/,Chennai,India,13.0837,80.2702,pyladies.com,True
+PyLadies Charleston,https://www.meetup.com/PyLadies-Charleston/,"Charleston, SC",United States,32.7884,-79.9399,pyladies.com,True
+PyLadies Cochabamba,https://github.com/pyladiesCochabamba,Cochabamba,Bolivia,-17.4012,-66.1676,pyladies.com,True
+PyLadies Curitiba,https://github.com/pyladies-curitiba,Curitiba,Brazil,-25.4296,-49.2713,pyladies.com,True
+PyLadies Dallas,https://twitter.com/pyladiesdallas,"Dallas, TX",United States,32.7763,-96.7969,pyladies.com,True
+PyLadies Denver,https://twitter.com/PyLadiesDEN,"Denver, CO",United States,39.7392,-104.9849,pyladies.com,True
+PyLadies DF,https://github.com/pyladiesdf,Brasilia,Brazil,-15.794,-47.8828,pyladies.com,True
+PyLadies Doboj,https://facebook.com/pyladiesdobojbih,Doboj,Bosnia and Herzegovina,44.7325,18.085,pyladies.com,True
+PyLadies Duque de Caxias,https://facebook.com/PyLadiesDuqueDeCaxias,Duque de Caxias,Brazil,-22.6429,-43.3021,pyladies.com,True
+PyLadies Edinburgh,https://www.meetup.com/PyLadiesEdinburgh/,Edinburgh,United Kingdom,55.9533,-3.1884,pyladies.com,True
+PyLadies Addis Ababa,https://github.com/PyladiesAddis,Addis Ababa,Ethiopia,9.0358,38.7524,pyladies.com,True
+PyLadies Freiburg,https://github.com/PyLadies-Freiburg,Freiburg,Germany,47.9961,7.8494,pyladies.com,True
+PyLadies Ghana,https://ghana.pyladies.com,Accra,Ghana,5.5571,-0.2012,pyladies.com,True
+PyLadies Grand Rapids,https://www.meetup.com/PyLadiesGrandRapids/,"Grand Rapids, MI",United States,42.9632,-85.6679,pyladies.com,True
+PyLadies Gujarat,https://twitter.com/PyladiesGTU,Gujarat,India,22.385,71.7453,pyladies.com,True
+PyLadies Helsinki,https://www.meetup.com/Helsinki-Pyladies/,Helsinki,Finland,60.1666,24.9435,pyladies.com,True
+PyLadies Ho Chi Minh,https://facebook.com/PyladiesHCM,Ho Chi Minh City,Vietnam,10.7737,106.7166,pyladies.com,True
+PyLadies Hermosillo,https://www.meetup.com/PyLadiesHMO/,Hermosillo,Mexico,29.0948,-110.9692,pyladies.com,True
+PyLadies Houston,https://www.meetup.com/Houston_PyLadies/,"Houston, TX",United States,29.7589,-95.3677,pyladies.com,True
+PyLadies India,https://www.meetup.com/PyladiesIndia/,India,India,20.0,78.0,pyladies.com,True
+PyLadies Indonesia,https://www.linkedin.com/in/pyladies-indonesia/,Indonesia,Indonesia,-6.1726,106.8786,pyladies.com,True
+PyLadies Jos,mailto:plateau@pyladies.com,Jos,Nigeria,9.9175,8.8979,pyladies.com,True
+PyLadies Kampala,https://pyladies.com/locations/kampala,Kampala,Uganda,0.3177,32.5814,pyladies.com,True
+PyLadies Kazan,https://facebook.com/pyladieskzn,Kazan,Russia,55.7946,49.1115,pyladies.com,True
+PyLadies Kosice,https://facebook.com/PyLadiesKosice,Kosice,Slovakia,48.7172,21.2497,pyladies.com,True
+PyLadies KL,https://www.meetup.com/PyLadies-KL/,Kuala Lumpur,Malaysia,3.1517,101.6942,pyladies.com,True
+PyLadies Kyoto,http://pyladies-kyoto.connpass.com,Kyoto,Japan,35.0116,135.7681,pyladies.com,True
+PyLadies El Alto,https://pyladies.com/locations/elalto,El Alto,Bolivia,-16.5048,-68.1624,pyladies.com,True
+PyLadies Lavras,https://twitter.com/pyladieslavras,Lavras,Brazil,-21.2426,-44.9992,pyladies.com,True
+PyLadies Lisbon,https://twitter.com/PyLadiesLisboa,Lisbon,Portugal,38.7078,-9.1366,pyladies.com,True
+Mavs PyLadies,https://www.meetup.com/PyLadies-Arlington/,"Arlington, TX",United States,32.7356,-97.1071,pyladies.com,True
+PyLadies Maceio,https://twitter.com/maceiopyladies,Maceio,Brazil,-9.6477,-35.7339,pyladies.com,True
+PyLadies Manaus,https://pyladiesmanaus.pythonanywhere.com/,Manaus,Brazil,-3.1316,-59.9825,pyladies.com,True
+PyLadies Milan,https://www.meetup.com/meetup-group-AmxqeOPN/,Milan,Italy,45.4642,9.1896,pyladies.com,True
+PyLadies Melbourne,https://www.meetup.com/PyLadies-Melbourne/,Melbourne,Australia,-37.8142,144.9632,pyladies.com,True
+PyLadies Mohali,mailto:Mohali@pyladies.com,Mohali,India,30.6909,76.7115,pyladies.com,True
+PyLadies Montreal,https://www.meetup.com/PyLadiesMTL/,Montreal,Canada,45.5032,-73.5698,pyladies.com,True
+PyLadies Morocco,https://pyladies.com/locations/MA,Morocco,Morocco,28.3348,-10.3713,pyladies.com,True
+PyLadies Mumbai,mailto:mum@pyladies.com,Mumbai,India,19.055,72.8692,pyladies.com,True
+PyLadies Nashville,https://www.meetup.com/Nashville-PyLadies/,"Nashville, TN",United States,36.1623,-86.7743,pyladies.com,True
+PyLadies Natal,http://pyladiesnatal.github.io/,Natal,Brazil,-5.8054,-35.2081,pyladies.com,True
+PyLadies Newark DE,https://www.meetup.com/PyLadies-Newark-DE/,"Newark, DE",United States,39.6828,-75.7516,pyladies.com,True
+PyLadies Nigeria,https://twitter.com/PyladiesNigeria,Nigeria,Nigeria,9.0583,9.6826,pyladies.com,True
+PyLadies Ojere,https://twitter.com/pyladiesojere,Ojere,Nigeria,7.1066,3.3352,pyladies.com,True
+PyLadies Okinawa,https://twitter.com/PyLadiesOkinawa,Okinawa,Japan,26.5708,128.0256,pyladies.com,True
+PyLadies Shizuoka,https://pyladiesshizuoka.github.io/,Shizuoka,Japan,34.9752,138.3832,pyladies.com,True
+PyLadies Paraiba,https://github.com/pyladiespb,Paraiba,Brazil,-7.1219,-36.7247,pyladies.com,True
+PyLadies Poland,https://pyladies.com/locations/pl,Poland,Poland,52.2139,21.0037,pyladies.com,True
+PyLadies Portland,http://pyladiespdx.github.io,"Portland, OR",United States,45.5202,-122.6742,pyladies.com,True
+PyLadies Porto Alegre,https://pyladiespoa.pythonanywhere.com,Porto Alegre,Brazil,-30.0325,-51.2304,pyladies.com,True
+PyLadies Prishtina,https://www.linkedin.com/company/pyladiesprishtina/,Prishtina,Kosovo,42.6639,21.1641,pyladies.com,True
+PyLadies Pune,http://pune.pyladies.com/,Pune,India,18.5214,73.8545,pyladies.com,True
+PyLadies Quito,https://github.com/pyladies-ecuador,Quito,Ecuador,-0.2202,-78.5123,pyladies.com,True
+PyLadies Raleigh-Durham,https://www.meetup.com/pyladies-rdu/,"Raleigh, NC",United States,35.7804,-78.6391,pyladies.com,True
+PyLadies Recife,http://brasil.pyladies.com,Recife,Brazil,-8.0585,-34.8848,pyladies.com,True
+PyLadies Rio de Janeiro,http://brasil.pyladies.com,Rio de Janeiro,Brazil,-22.911,-43.2094,pyladies.com,True
+PyLadies Saint Petersburg,http://spb.pyladies.com,Saint Petersburg,Russia,59.9607,30.1587,pyladies.com,True
+PyLadies Salvador,https://pyladiessalvador.github.io/,Salvador,Brazil,-12.9822,-38.4813,pyladies.com,True
+PyLadies San Diego,https://www.meetup.com/sd-pyladies/,"San Diego, CA",United States,32.7174,-117.1628,pyladies.com,True
+PyLadies Santa Cruz,https://www.meetup.com/PyLadiesSC/,"Santa Cruz, CA",United States,37.0501,-121.9906,pyladies.com,True
+PyLadies Santa Marta,https://www.instagram.com/pyladiessmr/,Santa Marta,Colombia,11.2321,-74.1951,pyladies.com,True
+PyLadies Sao Carlos,http://brasil.pyladies.com,Sao Carlos,Brazil,-22.018,-47.8912,pyladies.com,True
+PyLadies Sao Luis,https://facebook.com/PyLadiesSLZ,Sao Luis,Brazil,-2.5295,-44.2964,pyladies.com,True
+PyLadies Sorocaba,https://pyladies.com/locations/sorocaba,Sorocaba,Brazil,-23.5003,-47.4583,pyladies.com,True
+PyLadies Singapore,https://www.meetup.com/PyLadies-SG/,Singapore,Singapore,1.2899,103.8519,pyladies.com,True
+PyLadies Spain,https://twitter.com/PyLadies_ES,Spain,Spain,40.4237,-3.6899,pyladies.com,True
+PyLadies Sul de Minas,https://pyladies.com/locations/,Sul de Minas Gerais,Brazil,-23.1128,-45.4467,pyladies.com,True
+PyLadies Sydney,https://www.meetup.com/Sydney-PyLadies/,Sydney,Australia,-33.8698,151.2083,pyladies.com,True
+PyLadies Taiwan,https://www.meetup.com/PyLadiesTW/,Taipei,Taiwan,25.0375,121.5637,pyladies.com,True
+PyLadies Teresina,https://pyladiesteresina.github.io/,Teresina,Brazil,-5.0875,-42.805,pyladies.com,True
+PyLadies Tirana,https://github.com/PyLadiesTirana,Tirana,Albania,41.3281,19.8184,pyladies.com,True
+PyLadies Tokyo,http://tokyo.pyladies.com/,Tokyo,Japan,35.6769,139.7639,pyladies.com,True
+PyLadies Toronto,https://www.meetup.com/Pyladies-Toronto/,Toronto,Canada,43.6535,-79.3839,pyladies.com,True
+PyLadies Tunis,https://github.com/PyLadiesTunis,Tunis,Tunisia,36.8002,10.1858,pyladies.com,True
+PyLadies Uruguay,https://www.meetup.com/PyLadiesUy/,Montevideo,Uruguay,-34.9059,-56.1913,pyladies.com,True
+PyLadies Vale do Paraiba,https://github.com/pyladiesvale,Vale do Paraiba,Brazil,-22.5305,-44.1441,pyladies.com,True
+PyLadies Vienna,https://www.meetup.com/pyladies-vienna/,Vienna,Austria,48.2084,16.3725,pyladies.com,True
+PyLadies Washington DC,https://www.meetup.com/dc-pyladies/,"Washington, DC",United States,38.8951,-77.0364,pyladies.com,True
+PyLadies Zaria,mailto:zaria@pyladies.com,Zaria,Nigeria,11.0248,7.6519,pyladies.com,True
+PyLadies Nova Iguacu,https://facebook.com/pyladiesrural,Nova Iguacu,Brazil,-22.7592,-43.4509,pyladies.com,True
+PyLadies Monrovia,mailto:monrovia@pyladies.com,Monrovia,Liberia,6.3204,-10.806,pyladies.com,True
+PyLadies Imo,https://pyladies.com/locations/IN,Owerri,Nigeria,5.4897,7.0342,pyladies.com,True
+PyLadies Asaba,https://facebook.com/asabapyladies,Asaba,Nigeria,6.1859,6.7297,pyladies.com,True
+PyLadies Guatemala City,https://facebook.com/PyladiesGTCity,Guatemala City,Guatemala,14.6416,-90.5133,pyladies.com,True
+PyLadies Ilo,https://github.com/PyLadiesIlo,Ilo,Peru,-17.5834,-71.2359,pyladies.com,True
+PyLadies Panama,https://twitter.com/PyLadiesPanama,Panama City,Panama,8.9714,-79.5342,pyladies.com,True
+PyLadies Cuernavaca,https://pyladies-cuernavaca.quarto.pub/web/,Cuernavaca,Mexico,18.9331,-99.26,pyladies.com,True
+PyLadies Kaohsiung,https://kaohsiung.pyladies.com,Kaohsiung,Taiwan,22.6203,120.312,pyladies.com,True
+PyLadies Yogyakarta,https://www.instagram.com/pyladies.yk/,Yogyakarta,Indonesia,-7.7953,110.3673,pyladies.com,True
