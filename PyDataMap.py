@@ -36,7 +36,7 @@ NETWORKS = {
         'label': 'PSF Python Network',
         'meetup_pro_url': 'https://www.meetup.com/pro/python-software-foundation-meetups/',
         'csv_file': 'psf_groups.csv',
-        'manual_csv_file': None,
+        'manual_csv_file': 'psf_groups_manual.csv',
         'min_expected_groups': 90,
         'map_prefix': 'psf',
     },

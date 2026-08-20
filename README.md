@@ -83,13 +83,13 @@ If you have an idea for how to improve this project please fork and raise PRs. [
 
 ### Adding a group that isn't on Meetup
 
-If you know of a PyData community that doesn't have a Meetup page (a university club, a conference series, a Discord-only group, etc.), you can add it to [pydata_groups_manual.csv](./pydata_groups_manual.csv) (the manual CSV for the `pydata` network, set via `manual_csv_file` in `NETWORKS`). The required columns are `name`, `url`, `city`, `country`, `lat`, and `lon`. Use the `source` column to describe where the group comes from (current values are `discord`, `conference`, and `university`). All other columns are optional and can be left blank. The PSF network doesn't have a manual CSV yet, so add a `manual_csv_file` entry for `psf` in `NETWORKS` and create the file in the same shape if that's needed.
+If you know of a Python community that doesn't have a Meetup page (a university club, a conference series, a Discord-only group, etc.), you can add it to that network's manual CSV — [pydata_groups_manual.csv](./pydata_groups_manual.csv) for the `pydata` network, [psf_groups_manual.csv](./psf_groups_manual.csv) for the `psf` network (set via `manual_csv_file` in `NETWORKS`). The required columns are `name`, `url`, `city`, `country`, `lat`, and `lon`. Use the `source` column to describe where the group comes from (current values are `discord`, `conference`, `university`, and `pyladies.com` — the last covers PyLadies chapters listed on [pyladies.com/locations](https://pyladies.com/locations/) that aren't part of the PSF Meetup Pro network). All other columns are optional and can be left blank. To add a manual CSV for a future network, add a `manual_csv_file` entry for it in `NETWORKS` and create the file in the same shape.
 
 ### Non-Meetup groups
 
 Meetup's "has upcoming events" / "days since last event" fields drive the **Active** and **Inactive** maps, but that data doesn't exist for groups that never had a Meetup page, or that have since moved off Meetup (e.g. to LinkedIn or their own website). Rather than showing those groups as misleadingly active or inactive, set the `non_meetup` column to `True` on their row and they'll render with the same neutral marker used on the simple [World Map](https://hevansdev.github.io/mapping-pydata/pydata_world_map.html) instead.
 
-- Groups added via [pydata_groups_manual.csv](./pydata_groups_manual.csv) default to `non_meetup = True` automatically, since they have no Meetup activity data by definition.
+- Groups added via a network's manual CSV ([pydata_groups_manual.csv](./pydata_groups_manual.csv), [psf_groups_manual.csv](./psf_groups_manual.csv)) default to `non_meetup = True` automatically, since they have no Meetup activity data by definition.
 - Groups that already have a row in [pydata_groups.csv](./pydata_groups.csv) (because they used to be tracked on Meetup) but have since moved elsewhere: update their `url` to the new LinkedIn/website page and set `non_meetup` to `True` on that same row. There's no need to move them to the manual CSV or duplicate the entry.
 
 Any row that leaves `non_meetup` blank is treated as `False` (normal Meetup-tracked group).
