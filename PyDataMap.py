@@ -23,12 +23,17 @@ ESRI_ATTR = 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Inte
 # filenames so existing links (GitHub Pages, README, anyone's bookmarks)
 # keep working; new networks get their own prefix instead of being folded
 # into the pydata_* files.
+#
+# Manually-added (non-Meetup) groups for every network live together in one
+# shared CSV (manual_csv_file, currently groups_manual.csv) rather than one
+# manual CSV per network — see load_manual_groups() for how rows are
+# filtered to the right network via their 'network' column.
 NETWORKS = {
     'pydata': {
         'label': 'PyData',
         'meetup_pro_url': 'https://www.meetup.com/pro/pydata/',
         'csv_file': 'pydata_groups.csv',
-        'manual_csv_file': 'pydata_groups_manual.csv',
+        'manual_csv_file': 'groups_manual.csv',
         'min_expected_groups': 135,
         'map_prefix': 'pydata',
     },
@@ -36,9 +41,22 @@ NETWORKS = {
         'label': 'PSF Python Network',
         'meetup_pro_url': 'https://www.meetup.com/pro/python-software-foundation-meetups/',
         'csv_file': 'psf_groups.csv',
-        'manual_csv_file': 'psf_groups_manual.csv',
+        'manual_csv_file': 'groups_manual.csv',
         'min_expected_groups': 90,
         'map_prefix': 'psf',
+    },
+    'pytexas': {
+        'label': 'PyTexas',
+        'meetup_pro_url': 'https://www.meetup.com/pro/pytexas/',
+        'csv_file': 'pytexas_groups.csv',
+        'manual_csv_file': 'groups_manual.csv',
+        # PyTexas is a small, regional network (a handful of local Austin/
+        # Dallas/Houston/San Antonio groups) — nowhere near PyData/PSF's
+        # size, so this is deliberately low. It's only meant to catch a
+        # totally broken scrape (0-1 groups), not to validate an exact
+        # count. Adjust upward once a real scrape shows the true size.
+        'min_expected_groups': 5,
+        'map_prefix': 'pytexas',
     },
 }
 
@@ -106,6 +124,16 @@ def get_cached_groups(csv_file, network_key):
 
 
 def load_manual_groups(manual_csv_file, network_key):
+    """Load manually-added (non-Meetup) groups for one network.
+
+    All networks' manually-added groups live together in one shared CSV
+    (rather than a separate manual CSV per network) so a group that's
+    relevant to more than one network only needs to be entered once. Each
+    row's 'network' column says which network(s) it belongs to — a single
+    key (e.g. 'pydata') or a comma-separated list (e.g. 'pydata,psf') for a
+    group that should appear on more than one network's maps. Only rows
+    whose network column includes network_key are returned.
+    """
     if not manual_csv_file:
         return []
     manual_path = Path(manual_csv_file)
@@ -115,10 +143,21 @@ def load_manual_groups(manual_csv_file, network_key):
     df = sanitise_dataframe(df)
     if 'source' not in df.columns:
         df['source'] = 'manual'
+
     if 'network' not in df.columns:
-        df['network'] = network_key
-    else:
-        df['network'] = df['network'].fillna(network_key)
+        raise ValueError(
+            f"{manual_path} is missing a required 'network' column — since "
+            "manual groups for every network now live in one shared file, "
+            "each row must say which network(s) it belongs to (e.g. "
+            "'pydata' or 'pydata,psf')."
+        )
+
+    def _belongs_to_network(value):
+        networks = [n.strip() for n in str(value or '').split(',') if n.strip()]
+        return network_key in networks
+
+    df = df[df['network'].apply(_belongs_to_network)].copy()
+
     # Manual groups have no Meetup presence and therefore no reliable
     # activity data (upcoming/past events). Default them to non_meetup so
     # they render with a neutral marker instead of active/inactive styling,
@@ -128,7 +167,7 @@ def load_manual_groups(manual_csv_file, network_key):
     else:
         df['non_meetup'] = df['non_meetup'].fillna(True).astype(bool)
     records = df.to_dict(orient='records')
-    print(f"Loaded {len(records)} manual groups from {manual_path}")
+    print(f"Loaded {len(records)} manual groups for '{network_key}' from {manual_path}")
     return records
 
 
