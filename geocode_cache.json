@@ -37,7 +37,8 @@
     "PyData Cardiff Meetup": "Cardiff, UK",
     "PyData Leeds": "Leeds, UK",
     "PyData London Meetup": "London, UK",
-    "Virginia Python Users Group": "Norfolk, Virginia, USA"
+    "Virginia Python Users Group": "Norfolk, Virginia, USA",
+    "Santa Cruz Python, Machine Learning & AI Meetup": "Santa Cruz, California, USA"
   },
   "coords": {
     "London, UK": {
@@ -1439,6 +1440,11 @@
       "lat": 36.8493695,
       "lon": -76.2899539,
       "display_name": "Norfolk, Virginia, United States"
+    },
+    "Santa Cruz, California, USA": {
+      "lat": 37.050096,
+      "lon": -121.99059,
+      "display_name": "Santa Cruz County, California, United States"
     }
   }
 }
