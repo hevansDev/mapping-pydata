@@ -50,11 +50,6 @@ NETWORKS = {
         'meetup_pro_url': 'https://www.meetup.com/pro/pytexas/',
         'csv_file': 'pytexas_groups.csv',
         'manual_csv_file': 'groups_manual.csv',
-        # PyTexas is a small, regional network (a handful of local Austin/
-        # Dallas/Houston/San Antonio groups) — nowhere near PyData/PSF's
-        # size, so this is deliberately low. It's only meant to catch a
-        # totally broken scrape (0-1 groups), not to validate an exact
-        # count. Adjust upward once a real scrape shows the true size.
         'min_expected_groups': 5,
         'map_prefix': 'pytexas',
     },
@@ -922,10 +917,27 @@ async def process_network(network_key, cfg):
     failed_count = 0
 
     SCRAPE_RETRIES = 2  # number of retry attempts before falling back to cache
+    # A driver-level crash (e.g. Playwright's Firefox frame manager hitting
+    # an internal error, as seen in CI) leaves the browser unusable for
+    # every remaining group in this network, not just the one that
+    # triggered it — retrying against a dead browser just burns
+    # SCRAPE_RETRIES x 2s per group before falling back to cache anyway.
+    # Detect that specifically (rather than treating it like an ordinary
+    # per-page failure), try restarting the browser a couple of times to
+    # recover from a one-off crash, and once that budget is exhausted skip
+    # straight to cache for everything remaining instead of repeating the
+    # same doomed retries group after group.
+    BROWSER_RESTART_LIMIT = 2
+    browser_restarts = 0
+    browser_unusable = False
 
-    async with async_playwright() as p:
+    async def launch_browser(p):
         browser = await p.firefox.launch(headless=True)
         page = await browser.new_page(viewport={'width': 1280, 'height': 800})
+        return browser, page
+
+    async with async_playwright() as p:
+        browser, page = await launch_browser(p)
 
         for i, group in enumerate(groups):
             print(f"[{label}][{i + 1}/{len(groups)}] {group['name']}...", end=' ', flush=True)
@@ -933,15 +945,46 @@ async def process_network(network_key, cfg):
             details = None
             last_error = None
 
-            for attempt in range(1 + SCRAPE_RETRIES):
-                try:
-                    details = await get_group_details_public(page, group['url'] + '/')
-                    break  # success — exit retry loop
-                except Exception as e:
-                    last_error = e
-                    if attempt < SCRAPE_RETRIES:
-                        print(f"retrying ({attempt + 1}/{SCRAPE_RETRIES})...", end=' ', flush=True)
-                        await asyncio.sleep(2)
+            if browser_unusable:
+                print("(browser unavailable, skipping straight to cache)", end=' ', flush=True)
+            else:
+                for attempt in range(1 + SCRAPE_RETRIES):
+                    try:
+                        details = await get_group_details_public(page, group['url'] + '/')
+                        break  # success — exit retry loop
+                    except Exception as e:
+                        last_error = e
+                        if not browser.is_connected() or page.is_closed():
+                            break  # dead browser — retrying it further is pointless
+                        if attempt < SCRAPE_RETRIES:
+                            print(f"retrying ({attempt + 1}/{SCRAPE_RETRIES})...", end=' ', flush=True)
+                            await asyncio.sleep(2)
+
+                browser_dead = details is None and (not browser.is_connected() or page.is_closed())
+                if browser_dead:
+                    if browser_restarts < BROWSER_RESTART_LIMIT:
+                        browser_restarts += 1
+                        print(
+                            f"browser crashed ({type(last_error).__name__}), restarting "
+                            f"({browser_restarts}/{BROWSER_RESTART_LIMIT})...",
+                            end=' ', flush=True,
+                        )
+                        try:
+                            await browser.close()
+                        except Exception:
+                            pass
+                        try:
+                            browser, page = await launch_browser(p)
+                            details = await get_group_details_public(page, group['url'] + '/')
+                        except Exception as e:
+                            last_error = e
+                    else:
+                        browser_unusable = True
+                        print(
+                            f"browser crashed ({type(last_error).__name__}) and restart budget "
+                            "exhausted — falling back to cache for the rest of this network's run.",
+                            end=' ', flush=True,
+                        )
 
             if details is not None:
                 enriched = {**group, **details}
@@ -975,11 +1018,15 @@ async def process_network(network_key, cfg):
                     print(f"⟳ {enriched.get('past_events_count', 0) or 0} events, last: {days_str}, upcoming: {upcoming_str} [cached]", flush=True)
                     cached_count += 1
                 else:
-                    print(f"✗ {type(last_error).__name__} (no cache)", flush=True)
+                    reason = type(last_error).__name__ if last_error is not None else 'browser unavailable'
+                    print(f"✗ {reason} (no cache)", flush=True)
                     all_groups_enriched.append(group)
                     failed_count += 1
 
-        await browser.close()
+        try:
+            await browser.close()
+        except Exception:
+            pass  # already dead if it crashed earlier — nothing to clean up
 
     print("\n" + "=" * 60)
     print(f"[{label}] Enrichment complete: {fresh_count} fresh, {cached_count} cached, {failed_count} failed")
