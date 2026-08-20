@@ -36,7 +36,8 @@
     "PyData Bristol": "Bristol, UK",
     "PyData Cardiff Meetup": "Cardiff, UK",
     "PyData Leeds": "Leeds, UK",
-    "PyData London Meetup": "London, UK"
+    "PyData London Meetup": "London, UK",
+    "Virginia Python Users Group": "Norfolk, Virginia, USA"
   },
   "coords": {
     "London, UK": {
@@ -1433,6 +1434,11 @@
       "lat": -43.530955,
       "lon": 172.6364343,
       "display_name": "Christchurch, Christchurch City, Canterbury, New Zealand / Aotearoa"
+    },
+    "Norfolk, Virginia, USA": {
+      "lat": 36.8493695,
+      "lon": -76.2899539,
+      "display_name": "Norfolk, Virginia, United States"
     }
   }
 }
