@@ -38,7 +38,9 @@
     "PyData Leeds": "Leeds, UK",
     "PyData London Meetup": "London, UK",
     "Virginia Python Users Group": "Norfolk, Virginia, USA",
-    "Santa Cruz Python, Machine Learning & AI Meetup": "Santa Cruz, California, USA"
+    "Santa Cruz Python, Machine Learning & AI Meetup": "Santa Cruz, California, USA",
+    "PyLadies Santiago de Chile": "Santiago, Chile",
+    "PythonChile": "Santiago, Chile"
   },
   "coords": {
     "London, UK": {
@@ -1445,6 +1447,11 @@
       "lat": 37.050096,
       "lon": -121.99059,
       "display_name": "Santa Cruz County, California, United States"
+    },
+    "Santiago, Chile": {
+      "lat": -33.4376995,
+      "lon": -70.6510671,
+      "display_name": "Santiago, Provincia de Santiago, Regi\u00f3n Metropolitana de Santiago, 8320000, Chile"
     }
   }
 }
