@@ -1452,6 +1452,26 @@
       "lat": -33.4376995,
       "lon": -70.6510671,
       "display_name": "Santiago, Provincia de Santiago, Regi\u00f3n Metropolitana de Santiago, 8320000, Chile"
+    },
+    "Plano": {
+      "lat": 33.0136764,
+      "lon": -96.6925096,
+      "display_name": "Plano, Collin County, Texas, United States"
+    },
+    "Katy": {
+      "lat": 29.7857853,
+      "lon": -95.8243956,
+      "display_name": "Katy, Fort Bend County, Texas, United States"
+    },
+    "Austin": {
+      "lat": 30.2711286,
+      "lon": -97.7436995,
+      "display_name": "Austin, Travis County, Texas, United States"
+    },
+    "San Antonio": {
+      "lat": 29.4246002,
+      "lon": -98.4951405,
+      "display_name": "San Antonio, Bexar County, Texas, United States"
     }
   }
 }

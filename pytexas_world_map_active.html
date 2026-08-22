@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ce3ad3aa2c597ba4b19a1a5d808d0d68 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+    <script>
+    (function() {
+        function parseHash() {
+            var hash = window.location.hash;
+            if (hash) {
+                var parts = hash.replace('#', '').split('/');
+                if (parts.length === 3) {
+                    var zoom = parseInt(parts[0]);
+                    var lat = parseFloat(parts[1]);
+                    var lng = parseFloat(parts[2]);
+                    if (!isNaN(zoom) && !isNaN(lat) && !isNaN(lng)) {
+                        return {zoom: zoom, lat: lat, lng: lng};
+                    }
+                }
+            }
+            return null;
+        }
+        
+        var checkMap = setInterval(function() {
+            for (var key in window) {
+                if (window[key] instanceof L.Map) {
+                    var map = window[key];
+                    clearInterval(checkMap);
+                    var view = parseHash();
+                    if (view) {
+                        map.setView([view.lat, view.lng], view.zoom);
+                    }
+                    
+                    map.on('moveend', function() {
+                        var center = map.getCenter();
+                        var zoom = map.getZoom();
+                        history.replaceState(null, null, '#' + zoom + '/' + center.lat.toFixed(4) + '/' + center.lng.toFixed(4));
+                    });
+                    break;
+                }
+            }
+        }, 100);
+    })();
+    </script>
+    
+    
+            <div class="folium-map" id="map_ce3ad3aa2c597ba4b19a1a5d808d0d68" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ce3ad3aa2c597ba4b19a1a5d808d0d68 = L.map(
+                "map_ce3ad3aa2c597ba4b19a1a5d808d0d68",
+                {
+                    center: [30.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_2bca4a01b41ee87f19d1cf6a75576759 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Tiles \u0026copy; Esri \u0026mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_2bca4a01b41ee87f19d1cf6a75576759.addTo(map_ce3ad3aa2c597ba4b19a1a5d808d0d68);
+        
+    
+            var circle_marker_7826f9369bce7dab2f27501847976fc6 = L.circleMarker(
+                [33.0136764, -96.6925096],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.28729923073759, "stroke": true, "weight": 0}
+            ).addTo(map_ce3ad3aa2c597ba4b19a1a5d808d0d68);
+        
+    
+        var popup_c088b8465a509846276c4a608520fd47 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_71c5f9926bf355afeaba5f3a0fcaae7c = $(`<div id="html_71c5f9926bf355afeaba5f3a0fcaae7c" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/dfwpython' target='_blank'>DFW Pythoneers</a></b><br>         📍 Plano<br>         👥 5674 members<br>         📅 712 past events<br>         ⏱️ Last event: 14 days ago<br>         🔜 Upcoming: 4 ✓<br>         <a href='https://www.meetup.com/dfwpython/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/dfwpython/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_c088b8465a509846276c4a608520fd47.setContent(html_71c5f9926bf355afeaba5f3a0fcaae7c);
+            
+        
+
+        circle_marker_7826f9369bce7dab2f27501847976fc6.bindPopup(popup_c088b8465a509846276c4a608520fd47)
+        ;
+
+        
+    
+    
+            circle_marker_7826f9369bce7dab2f27501847976fc6.bindTooltip(
+                `<div>
+                     DFW Pythoneers (5674 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b11345cd8109514ea340ee9c95e4d119 = L.circleMarker(
+                [32.7762719, -96.7968559],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.42000858192836626, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.694215061434937, "stroke": true, "weight": 0}
+            ).addTo(map_ce3ad3aa2c597ba4b19a1a5d808d0d68);
+        
+    
+        var popup_b223e31294a89bdd57f764ff0e3ee9a3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_421630ab5663fc23a948eaa7e9c73fe1 = $(`<div id="html_421630ab5663fc23a948eaa7e9c73fe1" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/pytexas-virtual-meetup-dallas' target='_blank'>PyTexas Virtual Meetup - Dallas</a></b><br>         📍 Dallas<br>         👥 210 members<br>         📅 38 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/pytexas-virtual-meetup-dallas/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/pytexas-virtual-meetup-dallas/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_b223e31294a89bdd57f764ff0e3ee9a3.setContent(html_421630ab5663fc23a948eaa7e9c73fe1);
+            
+        
+
+        circle_marker_b11345cd8109514ea340ee9c95e4d119.bindPopup(popup_b223e31294a89bdd57f764ff0e3ee9a3)
+        ;
+
+        
+    
+    
+            circle_marker_b11345cd8109514ea340ee9c95e4d119.bindTooltip(
+                `<div>
+                     PyTexas Virtual Meetup - Dallas (210 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_e279a960e294d9e457375575acc8da10 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+  "spiderfyDistanceMultiplier": 3,
+}
+            );
+        
+    
+            var circle_marker_eb6b89fbb6d8eb7986df85a33c4fac7b = L.circleMarker(
+                [29.7649382, -95.3676974],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.42000858192836626, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.472396896788991, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_e279a960e294d9e457375575acc8da10);
+        
+    
+        var popup_15a47c14fac6ac59c2e78d04ad986217 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a4c73a5bca99757911be4007015bb3d9 = $(`<div id="html_a4c73a5bca99757911be4007015bb3d9" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/pytexas-virtual-meetup-houston' target='_blank'>PyTexas Virtual Meetup - Houston</a></b><br>         📍 Houston<br>         👥 114 members<br>         📅 38 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/pytexas-virtual-meetup-houston/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/pytexas-virtual-meetup-houston/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_15a47c14fac6ac59c2e78d04ad986217.setContent(html_a4c73a5bca99757911be4007015bb3d9);
+            
+        
+
+        circle_marker_eb6b89fbb6d8eb7986df85a33c4fac7b.bindPopup(popup_15a47c14fac6ac59c2e78d04ad986217)
+        ;
+
+        
+    
+    
+            circle_marker_eb6b89fbb6d8eb7986df85a33c4fac7b.bindTooltip(
+                `<div>
+                     PyTexas Virtual Meetup - Houston (114 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f3f7332b8b864fceb19baeae5802e315 = L.circleMarker(
+                [29.7559382, -95.36171188638319],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.42000858192836626, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.447664881642417, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_e279a960e294d9e457375575acc8da10);
+        
+    
+        var popup_fcae950e30575f0b017592d941281304 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7bfcfad0e5e086f1b1c273789560904f = $(`<div id="html_7bfcfad0e5e086f1b1c273789560904f" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/Houston_PyLadies' target='_blank'>Houston PyLadies</a></b><br>         📍 Houston<br>         👥 832 members<br>         📅 71 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/Houston_PyLadies/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/Houston_PyLadies/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_fcae950e30575f0b017592d941281304.setContent(html_7bfcfad0e5e086f1b1c273789560904f);
+            
+        
+
+        circle_marker_f3f7332b8b864fceb19baeae5802e315.bindPopup(popup_fcae950e30575f0b017592d941281304)
+        ;
+
+        
+    
+    
+            circle_marker_f3f7332b8b864fceb19baeae5802e315.bindTooltip(
+                `<div>
+                     Houston PyLadies (832 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_189cc2e33fa82e507f7b20dbbaac4e65 = L.circleMarker(
+                [29.7559382, -95.3736829136168],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.7138775989266745, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.523569359029505, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_e279a960e294d9e457375575acc8da10);
+        
+    
+        var popup_753cd5fb48a4925b4c8cabaa96515fe6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ed031ef7eead9bc3bc3919b4b152412a = $(`<div id="html_ed031ef7eead9bc3bc3919b4b152412a" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/python-14' target='_blank'>PyHou - Houston Python Enthusiasts!</a></b><br>         📍 Houston<br>         👥 3873 members<br>         📅 248 past events<br>         ⏱️ Last event: 2 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/python-14/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/python-14/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_753cd5fb48a4925b4c8cabaa96515fe6.setContent(html_ed031ef7eead9bc3bc3919b4b152412a);
+            
+        
+
+        circle_marker_189cc2e33fa82e507f7b20dbbaac4e65.bindPopup(popup_753cd5fb48a4925b4c8cabaa96515fe6)
+        ;
+
+        
+    
+    
+            circle_marker_189cc2e33fa82e507f7b20dbbaac4e65.bindTooltip(
+                `<div>
+                     PyHou - Houston Python Enthusiasts! (3873 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_e279a960e294d9e457375575acc8da10.addTo(map_ce3ad3aa2c597ba4b19a1a5d808d0d68);
+        
+    
+            var circle_marker_993c05c966d91ccbfcf4d0ffd1ae22e1 = L.circleMarker(
+                [29.7857853, -95.8243956],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.42000858192836626, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.684242837442303, "stroke": true, "weight": 0}
+            ).addTo(map_ce3ad3aa2c597ba4b19a1a5d808d0d68);
+        
+    
+        var popup_911ce0797f90147ba9d6a484394a8fb1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a823ada783f627cf51bae874655a888e = $(`<div id="html_a823ada783f627cf51bae874655a888e" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/katy-python-coders' target='_blank'>Katy Python Coders</a></b><br>         📍 Katy<br>         👥 568 members<br>         📅 46 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/katy-python-coders/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/katy-python-coders/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_911ce0797f90147ba9d6a484394a8fb1.setContent(html_a823ada783f627cf51bae874655a888e);
+            
+        
+
+        circle_marker_993c05c966d91ccbfcf4d0ffd1ae22e1.bindPopup(popup_911ce0797f90147ba9d6a484394a8fb1)
+        ;
+
+        
+    
+    
+            circle_marker_993c05c966d91ccbfcf4d0ffd1ae22e1.bindTooltip(
+                `<div>
+                     Katy Python Coders (568 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cluster_f1b129ace8e285d53cbafc8f93a141c6 = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+  "spiderfyDistanceMultiplier": 3,
+}
+            );
+        
+    
+            var circle_marker_9bcb85f4ab33c60f79cab07879c769b3 = L.circleMarker(
+                [30.2771286, -97.7436995],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.42000858192836626, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.643699427576712, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_f1b129ace8e285d53cbafc8f93a141c6);
+        
+    
+        var popup_5fe20817814b7f752063a1a5b7f4d970 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c03801cccdb85c09abcb4192d80f2e50 = $(`<div id="html_c03801cccdb85c09abcb4192d80f2e50" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/pyladies-atx' target='_blank'>PyLadies ATX</a></b><br>         📍 Austin<br>         👥 1513 members<br>         📅 256 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/pyladies-atx/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/pyladies-atx/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_5fe20817814b7f752063a1a5b7f4d970.setContent(html_c03801cccdb85c09abcb4192d80f2e50);
+            
+        
+
+        circle_marker_9bcb85f4ab33c60f79cab07879c769b3.bindPopup(popup_5fe20817814b7f752063a1a5b7f4d970)
+        ;
+
+        
+    
+    
+            circle_marker_9bcb85f4ab33c60f79cab07879c769b3.bindTooltip(
+                `<div>
+                     PyLadies ATX (1513 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ca41cef3571059e027e098dafb88c7fb = L.circleMarker(
+                [30.2651286, -97.7436995],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.42000858192836626, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.549103091088817, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_f1b129ace8e285d53cbafc8f93a141c6);
+        
+    
+        var popup_4115ee272eabd6b854f30604dbc90ad0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1f3f4d6f21b12c889b4504a0814d406a = $(`<div id="html_1f3f4d6f21b12c889b4504a0814d406a" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/pytexas-virtual-meetup-austin' target='_blank'>PyTexas Virtual Meetup - Austin</a></b><br>         📍 Austin<br>         👥 322 members<br>         📅 42 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/pytexas-virtual-meetup-austin/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/pytexas-virtual-meetup-austin/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_4115ee272eabd6b854f30604dbc90ad0.setContent(html_1f3f4d6f21b12c889b4504a0814d406a);
+            
+        
+
+        circle_marker_ca41cef3571059e027e098dafb88c7fb.bindPopup(popup_4115ee272eabd6b854f30604dbc90ad0)
+        ;
+
+        
+    
+    
+            circle_marker_ca41cef3571059e027e098dafb88c7fb.bindTooltip(
+                `<div>
+                     PyTexas Virtual Meetup - Austin (322 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_f1b129ace8e285d53cbafc8f93a141c6.addTo(map_ce3ad3aa2c597ba4b19a1a5d808d0d68);
+        
+    
+            var marker_cluster_800a05c0dc45bedc28ff68a2b6ac3d5c = L.markerClusterGroup(
+                {
+  "spiderfyOnMaxZoom": true,
+  "disableClusteringAtZoom": 12,
+  "spiderfyDistanceMultiplier": 3,
+}
+            );
+        
+    
+            var circle_marker_aadd9aa81864559783868ff1827978bb = L.circleMarker(
+                [29.4306002, -98.4951405],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.493465815507244, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_800a05c0dc45bedc28ff68a2b6ac3d5c);
+        
+    
+        var popup_db52b3e3cf04fe6406c32da01c80a7da = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_24c063768a9a1605357bb0f61ac2505c = $(`<div id="html_24c063768a9a1605357bb0f61ac2505c" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/alamo-python' target='_blank'>Alamo Python</a></b><br>         📍 San Antonio<br>         👥 2314 members<br>         📅 115 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: 1 ✓<br>         <a href='https://www.meetup.com/alamo-python/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/alamo-python/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_db52b3e3cf04fe6406c32da01c80a7da.setContent(html_24c063768a9a1605357bb0f61ac2505c);
+            
+        
+
+        circle_marker_aadd9aa81864559783868ff1827978bb.bindPopup(popup_db52b3e3cf04fe6406c32da01c80a7da)
+        ;
+
+        
+    
+    
+            circle_marker_aadd9aa81864559783868ff1827978bb.bindTooltip(
+                `<div>
+                     Alamo Python (2314 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9b2b5d457f88e4463fb2d0c716522b70 = L.circleMarker(
+                [29.4186002, -98.4951405],
+                {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000FF", "fillOpacity": 0.42000858192836626, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.765603845172741, "stroke": true, "weight": 0}
+            ).addTo(marker_cluster_800a05c0dc45bedc28ff68a2b6ac3d5c);
+        
+    
+        var popup_447d48174e1b45b0b984782990ba8aad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_33ea84edecd4d9e36fa7850eb7d4b27a = $(`<div id="html_33ea84edecd4d9e36fa7850eb7d4b27a" style="width: 100.0%; height: 100.0%;">         <b><a href='https://www.meetup.com/pytexas-virtual-meetup-san-antonio' target='_blank'>PyTexas Virtual Meetup - San Antonio</a></b><br>         📍 San Antonio<br>         👥 132 members<br>         📅 38 past events<br>         ⏱️ Last event: 16 days ago<br>         🔜 Upcoming: No<br>         <a href='https://www.meetup.com/pytexas-virtual-meetup-san-antonio/events/' target='_blank'>Events</a> |         <a href='https://www.meetup.com/pytexas-virtual-meetup-san-antonio/members/?op=leaders' target='_blank'>Leaders</a>     </div>`)[0];
+                popup_447d48174e1b45b0b984782990ba8aad.setContent(html_33ea84edecd4d9e36fa7850eb7d4b27a);
+            
+        
+
+        circle_marker_9b2b5d457f88e4463fb2d0c716522b70.bindPopup(popup_447d48174e1b45b0b984782990ba8aad)
+        ;
+
+        
+    
+    
+            circle_marker_9b2b5d457f88e4463fb2d0c716522b70.bindTooltip(
+                `<div>
+                     PyTexas Virtual Meetup - San Antonio (132 members)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_800a05c0dc45bedc28ff68a2b6ac3d5c.addTo(map_ce3ad3aa2c597ba4b19a1a5d808d0d68);
+        
+</script>
+</html>
