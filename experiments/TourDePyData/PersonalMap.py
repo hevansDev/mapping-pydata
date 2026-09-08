@@ -38,7 +38,7 @@ STATUS_ORDER = {"unvisited": 0, "spoken": 1, "upcoming": 2}
 MY_GROUPS = {
     "https://www.meetup.com/pydata-london-meetup":     ("spoken",    None,          None),
     "https://www.meetup.com/meetup-group-djhiglzd":    ("spoken",  "2026-05-21",  None),  # PyData Glasgow
-    "https://www.meetup.com/pydataireland":            ("upcoming", "2026-09-24", "https://www.meetup.com/pydataireland/events/316266703/"),  # PyData Ireland
+    "https://www.meetup.com/pydataireland":            ("unvisited", None, None),  # PyData Ireland
     "https://www.meetup.com/pydata-bradford":          ("spoken",  "2026-05-29",  "https://www.meetup.com/pydata-bradford/events/314497365/"),
     "https://www.meetup.com/PyData-Manchester":        ("spoken",    "2026-03-26",  "https://www.meetup.com/pydata-manchester/events/313770253/"),
     "https://www.meetup.com/pydata-leeds":             ("unvisited", None,          None),
