@@ -1472,6 +1472,11 @@
       "lat": 29.4246002,
       "lon": -98.4951405,
       "display_name": "San Antonio, Bexar County, Texas, United States"
+    },
+    "Noho": {
+      "lat": 40.7258746,
+      "lon": -73.9939566,
+      "display_name": "NoHo, Manhattan, New York County, New York, 10012, United States"
     }
   }
 }
