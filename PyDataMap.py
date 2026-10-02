@@ -815,6 +815,34 @@ def create_world_map_non_pro(groups_enriched, output_file='pydata_world_map_non_
     print(f"Saved {output_file} ({len(non_pro)} non-Pro groups)")
 
 
+# Re-geocode cached groups whose stored query no longer matches their hint
+# (e.g. a hint was added after the group was first geocoded). geocode_groups
+# only ever sees new groups, so without this a later hint never reaches
+# groups already in the CSV. Only explicit hints trigger this, not the
+# city/name fallback, so unhinted groups are never re-geocoded.
+def refresh_stale_locations(groups, label=''):
+    cache = load_cache()
+
+    def norm(q):
+        return '' if q is None or (isinstance(q, float) and math.isnan(q)) else str(q)
+
+    stale = [g for g in groups
+             if g['name'] in cache['hints']
+             and norm(cache['hints'][g['name']]) != norm(g.get('query'))]
+    if not stale:
+        return
+
+    print(f"[{label}] Re-geocoding {len(stale)} groups whose location hint changed...", flush=True)
+    refreshed = {g['url']: g for g in geocode_groups(stale)}
+    for g in stale:
+        r = refreshed.get(g['url'])
+        if r and r.get('lat') is not None:
+            g['query'] = r['query']
+            g['lat'] = r['lat']
+            g['lon'] = r['lon']
+            g['country'] = get_country_from_cache(r['query'])
+
+
 # Load cached enrichment data from CSV
 def load_enrichment_cache(csv_file='pydata_groups.csv'):
     cache = {}
@@ -892,6 +920,8 @@ async def process_network(network_key, cfg):
                 else:
                     g['in_pro_network'] = False
                     g['pro_network_misses'] = 0
+
+        refresh_stale_locations(combined_groups, label)
 
         df = pd.DataFrame(combined_groups)
         df = sanitise_dataframe(df)
