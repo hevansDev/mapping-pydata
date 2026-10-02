@@ -489,7 +489,7 @@ def get_country_from_cache(query):
 def get_marker_style_layers(group):
     if group.get('non_meetup'):
         return '#ee9041', 0.7  # neutral marker — non-Meetup groups have no activity data
-    if group.get('upcoming_events_count', 0) > 0:
+    if (group.get('upcoming_events_count') or 0) > 0:
         fill_color = '#22c55e'  # green
         fill_opacity = 0.9
     else:
@@ -508,7 +508,7 @@ def get_marker_style_inactive(group):
     if group.get('non_meetup'):
         return '#ee9041', 0.7  # neutral marker — non-Meetup groups have no activity data
     days = group.get('days_since_last_event')
-    if group.get('upcoming_events_count', 0) > 0 or (days is not None and days < 100):
+    if (group.get('upcoming_events_count') or 0) > 0 or (days is not None and days < 100):
         fill_color = '#0000FF'  # blue
         fill_opacity = 0.1
     else:
