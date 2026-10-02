@@ -498,6 +498,7 @@ def get_marker_style_layers(group):
         if days is None:
             fill_opacity = 0.1
         else:
+            days = max(days, 0)  # guard: log1p raises on days <= -1 (e.g. future-dated last event)
             fill_opacity = max(0.4, 0.9 - (math.log1p(days) / math.log1p(365)))
     return fill_color, fill_opacity
 
@@ -515,6 +516,7 @@ def get_marker_style_inactive(group):
         if days is None:
             fill_opacity = 0.9  # Never had events - bright red
         else:
+            days = max(days, 0)
             fill_opacity = min(0.9, 0.1 + (math.log1p(days) / math.log1p(365)) * 0.8)
     return fill_color, fill_opacity
 
