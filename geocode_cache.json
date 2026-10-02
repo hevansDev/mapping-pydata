@@ -1477,6 +1477,11 @@
       "lat": 40.7258746,
       "lon": -73.9939566,
       "display_name": "NoHo, Manhattan, New York County, New York, 10012, United States"
+    },
+    "Managua / AI & ML": {
+      "lat": -34.9586779,
+      "lon": -71.2238118,
+      "display_name": "Pasaje Managua, Don Rodrigo del Boldo, Santa Julia, Curic\u00f3, Provincia de Curic\u00f3, Regi\u00f3n del Maule, 3340814, Chile"
     }
   }
 }
