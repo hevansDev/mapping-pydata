@@ -1487,6 +1487,11 @@
       "lat": 12.1079562,
       "lon": -86.269705,
       "display_name": "Universidad Nacional Aut\u00f3noma de Nicaragua (UNAN), Sector UNAN Managua, Distrito I, Managua, 14172, Nicaragua"
+    },
+    "Nicaragua AI - Managua": {
+      "lat": 12.1547116,
+      "lon": -86.273725,
+      "display_name": "Managua, 10000 (c\u00f3digo maestro), Nicaragua"
     }
   }
 }
