@@ -1492,6 +1492,11 @@
       "lat": 12.1547116,
       "lon": -86.273725,
       "display_name": "Managua, 10000 (c\u00f3digo maestro), Nicaragua"
+    },
+    "Northampton": {
+      "lat": 52.2343297,
+      "lon": -0.9028043,
+      "display_name": "Northampton, West Northamptonshire, England, United Kingdom"
     }
   }
 }
