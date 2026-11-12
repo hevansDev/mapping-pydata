@@ -1497,6 +1497,11 @@
       "lat": 52.2343297,
       "lon": -0.9028043,
       "display_name": "Northampton, West Northamptonshire, England, United Kingdom"
+    },
+    "Milwaukee": {
+      "lat": 43.0386475,
+      "lon": -87.9090751,
+      "display_name": "Milwaukee, Milwaukee County, Wisconsin, United States"
     }
   }
 }
