@@ -49,7 +49,7 @@ MY_GROUPS = {
     "https://www.meetup.com/pydata-cornwall":          ("spoken",  "2026-05-7",   "https://www.meetup.com/pydata-cornwall/events/314013646/"),
     "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
     # "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
-    "https://www.meetup.com/pydata-bristol":           ("upcoming",  None,          None),  # TODO: add talk date + event URL
+    "https://www.meetup.com/pydata-bristol":           ("upcoming",  "2026-12-14", "https://www.meetup.com/pydata-bristol/events/317399055/"),
     "https://www.meetup.com/pydata-exeter":            ("spoken", "2026-05-06",  "https://www.meetup.com/pydata-exeter/events/314216811/"),
     "https://www.meetup.com/pydata-milton-keynes":     ("spoken",    "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
     "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
