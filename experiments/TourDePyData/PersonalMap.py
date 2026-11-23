@@ -49,12 +49,12 @@ MY_GROUPS = {
     "https://www.meetup.com/pydata-cornwall":          ("spoken",  "2026-05-7",   "https://www.meetup.com/pydata-cornwall/events/314013646/"),
     "https://www.meetup.com/pydata-cardiff-meetup":    ("unvisited", None,          None),
     # "https://www.meetup.com/test-austin":              ("unvisited", None,          None),  # PyData Leicester
-    "https://www.meetup.com/pydata-bristol":           ("unvisited", None,          None),
+    "https://www.meetup.com/pydata-bristol":           ("upcoming",  "2026-12-14", "https://www.meetup.com/pydata-bristol/events/317399055/"),
     "https://www.meetup.com/pydata-exeter":            ("spoken", "2026-05-06",  "https://www.meetup.com/pydata-exeter/events/314216811/"),
     "https://www.meetup.com/pydata-milton-keynes":     ("spoken",    "2026-04-23",  "https://www.meetup.com/pydata-milton-keynes/events/314008314/"),
     "https://www.meetup.com/pydata-cambridge-meetup":  ("unvisited", None,          None),
     "https://www.meetup.com/pydata-norwich":           ("spoken", "2026-09-30", "https://www.meetup.com/pydata-norwich/events/316406374/"),
-    "https://www.meetup.com/pydata-southampton":       ("upcoming",    "2026-11-17", None),
+    "https://www.meetup.com/pydata-southampton":       ("unvisited", None,          None),  # talk on 2026-11-17 did not happen
     # "https://www.meetup.com/pydata-surrey":            ("unvisited", None,          None),
     # "https://www.meetup.com/pydata-kent":              ("unvisited", None,          None),
     "https://www.meetup.com/pydata-edinburgh":         ("unvisited", None,          None),
@@ -270,6 +270,10 @@ def create_personal_map(output_file=None):
     </div>
     """
     world_map.get_root().html.add_child(folium.Element(progress_html))
+    favicon = load_icon(ICON_DIR / "favicon.png")
+    world_map.get_root().header.add_child(
+        folium.Element(f'<link rel="icon" type="image/png" href="{favicon}">')
+    )
     add_hash_navigation(world_map)
     world_map.save(str(output_file))
     print(f"\nMatched {matched} of {len(MY_GROUPS)} groups ({skipped} inactive unvisited skipped)")
